@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="foto">Build Pixel</string>
+    <string name="arquivo">Nome:</string>
+    <string name="tamanho">Tamanho:</string>
+    <string name="dimensao">Dimensão da imagem:</string>
+    <string name="caminho">Caminho do arquivo:</string>
+
+
+</resources>

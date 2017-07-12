@@ -1,0 +1,48 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ProcessamentoActivity"
+    android:icon="@drawable/ic_action_icone_2"
+    android:background="#0d19ff">
+
+
+    <item
+        android:id="@+id/action_share"
+        android:icon="@drawable/ic_share_white_48dp"
+        android:title="@string/action_share"
+        app:showAsAction="always"
+        />
+
+    <item
+        android:id="@+id/action_return_image"
+        android:icon="@drawable/ic_assignment_return_black_36dp"
+        android:title="Restaurar"
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/action_rotate"
+        android:icon="@drawable/ic_rotate_90_degrees_ccw_white_48dp"
+        android:title="Rotacionar Foto"
+        app:showAsAction="always"
+        />
+    <item
+        android:id="@+id/action_crop"
+        android:icon="@drawable/ic_add_to_photos_black_18dp"
+        android:title="Cortar Foto"
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/action_edit"
+        android:icon="@drawable/ic_share_3x"
+        android:title="Editar Lista"
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/action_details"
+        android:icon="@drawable/ic_share_3x"
+        android:title="Detalhes"
+        app:showAsAction="never"
+        />
+
+
+</menu>

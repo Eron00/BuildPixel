@@ -1,0 +1,446 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    tools:context="com.aplicacao.eron.Activities.ProcessamentoActivity"
+    android:background="@color/black"
+    style="@android:style/ThemeOverlay.Material.Light"
+    android:clickable="false">
+
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/btnEnviarProcesso"
+        android:layout_marginEnd="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="15dp"
+        android:scaleType="centerCrop" />
+
+    <HorizontalScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        android:id="@+id/horizontalSW"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#0099cc">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="90dp"
+                android:textSize="9sp"
+                android:text="Normalizar"
+                android:onClick="Normalizar"
+                android:id="@+id/btnNormalizar"
+                android:background="@drawable/selector_active_inative"
+                android:textColor="#ffffff"
+                android:layout_margin="2dp" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="90dp"
+                android:textSize="9sp"
+                android:text="Truncar"
+                android:onClick="Truncar"
+                android:id="@+id/btnTruncar"
+                android:background="@drawable/selector_active_inative"
+                android:textColor="#ffffff"
+                android:layout_margin="2dp" />
+
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="90dp"
+                android:textSize="9sp"
+                android:text="Blue"
+                android:onClick="Blue"
+                android:id="@+id/btnBlue"
+                android:background="@drawable/selector_active_inative"
+                android:textColor="#ffffff"
+                android:layout_margin="2dp" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="90dp"
+                android:textSize="9sp"
+                android:text="Brilho"
+                android:onClick="Brilho"
+                android:id="@+id/btnBrilho"
+                android:background="@drawable/selector_active_inative"
+                android:textColor="#ffffff"
+                android:layout_margin="2dp" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="90dp"
+                android:textSize="9sp"
+                android:text="CinzaMedia"
+                android:onClick="CinzaMedia"
+                android:id="@+id/btnCinzaMedia"
+                android:background="@drawable/selector_active_inative"
+                android:textColor="#ffffff"
+                android:layout_margin="2dp" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="90dp"
+                android:textSize="9sp"
+                android:text="Cartoon"
+                android:onClick="Cartoon"
+                android:id="@+id/btnCartoon"
+                android:background="@drawable/selector_active_inative"
+                android:textColor="#ffffff"
+                android:layout_margin="2dp" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="90dp"
+                android:textSize="9sp"
+                android:text="Green"
+                android:onClick="Green"
+                android:id="@+id/btnGreen"
+                android:background="@drawable/selector_active_inative"
+                android:textColor="#ffffff"
+                android:layout_margin="2dp" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="90dp"
+                android:textSize="9sp"
+                android:text="Luminosidade"
+                android:onClick="Luminosidade"
+                android:id="@+id/btnLuminosidade"
+                android:background="@drawable/selector_active_inative"
+                android:textColor="#ffffff"
+                android:layout_margin="2dp" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="90dp"
+                android:textSize="9sp"
+                android:text="Red"
+                android:onClick="Red"
+                android:id="@+id/btnRed"
+                android:background="@drawable/selector_active_inative"
+                android:textColor="#ffffff"
+                android:layout_margin="2dp" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="90dp"
+                android:textSize="9sp"
+                android:text="Sepia"
+                android:onClick="Sepia"
+                android:id="@+id/btnSepia"
+                android:background="@drawable/selector_active_inative"
+                android:textColor="#ffffff"
+                android:layout_margin="2dp" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="90dp"
+                android:textSize="9sp"
+                android:text="Threshold"
+                android:onClick="Threshold"
+                android:id="@+id/btnThreshold"
+                android:background="@drawable/selector_active_inative"
+                android:textColor="#ffffff"
+                android:layout_margin="2dp" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="90dp"
+                android:textSize="9sp"
+                android:text="Inverter"
+                android:onClick="Inverter"
+                android:id="@+id/btnInverter"
+                android:background="@drawable/selector_active_inative"
+                android:textColor="#ffffff"
+                android:layout_margin="2dp" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="90dp"
+                android:textSize="9sp"
+                android:text="Verde"
+                android:onClick="Verde"
+                android:id="@+id/btnVerde"
+                android:background="@drawable/selector_active_inative"
+                android:textColor="#ffffff"
+                android:layout_margin="2dp" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="90dp"
+                android:textSize="9sp"
+                android:text="Vermelho"
+                android:onClick="Vermelho"
+                android:id="@+id/btnVermelho"
+                android:background="@drawable/selector_active_inative"
+                android:textColor="#ffffff"
+                android:layout_margin="2dp" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="90dp"
+                android:textSize="9sp"
+                android:text="Azul"
+                android:onClick="Azul"
+                android:id="@+id/btnAzul"
+                android:background="@drawable/selector_active_inative"
+                android:textColor="#ffffff"
+                android:layout_margin="2dp" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="90dp"
+                android:textSize="9sp"
+                android:text="Ciano"
+                android:onClick="Ciano"
+                android:id="@+id/btnCiano"
+                android:background="@drawable/selector_active_inative"
+                android:textColor="#ffffff"
+                android:layout_margin="2dp" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="90dp"
+                android:textSize="9sp"
+                android:text="Magenta"
+                android:onClick="Magenta"
+                android:id="@+id/btnMagenta"
+                android:background="@drawable/selector_active_inative"
+                android:textColor="#ffffff"
+                android:layout_margin="2dp" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="90dp"
+                android:textSize="9sp"
+                android:text="Amarelo"
+                android:onClick="Amarelo"
+                android:id="@+id/btnAmarelo"
+                android:background="@drawable/selector_active_inative"
+                android:textColor="#ffffff"
+                android:layout_margin="2dp" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="9sp"
+                android:text="Error \nDiffusion"
+                android:onClick="ErrorDiffusion"
+                android:id="@+id/btnErrorDiffusion"
+                android:background="@drawable/selector_active_inative"
+                android:textColor="#ffffff"
+                android:layout_margin="2dp" />
+
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="90dp"
+                android:textSize="9sp"
+                android:text="Halftone"
+                android:onClick="Halftone"
+                android:id="@+id/btnHalftone"
+                android:background="@drawable/selector_active_inative"
+                android:textColor="#ffffff"
+                android:layout_margin="2dp" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="90dp"
+                android:textSize="9sp"
+                android:text="Floyd-Steinberg"
+                android:onClick="FloydSteinberg"
+                android:id="@+id/btnFloydSteinberg"
+                android:background="@drawable/selector_active_inative"
+                android:textColor="#ffffff"
+                android:layout_margin="2dp" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="90dp"
+                android:textSize="9sp"
+                android:text="Equalizar"
+                android:onClick="Equalizar"
+                android:id="@+id/btnEqualizar"
+                android:background="@drawable/selector_active_inative"
+                android:textColor="#ffffff"
+                android:layout_margin="2dp" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="90dp"
+                android:textSize="9sp"
+                android:text="OilPaint"
+                android:onClick="OilPaint"
+                android:id="@+id/btnOilPaint"
+                android:background="@drawable/selector_active_inative"
+                android:textColor="#ffffff"
+                android:layout_margin="2dp" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="90dp"
+                android:textSize="9sp"
+                android:text="Media"
+                android:onClick="Media"
+                android:id="@+id/btnMedia"
+                android:background="@drawable/selector_active_inative"
+                android:textColor="#ffffff"
+                android:layout_margin="2dp" />
+
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="90dp"
+                android:textSize="9sp"
+                android:text="Agucar"
+                android:onClick="Agucar"
+                android:id="@+id/btnAgucar"
+                android:background="@drawable/selector_active_inative"
+                android:textColor="#ffffff"
+                android:layout_margin="2dp" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="9sp"
+                android:text="Destacar \nRelevo"
+                android:onClick="DestacarRelevo"
+                android:id="@+id/btnDestacarRelevo"
+                android:background="@drawable/selector_active_inative"
+                android:textColor="#ffffff"
+                android:layout_margin="2dp" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="9sp"
+                android:text="Frei-Chen \nHorizontal"
+                android:onClick="FreiChenHorizontal"
+                android:id="@+id/btnFreiChenHorizontal"
+                android:background="@drawable/selector_active_inative"
+                android:textColor="#ffffff"
+                android:layout_margin="2dp" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="9sp"
+                android:text="Frei-Chen \nVertical"
+                android:onClick="FreiChenVertical"
+                android:id="@+id/btnFreiChenVertical"
+                android:background="@drawable/selector_active_inative"
+                android:textColor="#ffffff"
+                android:layout_margin="2dp" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="90dp"
+                android:textSize="9sp"
+                android:text="Kirsch"
+                android:onClick="Kirsch"
+                android:id="@+id/btnKirsch"
+                android:background="@drawable/selector_active_inative"
+                android:textColor="#ffffff"
+                android:layout_margin="2dp" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="90dp"
+                android:textSize="9sp"
+                android:text="Sharpen"
+                android:onClick="Sharpen"
+                android:id="@+id/btnSharpen"
+                android:background="@drawable/selector_active_inative"
+                android:textColor="#ffffff"
+                android:layout_margin="2dp" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="9sp"
+                android:text="Prewitt \nVertical"
+                android:onClick="PrewittVertical"
+                android:id="@+id/btnPrewittVertical"
+                android:background="@drawable/selector_active_inative"
+                android:textColor="#ffffff"
+                android:layout_margin="2dp" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="9sp"
+                android:text="Prewitt \nHorizontal"
+                android:onClick="PrewittHorizontal"
+                android:id="@+id/btnPrewittHorizontal"
+                android:background="@drawable/selector_active_inative"
+                android:textColor="#ffffff"
+                android:layout_margin="2dp" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="9sp"
+                android:text="Sobel \nVertical"
+                android:onClick="SobelVertical"
+                android:id="@+id/btnSobelVertical"
+                android:background="@drawable/selector_active_inative"
+                android:textColor="#ffffff"
+                android:layout_margin="2dp" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="9sp"
+                android:text="Sobel \nHorizontal"
+                android:onClick="SobelHorizontal"
+                android:id="@+id/btnSobelHorizontal"
+                android:background="@drawable/selector_active_inative"
+                android:textColor="#ffffff"
+                android:layout_margin="2dp" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="9sp"
+                android:text="Roberts \nVertical"
+                android:onClick="RobertsVertical"
+                android:id="@+id/btnRobertsVertical"
+                android:background="@drawable/selector_active_inative"
+                android:textColor="#ffffff"
+                android:layout_margin="2dp" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="9sp"
+                android:text="Roberts \nHorizontal"
+                android:onClick="RobertsHorizontal"
+                android:id="@+id/btnRobertsHorizontal"
+                android:background="@drawable/selector_active_inative"
+                android:textColor="#ffffff"
+                android:layout_margin="2dp" />
+
+        </LinearLayout>
+
+    </HorizontalScrollView>
+
+    <Button
+        android:id="@+id/btnEnviarProcesso"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/horizontalSW"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/selector_btnenviar"
+        android:clickable="true"
+        android:enabled="true"
+        android:onClick="EnviarProcessos"
+        android:text="Processar"
+        android:textColor="#ffffff"
+        android:visibility="invisible" />
+
+
+</RelativeLayout>

@@ -1,0 +1,90 @@
+<resources>
+    <string name="app_name">Build Pixel</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_share">Share</string>
+    <string name="action_crop">Crop</string>
+
+    <string-array name="Operacoes">
+        <item>Soma</item>
+        <item>Subtração</item>
+        <item>Multiplicação</item>
+        <item>Divisão</item>
+        <item>And</item>
+        <item>Or</item>
+        <item>Xor</item>
+
+
+    </string-array>
+
+    <string-array name="Selecionar">
+        <item>Remover</item>
+        <item>Substituir</item>
+
+    </string-array>
+
+
+    <string-array name="OperacoesUnarias">
+        <item>Amarelo</item>
+        <item>Azul</item>
+        <item>Blue</item>
+        <item>Brilho</item>
+        <item>Ciano</item>
+        <item>CinzaMedia</item>
+        <item>Green</item>
+        <item>Inverter</item>
+        <item>Luminosidade</item>
+        <item>Magenta</item>
+        <item>Red</item>
+        <item>Sepia</item>
+        <item>Threshold</item>
+        <item>Verde</item>
+        <item>Vermelho</item>
+    </string-array>
+
+    <array name="TiposOperacao">
+        <item>Operacao Unaria</item>
+        <item>Operacao Binaria</item>
+        <item>Operacao por Area</item>
+    </array>
+
+        <string-array name="OperacoesArea">
+            <item>Agucar</item>
+            <item>DestacarRelevo</item>
+            <item>Equalizar</item>
+            <item>ErrorDiffusion</item>
+            <item>FloydSteinberg</item>
+            <item>FreiChen</item>
+            <item>Halftone</item>
+            <item>Kirsch</item>
+            <item>Laplace</item>
+            <item>Media</item>
+            <item>OilPaint</item>
+            <item>Prewitt</item>
+            <item>Roberts</item>
+            <item>Sharpen</item>
+            <item>Sobel</item>
+        </string-array>
+
+    <string-array name="OperacoesBinarias">
+        <item>Normalização</item>
+        <item>Truncamento</item>
+        <item>Cartoon</item>
+    </string-array>
+
+    <string-array name="TamanhosImagem">
+        <item>1280 x 720 </item>
+        <item>1024 x 600 </item>
+        <item>480  x 600 </item>
+        <item>640  x 480 </item>
+        <item>320  x 480 </item>
+
+    </string-array>
+
+    <string name="title_activity_captura">Build Pixel</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="foto">Foto</string>
+
+
+</resources>
