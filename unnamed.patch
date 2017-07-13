@@ -1,0 +1,729 @@
+Index: app/src/main/java/com/aplicacao/Modelo/Processador.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/aplicacao/Modelo/Processador.java	(revision a9857b2b17a093fb1d805e159b7dd73878d1e75d)
++++ app/src/main/java/com/aplicacao/Modelo/Processador.java	(revision )
+@@ -160,6 +160,7 @@
+                 case ("Area"):
+                     EloEqualizar.CalcularFoto(Imagem, foto.getLinha(), foto.getColuna(),list.getProcessamentoSelecionado());
+                     break;
++
+             }
+         }
+ 
+Index: app/src/main/jni/teste.cpp
+===================================================================
+--- app/src/main/jni/teste.cpp	(revision a9857b2b17a093fb1d805e159b7dd73878d1e75d)
++++ app/src/main/jni/teste.cpp	(revision a9857b2b17a093fb1d805e159b7dd73878d1e75d)
+@@ -1,14 +0,0 @@
+-//
+-// Created by Eron on 11/07/2017.
+-//
+-
+-#include <jni.h>
+-#include <stdlib.h>
+-
+-
+-JNIEXPORT void JNICALL Java_com_aplicacao_Modelo_teste(JNIEnv *env, jobject instance, jobject Imagem)
+-{
+-
+-
+-
+-}
+\ No newline at end of file
+Index: app/src/main/jni/zoaFotoNativeLib.h
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/jni/zoaFotoNativeLib.h	(revision a9857b2b17a093fb1d805e159b7dd73878d1e75d)
++++ app/src/main/jni/zoaFotoNativeLib.h	(revision )
+@@ -62,3 +62,6 @@
+ JNIEXPORT void JNICALL
+ Java_com_aplicacao_Modelo_NDK_processamentoBinario(JNIEnv *env, jobject instance, jintArray FotoA_,
+                                                    jintArray FotoB_, jint linha, jint coluna, jstring cNomeProcesso);
++
++JNIEXPORT void JNICALL
++Java_com_aplicacao_Modelo_NDK_teste(JNIEnv *env, jobject instance, jobject foto);
+Index: app/src/main/res/layout/activity_main.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_main.xml	(revision a9857b2b17a093fb1d805e159b7dd73878d1e75d)
++++ app/src/main/res/layout/activity_main.xml	(revision )
+@@ -4,7 +4,7 @@
+     android:layout_height="fill_parent"
+     tools:context="com.aplicacao.eron.Activities.ProcessamentoActivity"
+     android:background="@color/black"
+-    style="@android:style/ThemeOverlay.Material.Light"
++    style="@android:style/Theme.DeviceDefault.Light"
+     android:clickable="false">
+ 
+ 
+@@ -31,6 +31,18 @@
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:background="#0099cc">
++
++
++            <Button
++                android:layout_width="wrap_content"
++                android:layout_height="90dp"
++                android:textSize="9sp"
++                android:text="Teste"
++                android:onClick="Teste"
++                android:id="@+id/btnTeste"
++                android:background="@drawable/selector_active_inative"
++                android:textColor="#ffffff"
++                android:layout_margin="2dp" />
+ 
+             <Button
+                 android:layout_width="wrap_content"
+\ No newline at end of file
+Index: app/app.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/app.iml	(revision a9857b2b17a093fb1d805e159b7dd73878d1e75d)
++++ app/app.iml	(revision )
+@@ -50,13 +50,6 @@
+       <sourceFolder url="file://$MODULE_DIR$/src/allDebug/java" isTestSource="false" />
+       <sourceFolder url="file://$MODULE_DIR$/src/allDebug/renderscript" isTestSource="false" />
+       <sourceFolder url="file://$MODULE_DIR$/src/allDebug/shaders" isTestSource="false" />
+-      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/r/androidTest/all/debug" isTestSource="true" generated="true" />
+-      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/aidl/androidTest/all/debug" isTestSource="true" generated="true" />
+-      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/buildConfig/androidTest/all/debug" isTestSource="true" generated="true" />
+-      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/rs/androidTest/all/debug" isTestSource="true" generated="true" />
+-      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/apt/androidTest/all/debug" isTestSource="true" generated="true" />
+-      <sourceFolder url="file://$MODULE_DIR$/build/generated/res/rs/androidTest/all/debug" type="java-test-resource" />
+-      <sourceFolder url="file://$MODULE_DIR$/build/generated/res/resValues/androidTest/all/debug" type="java-test-resource" />
+       <sourceFolder url="file://$MODULE_DIR$/src/testAllDebug/res" type="java-test-resource" />
+       <sourceFolder url="file://$MODULE_DIR$/src/testAllDebug/resources" type="java-test-resource" />
+       <sourceFolder url="file://$MODULE_DIR$/src/testAllDebug/assets" type="java-test-resource" />
+@@ -65,6 +58,13 @@
+       <sourceFolder url="file://$MODULE_DIR$/src/testAllDebug/jni" isTestSource="true" />
+       <sourceFolder url="file://$MODULE_DIR$/src/testAllDebug/rs" isTestSource="true" />
+       <sourceFolder url="file://$MODULE_DIR$/src/testAllDebug/shaders" isTestSource="true" />
++      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/r/androidTest/all/debug" isTestSource="true" generated="true" />
++      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/aidl/androidTest/all/debug" isTestSource="true" generated="true" />
++      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/buildConfig/androidTest/all/debug" isTestSource="true" generated="true" />
++      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/rs/androidTest/all/debug" isTestSource="true" generated="true" />
++      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/apt/androidTest/all/debug" isTestSource="true" generated="true" />
++      <sourceFolder url="file://$MODULE_DIR$/build/generated/res/rs/androidTest/all/debug" type="java-test-resource" />
++      <sourceFolder url="file://$MODULE_DIR$/build/generated/res/resValues/androidTest/all/debug" type="java-test-resource" />
+       <sourceFolder url="file://$MODULE_DIR$/src/all/res" type="java-resource" />
+       <sourceFolder url="file://$MODULE_DIR$/src/all/resources" type="java-resource" />
+       <sourceFolder url="file://$MODULE_DIR$/src/all/assets" type="java-resource" />
+@@ -126,16 +126,21 @@
+       <sourceFolder url="file://$MODULE_DIR$/src/test/jni" isTestSource="true" />
+       <sourceFolder url="file://$MODULE_DIR$/src/test/renderscript" isTestSource="true" />
+       <sourceFolder url="file://$MODULE_DIR$/src/test/shaders" isTestSource="true" />
++      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/assets" />
+       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/binaries" />
+       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/blame" />
+       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/classes" />
+       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental" />
+       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental-safeguard" />
++      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/jniLibs" />
+       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/manifests" />
+       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/objectFiles" />
++      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/pre-dexed" />
+       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/res" />
+       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/rs" />
++      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/shaders" />
+       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/symbols" />
++      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/transforms" />
+       <excludeFolder url="file://$MODULE_DIR$/build/outputs" />
+       <excludeFolder url="file://$MODULE_DIR$/build/tmp" />
+     </content>
+\ No newline at end of file
+Index: app/src/main/java/com/aplicacao/Modelo/NDK.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/aplicacao/Modelo/NDK.java	(revision a9857b2b17a093fb1d805e159b7dd73878d1e75d)
++++ app/src/main/java/com/aplicacao/Modelo/NDK.java	(revision )
+@@ -1,5 +1,7 @@
+ package com.aplicacao.Modelo;
+ 
++import android.graphics.Bitmap;
++
+ /**
+  * Created by Eron on 12/03/2016.
+  */
+@@ -28,5 +30,7 @@
+     public native void tintaoleo(int[] Foto, int linha, int coluna);
+ 
+     public native void processamentoBinario(int[] FotoA, int[] FotoB, int linha, int coluna, String Processo);
++
++    public native void teste(Bitmap foto);
+ 
+ }
+Index: app/src/main/java/com/aplicacao/eron/Activities/ProcessamentoActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/aplicacao/eron/Activities/ProcessamentoActivity.java	(revision a9857b2b17a093fb1d805e159b7dd73878d1e75d)
++++ app/src/main/java/com/aplicacao/eron/Activities/ProcessamentoActivity.java	(revision )
+@@ -10,6 +10,7 @@
+ import android.content.res.Configuration;
+ import android.graphics.Bitmap;
+ import android.graphics.BitmapFactory;
++import android.graphics.Color;
+ import android.graphics.Matrix;
+ import android.net.Uri;
+ import android.os.AsyncTask;
+@@ -26,6 +27,7 @@
+ 
+ import com.aplicacao.Modelo.Ferramentas;
+ import com.aplicacao.Modelo.Imagem;
++import com.aplicacao.Modelo.NDK;
+ import com.aplicacao.Modelo.Processador;
+ import com.aplicacao.Modelo.Processo;
+ import com.aplicacao.eron.build_pixel.R;
+@@ -37,11 +39,11 @@
+ 
+ public class ProcessamentoActivity extends AppCompatActivity {
+ 
+-    Bitmap      bit;
++    Bitmap bit;
+-    String      CaminhoArq;
++    String CaminhoArq;
+-    ImageView   img;
++    ImageView img;
+-    Imagem      foto;
++    Imagem foto;
+-    Processo    processo;
++    Processo processo;
+     Ferramentas tool;
+     Boolean anima;
+     //keep track of cropping intent
+@@ -56,7 +58,7 @@
+         setContentView(R.layout.activity_main);
+         Intent intent = getIntent();
+         Bundle bundle = intent.getExtras();
+-        CaminhoArq    = (String) bundle.get("path");
++        CaminhoArq = (String) bundle.get("path");
+ 
+ 
+     }
+@@ -64,8 +66,8 @@
+     public void onWindowFocusChanged(boolean onFocus) {
+         img = (ImageView) findViewById(R.id.imageView);
+ 
+-        if(bit == null) {
++        if (bit == null) {
+-            bit  = BitmapFactory.decodeFile(CaminhoArq);
++            bit = BitmapFactory.decodeFile(CaminhoArq);
+             tool = new Ferramentas();
+             foto = new Imagem(tool.Redimensionar(img.getWidth(), img.getHeight(), CaminhoArq));
+             foto.AtualizarImagem(foto, img);
+@@ -81,150 +83,221 @@
+ 
+     }
+ 
+-    public void Agucar(View view){
++    public void Agucar(View view) {
+         Button btnEnviarProcesso = (Button) findViewById(R.id.btnEnviarProcesso);
+         Animation animacao = AnimationUtils.loadAnimation(getContext(), R.anim.fade_in);
+         btnEnviarProcesso.setVisibility(View.VISIBLE);
+-        if(!anima){btnEnviarProcesso.setAnimation(animacao);anima = true;}
++        if (!anima) {
++            btnEnviarProcesso.setAnimation(animacao);
++            anima = true;
++        }
+         processo = new Processo("Agucar", "Area");
+         processoList.add(processo);
+     }
++
+-    public void DestacarRelevo(View view){
++    public void DestacarRelevo(View view) {
+         Button btnEnviarProcesso = (Button) findViewById(R.id.btnEnviarProcesso);
+         Animation animacao = AnimationUtils.loadAnimation(getContext(), R.anim.fade_in);
+         btnEnviarProcesso.setVisibility(View.VISIBLE);
+-        if(!anima){btnEnviarProcesso.setAnimation(animacao);anima = true;}
++        if (!anima) {
++            btnEnviarProcesso.setAnimation(animacao);
++            anima = true;
++        }
+         processo = new Processo("DestacarRelevo", "Area");
+         processoList.add(processo);
+-}
++    }
++
+-    public void FreiChenHorizontal(View view){
++    public void FreiChenHorizontal(View view) {
+         Button btnEnviarProcesso = (Button) findViewById(R.id.btnEnviarProcesso);
+         Animation animacao = AnimationUtils.loadAnimation(getContext(), R.anim.fade_in);
+         btnEnviarProcesso.setVisibility(View.VISIBLE);
+-        if(!anima){btnEnviarProcesso.setAnimation(animacao);anima = true;}
++        if (!anima) {
++            btnEnviarProcesso.setAnimation(animacao);
++            anima = true;
++        }
+         processo = new Processo("FreiChenHorizontal", "Area");
+         processoList.add(processo);
+ 
+     }
++
+-    public void FreiChenVertical(View view){
++    public void FreiChenVertical(View view) {
+         Button btnEnviarProcesso = (Button) findViewById(R.id.btnEnviarProcesso);
+         Animation animacao = AnimationUtils.loadAnimation(getContext(), R.anim.fade_in);
+         btnEnviarProcesso.setVisibility(View.VISIBLE);
+-        if(!anima){btnEnviarProcesso.setAnimation(animacao);anima = true;}
++        if (!anima) {
++            btnEnviarProcesso.setAnimation(animacao);
++            anima = true;
++        }
+         processo = new Processo("FreiChenVertical", "Area");
+         processoList.add(processo);
+     }
++
+-    public void Kirsch(View view){
++    public void Kirsch(View view) {
+         Button btnEnviarProcesso = (Button) findViewById(R.id.btnEnviarProcesso);
+         Animation animacao = AnimationUtils.loadAnimation(getContext(), R.anim.fade_in);
+         btnEnviarProcesso.setVisibility(View.VISIBLE);
+-        if(!anima){btnEnviarProcesso.setAnimation(animacao);anima = true;}
++        if (!anima) {
++            btnEnviarProcesso.setAnimation(animacao);
++            anima = true;
++        }
+         processo = new Processo("Kirsch", "Area");
+         processoList.add(processo);
+ 
+     }
++
+-    public void PrewittVertical(View view){
++    public void PrewittVertical(View view) {
+         Button btnEnviarProcesso = (Button) findViewById(R.id.btnEnviarProcesso);
+         Animation animacao = AnimationUtils.loadAnimation(getContext(), R.anim.fade_in);
+         btnEnviarProcesso.setVisibility(View.VISIBLE);
+-        if(!anima){btnEnviarProcesso.setAnimation(animacao);anima = true;}
++        if (!anima) {
++            btnEnviarProcesso.setAnimation(animacao);
++            anima = true;
++        }
+         processo = new Processo("PrewittVertical", "Area");
+         processoList.add(processo);
+     }
++
+-    public void PrewittHorizontal(View view){
++    public void PrewittHorizontal(View view) {
+         Button btnEnviarProcesso = (Button) findViewById(R.id.btnEnviarProcesso);
+         Animation animacao = AnimationUtils.loadAnimation(getContext(), R.anim.fade_in);
+         btnEnviarProcesso.setVisibility(View.VISIBLE);
+-        if(!anima){btnEnviarProcesso.setAnimation(animacao);anima = true;}
++        if (!anima) {
++            btnEnviarProcesso.setAnimation(animacao);
++            anima = true;
++        }
+         processo = new Processo("PrewittHorizontal", "Area");
+         processoList.add(processo);
+     }
++
+-    public void RobertsVertical(View view){
++    public void RobertsVertical(View view) {
+         Button btnEnviarProcesso = (Button) findViewById(R.id.btnEnviarProcesso);
+         Animation animacao = AnimationUtils.loadAnimation(getContext(), R.anim.fade_in);
+         btnEnviarProcesso.setVisibility(View.VISIBLE);
+-        if(!anima){btnEnviarProcesso.setAnimation(animacao);anima = true;}
++        if (!anima) {
++            btnEnviarProcesso.setAnimation(animacao);
++            anima = true;
++        }
+         processo = new Processo("RobertsVertical", "Area");
+         processoList.add(processo);
+ 
+     }
++
+-    public void RobertsHorizontal(View view){
++    public void RobertsHorizontal(View view) {
+         Button btnEnviarProcesso = (Button) findViewById(R.id.btnEnviarProcesso);
+         Animation animacao = AnimationUtils.loadAnimation(getContext(), R.anim.fade_in);
+         btnEnviarProcesso.setVisibility(View.VISIBLE);
+-        if(!anima){btnEnviarProcesso.setAnimation(animacao);anima = true;}
++        if (!anima) {
++            btnEnviarProcesso.setAnimation(animacao);
++            anima = true;
++        }
+         processo = new Processo("RobertsHorizontal", "Area");
+         processoList.add(processo);
+     }
++
+-    public void Sharpen(View view){
++    public void Sharpen(View view) {
+         Button btnEnviarProcesso = (Button) findViewById(R.id.btnEnviarProcesso);
+         Animation animacao = AnimationUtils.loadAnimation(getContext(), R.anim.fade_in);
+         btnEnviarProcesso.setVisibility(View.VISIBLE);
+-        if(!anima){btnEnviarProcesso.setAnimation(animacao);anima = true;}
++        if (!anima) {
++            btnEnviarProcesso.setAnimation(animacao);
++            anima = true;
++        }
+         processo = new Processo("Sharpen", "Area");
+         processoList.add(processo);
+     }
++
+-    public void SobelVertical(View view){
++    public void SobelVertical(View view) {
+         Button btnEnviarProcesso = (Button) findViewById(R.id.btnEnviarProcesso);
+         Animation animacao = AnimationUtils.loadAnimation(getContext(), R.anim.fade_in);
+         btnEnviarProcesso.setVisibility(View.VISIBLE);
+-        if(!anima){btnEnviarProcesso.setAnimation(animacao);anima = true;}
++        if (!anima) {
++            btnEnviarProcesso.setAnimation(animacao);
++            anima = true;
++        }
+         processo = new Processo("SobelVertical", "Area");
+         processoList.add(processo);
+     }
++
+-    public void SobelHorizontal(View view){
++    public void SobelHorizontal(View view) {
+         Button btnEnviarProcesso = (Button) findViewById(R.id.btnEnviarProcesso);
+         Animation animacao = AnimationUtils.loadAnimation(getContext(), R.anim.fade_in);
+         btnEnviarProcesso.setVisibility(View.VISIBLE);
+-        if(!anima){btnEnviarProcesso.setAnimation(animacao);anima = true;}
++        if (!anima) {
++            btnEnviarProcesso.setAnimation(animacao);
++            anima = true;
++        }
+         processo = new Processo("SobelHorizontal", "Area");
+         processoList.add(processo);
+     }
++
+-    public void Equalizar(View view){
++    public void Equalizar(View view) {
+         Button btnEnviarProcesso = (Button) findViewById(R.id.btnEnviarProcesso);
+         Animation animacao = AnimationUtils.loadAnimation(getContext(), R.anim.fade_in);
+         btnEnviarProcesso.setVisibility(View.VISIBLE);
+-        if(!anima){btnEnviarProcesso.setAnimation(animacao);anima = true;}
++        if (!anima) {
++            btnEnviarProcesso.setAnimation(animacao);
++            anima = true;
++        }
+         processo = new Processo("Equalizar", "Area");
+         processoList.add(processo);
+     }
++
+-    public void Media(View view){
++    public void Media(View view) {
+         Button btnEnviarProcesso = (Button) findViewById(R.id.btnEnviarProcesso);
+         Animation animacao = AnimationUtils.loadAnimation(getContext(), R.anim.fade_in);
+         btnEnviarProcesso.setVisibility(View.VISIBLE);
+-        if(!anima){btnEnviarProcesso.setAnimation(animacao);anima = true;}
++        if (!anima) {
++            btnEnviarProcesso.setAnimation(animacao);
++            anima = true;
++        }
+         processo = new Processo("Media", "Area");
+         processoList.add(processo);
+     }
++
+-    public void ErrorDiffusion(View view){
++    public void ErrorDiffusion(View view) {
+         Button btnEnviarProcesso = (Button) findViewById(R.id.btnEnviarProcesso);
+         Animation animacao = AnimationUtils.loadAnimation(getContext(), R.anim.fade_in);
+         btnEnviarProcesso.setVisibility(View.VISIBLE);
+-        if(!anima){btnEnviarProcesso.setAnimation(animacao);anima = true;}
++        if (!anima) {
++            btnEnviarProcesso.setAnimation(animacao);
++            anima = true;
++        }
+         processo = new Processo("ErrorDiffusion", "Area");
+         processoList.add(processo);
+     }
++
+-    public void FloydSteinberg(View view){
++    public void FloydSteinberg(View view) {
+         Button btnEnviarProcesso = (Button) findViewById(R.id.btnEnviarProcesso);
+         Animation animacao = AnimationUtils.loadAnimation(getContext(), R.anim.fade_in);
+         btnEnviarProcesso.setVisibility(View.VISIBLE);
+-        if(!anima){btnEnviarProcesso.setAnimation(animacao);anima = true;}
++        if (!anima) {
++            btnEnviarProcesso.setAnimation(animacao);
++            anima = true;
++        }
+         processo = new Processo("FloydSteinberg", "Area");
+         processoList.add(processo);
+     }
++
+-    public void Halftone(View view){
++    public void Halftone(View view) {
+         Button btnEnviarProcesso = (Button) findViewById(R.id.btnEnviarProcesso);
+         Animation animacao = AnimationUtils.loadAnimation(getContext(), R.anim.fade_in);
+         btnEnviarProcesso.setVisibility(View.VISIBLE);
+-        if(!anima){btnEnviarProcesso.setAnimation(animacao);anima = true;}
++        if (!anima) {
++            btnEnviarProcesso.setAnimation(animacao);
++            anima = true;
++        }
+         processo = new Processo("Halftone", "Area");
+         processoList.add(processo);
+     }
++
+-    public void OilPaint(View view){
++    public void OilPaint(View view) {
+         Button btnEnviarProcesso = (Button) findViewById(R.id.btnEnviarProcesso);
+         Animation animacao = AnimationUtils.loadAnimation(getContext(), R.anim.fade_in);
+         btnEnviarProcesso.setVisibility(View.VISIBLE);
+-        if(!anima){btnEnviarProcesso.setAnimation(animacao);anima = true;}
++        if (!anima) {
++            btnEnviarProcesso.setAnimation(animacao);
++            anima = true;
++        }
+         processo = new Processo("OilPaint", "Area");
+         processoList.add(processo);
+ 
+@@ -232,130 +305,196 @@
+ 
+     /**
+      * Seção onde se encontra os botões dos processos de imagens unários(necessita de apenas um pixel para cálculo)
+-     *
+-     *
+      */
+ 
+-    public void Blue(View view){
++    public void Blue(View view) {
+         Button btnEnviarProcesso = (Button) findViewById(R.id.btnEnviarProcesso);
+         Animation animacao = AnimationUtils.loadAnimation(getContext(), R.anim.fade_in);
+         btnEnviarProcesso.setVisibility(View.VISIBLE);
+-        if(!anima){btnEnviarProcesso.setAnimation(animacao);anima = true;}
++        if (!anima) {
++            btnEnviarProcesso.setAnimation(animacao);
++            anima = true;
++        }
+         processo = new Processo("Blue", "Unaria");
+         processoList.add(processo);
+     }
++
+-    public void Brilho(View view){
++    public void Brilho(View view) {
+         Button btnEnviarProcesso = (Button) findViewById(R.id.btnEnviarProcesso);
+         Animation animacao = AnimationUtils.loadAnimation(getContext(), R.anim.fade_in);
+         btnEnviarProcesso.setVisibility(View.VISIBLE);
+-        if(!anima){btnEnviarProcesso.setAnimation(animacao);anima = true;}
++        if (!anima) {
++            btnEnviarProcesso.setAnimation(animacao);
++            anima = true;
++        }
+         processo = new Processo("Brilho", "Unaria");
+         processoList.add(processo);
+     }
++
+-    public void CinzaMedia(View view){
++    public void CinzaMedia(View view) {
+         Button btnEnviarProcesso = (Button) findViewById(R.id.btnEnviarProcesso);
+         Animation animacao = AnimationUtils.loadAnimation(getContext(), R.anim.fade_in);
+         btnEnviarProcesso.setVisibility(View.VISIBLE);
+-        if(!anima){btnEnviarProcesso.setAnimation(animacao);anima = true;}
++        if (!anima) {
++            btnEnviarProcesso.setAnimation(animacao);
++            anima = true;
++        }
+         processo = new Processo("CinzaMedia", "Unaria");
+         processoList.add(processo);
+     }
++
+-    public void Luminosidade(View view){
++    public void Luminosidade(View view) {
+         Button btnEnviarProcesso = (Button) findViewById(R.id.btnEnviarProcesso);
+         Animation animacao = AnimationUtils.loadAnimation(getContext(), R.anim.fade_in);
+         btnEnviarProcesso.setVisibility(View.VISIBLE);
+-        if(!anima){btnEnviarProcesso.setAnimation(animacao);anima = true;}
++        if (!anima) {
++            btnEnviarProcesso.setAnimation(animacao);
++            anima = true;
++        }
+         processo = new Processo("Luminosidade", "Unaria");
+         processoList.add(processo);
+     }
++
+-    public void Green(View view){
++    public void Green(View view) {
+         Button btnEnviarProcesso = (Button) findViewById(R.id.btnEnviarProcesso);
+         Animation animacao = AnimationUtils.loadAnimation(getContext(), R.anim.fade_in);
+         btnEnviarProcesso.setVisibility(View.VISIBLE);
+-        if(!anima){btnEnviarProcesso.setAnimation(animacao);anima = true;}
++        if (!anima) {
++            btnEnviarProcesso.setAnimation(animacao);
++            anima = true;
++        }
+         processo = new Processo("Green", "Unaria");
+         processoList.add(processo);
+     }
++
+-    public void Red(View view){
++    public void Red(View view) {
+         Button btnEnviarProcesso = (Button) findViewById(R.id.btnEnviarProcesso);
+         Animation animacao = AnimationUtils.loadAnimation(getContext(), R.anim.fade_in);
+         btnEnviarProcesso.setVisibility(View.VISIBLE);
+-        if(!anima){btnEnviarProcesso.setAnimation(animacao);anima = true;}
++        if (!anima) {
++            btnEnviarProcesso.setAnimation(animacao);
++            anima = true;
++        }
+         processo = new Processo("Red", "Unaria");
+         processoList.add(processo);
+     }
++
+-    public void Threshold(View view){
++    public void Threshold(View view) {
+         Button btnEnviarProcesso = (Button) findViewById(R.id.btnEnviarProcesso);
+         Animation animacao = AnimationUtils.loadAnimation(getContext(), R.anim.fade_in);
+         btnEnviarProcesso.setVisibility(View.VISIBLE);
+-        if(!anima){btnEnviarProcesso.setAnimation(animacao);anima = true;}
++        if (!anima) {
++            btnEnviarProcesso.setAnimation(animacao);
++            anima = true;
++        }
+         processo = new Processo("Threshold", "Unaria");
+         processoList.add(processo);
+     }
++
+-    public void Azul(View view){
++    public void Azul(View view) {
+         Button btnEnviarProcesso = (Button) findViewById(R.id.btnEnviarProcesso);
+         Animation animacao = AnimationUtils.loadAnimation(getContext(), R.anim.fade_in);
+         btnEnviarProcesso.setVisibility(View.VISIBLE);
+-        if(!anima){btnEnviarProcesso.setAnimation(animacao);anima = true;}
++        if (!anima) {
++            btnEnviarProcesso.setAnimation(animacao);
++            anima = true;
++        }
+         processo = new Processo("Azul", "Unaria");
+         processoList.add(processo);
+     }
++
+-    public void Inverter(View view){
++    public void Inverter(View view) {
+         Button btnEnviarProcesso = (Button) findViewById(R.id.btnEnviarProcesso);
+         Animation animacao = AnimationUtils.loadAnimation(getContext(), R.anim.fade_in);
+         btnEnviarProcesso.setVisibility(View.VISIBLE);
+-        if(!anima){btnEnviarProcesso.setAnimation(animacao);anima = true;}
++        if (!anima) {
++            btnEnviarProcesso.setAnimation(animacao);
++            anima = true;
++        }
+         processo = new Processo("Inverter", "Unaria");
+         processoList.add(processo);
+     }
++
+-    public void Sepia(View view){
++    public void Sepia(View view) {
+         Button btnEnviarProcesso = (Button) findViewById(R.id.btnEnviarProcesso);
+         Animation animacao = AnimationUtils.loadAnimation(getContext(), R.anim.fade_in);
+         btnEnviarProcesso.setVisibility(View.VISIBLE);
+-        if(!anima){btnEnviarProcesso.setAnimation(animacao);anima = true;}
++        if (!anima) {
++            btnEnviarProcesso.setAnimation(animacao);
++            anima = true;
++        }
+         processo = new Processo("Sepia", "Unaria");
+         processoList.add(processo);
+ 
+     }
++
+-    public void Verde(View view){
++    public void Verde(View view) {
+         Button btnEnviarProcesso = (Button) findViewById(R.id.btnEnviarProcesso);
+         Animation animacao = AnimationUtils.loadAnimation(getContext(), R.anim.fade_in);
+         btnEnviarProcesso.setVisibility(View.VISIBLE);
+-        if(!anima){btnEnviarProcesso.setAnimation(animacao);anima = true;}
++        if (!anima) {
++            btnEnviarProcesso.setAnimation(animacao);
++            anima = true;
++        }
+         processo = new Processo("Verde", "Unaria");
+         processoList.add(processo);
+     }
++
+-    public void Vermelho(View view){
++    public void Vermelho(View view) {
+         Button btnEnviarProcesso = (Button) findViewById(R.id.btnEnviarProcesso);
+         Animation animacao = AnimationUtils.loadAnimation(getContext(), R.anim.fade_in);
+         btnEnviarProcesso.setVisibility(View.VISIBLE);
+-        if(!anima){btnEnviarProcesso.setAnimation(animacao);anima = true;}
++        if (!anima) {
++            btnEnviarProcesso.setAnimation(animacao);
++            anima = true;
++        }
+         processo = new Processo("Vermelho", "Unaria");
+         processoList.add(processo);
+     }
++
+-    public void Ciano(View view){
++    public void Ciano(View view) {
+         Button btnEnviarProcesso = (Button) findViewById(R.id.btnEnviarProcesso);
+         Animation animacao = AnimationUtils.loadAnimation(getContext(), R.anim.fade_in);
+         btnEnviarProcesso.setVisibility(View.VISIBLE);
+-        if(!anima){btnEnviarProcesso.setAnimation(animacao);anima = true;}
++        if (!anima) {
++            btnEnviarProcesso.setAnimation(animacao);
++            anima = true;
++        }
+         processo = new Processo("Ciano", "Unaria");
+         processoList.add(processo);
+     }
++
+-    public void Magenta(View view){
++    public void Magenta(View view) {
+         Button btnEnviarProcesso = (Button) findViewById(R.id.btnEnviarProcesso);
+         Animation animacao = AnimationUtils.loadAnimation(getContext(), R.anim.fade_in);
+         btnEnviarProcesso.setVisibility(View.VISIBLE);
+-        if(!anima){btnEnviarProcesso.setAnimation(animacao);anima = true;}
++        if (!anima) {
++            btnEnviarProcesso.setAnimation(animacao);
++            anima = true;
++        }
+         processo = new Processo("Magenta", "Unaria");
+         processoList.add(processo);
+     }
++
+-    public void Amarelo(View view){
++    public void Amarelo(View view) {
+         Button btnEnviarProcesso = (Button) findViewById(R.id.btnEnviarProcesso);
+         Animation animacao = AnimationUtils.loadAnimation(getContext(), R.anim.fade_in);
+         btnEnviarProcesso.setVisibility(View.VISIBLE);
+-        if(!anima){btnEnviarProcesso.setAnimation(animacao);anima = true;}
++        if (!anima) {
++            btnEnviarProcesso.setAnimation(animacao);
++            anima = true;
++        }
+         processo = new Processo("Amarelo", "Unaria");
+         processoList.add(processo);
++    }
++
++    public void Teste(View view) {
++
++        NDK ndk = new NDK();
++        Bitmap pic = foto.getImagem();
++        ndk.teste(pic);
++        foto.setImagem(pic);
++        foto.AtualizarImagem(foto, img);
+     }
+     /*
+     *
+Index: .idea/vcs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/vcs.xml	(revision )
++++ .idea/vcs.xml	(revision )
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="VcsDirectoryMappings">
++    <mapping directory="$PROJECT_DIR$" vcs="Git" />
++  </component>
++</project>
+\ No newline at end of file

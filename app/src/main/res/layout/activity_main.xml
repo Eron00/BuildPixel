@@ -4,7 +4,7 @@
     android:layout_height="fill_parent"
     tools:context="com.aplicacao.eron.Activities.ProcessamentoActivity"
     android:background="@color/black"
-    style="@android:style/ThemeOverlay.Material.Light"
+    style="@android:style/Theme.DeviceDefault.Light"
     android:clickable="false">
 
 
@@ -31,6 +31,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="#0099cc">
+
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="90dp"
+                android:textSize="9sp"
+                android:text="Teste"
+                android:onClick="Teste"
+                android:id="@+id/btnTeste"
+                android:background="@drawable/selector_active_inative"
+                android:textColor="#ffffff"
+                android:layout_margin="2dp" />
 
             <Button
                 android:layout_width="wrap_content"

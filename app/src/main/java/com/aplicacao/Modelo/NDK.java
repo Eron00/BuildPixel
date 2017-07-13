@@ -1,5 +1,7 @@
 package com.aplicacao.Modelo;
 
+import android.graphics.Bitmap;
+
 /**
  * Created by Eron on 12/03/2016.
  */
@@ -28,5 +30,7 @@ public class NDK {
     public native void tintaoleo(int[] Foto, int linha, int coluna);
 
     public native void processamentoBinario(int[] FotoA, int[] FotoB, int linha, int coluna, String Processo);
+
+    public native void teste(Bitmap foto);
 
 }

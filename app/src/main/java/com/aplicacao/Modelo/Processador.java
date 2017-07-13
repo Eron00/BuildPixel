@@ -160,6 +160,7 @@ public class Processador {
                 case ("Area"):
                     EloEqualizar.CalcularFoto(Imagem, foto.getLinha(), foto.getColuna(),list.getProcessamentoSelecionado());
                     break;
+
             }
         }
 

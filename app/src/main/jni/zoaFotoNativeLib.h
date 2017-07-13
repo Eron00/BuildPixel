@@ -62,3 +62,6 @@ JNIEXPORT void JNICALL
 JNIEXPORT void JNICALL
 Java_com_aplicacao_Modelo_NDK_processamentoBinario(JNIEnv *env, jobject instance, jintArray FotoA_,
                                                    jintArray FotoB_, jint linha, jint coluna, jstring cNomeProcesso);
+
+JNIEXPORT void JNICALL
+Java_com_aplicacao_Modelo_NDK_teste(JNIEnv *env, jobject instance, jobject foto);
