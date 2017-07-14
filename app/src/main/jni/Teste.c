@@ -6,9 +6,33 @@
 #include <stdlib.h>
 #include <android/bitmap.h>
 
-
+/*******************************************************************************************************
+*----[Teste]--------------------------------------------------------------------------------------------
+* - Data de Criação: 11/07/2017
+* - Autor: Eron Thiago Reis Silva
+* - Nome da função: JNIEXPORT void JNICALL Java_com_aplicacao_Modelo_NDK_teste
+*
+* - Descrição:  Função para testar o processamento de bitmaps de forma nativa. tem por objetivo retornar um
+*  bitmap com foco no pixel vermelho, zerando o canal azul e verde.
+*
+*********************************************************************************************************
+*	PARÂMETROS:
+*********************************************************************************************************
+*		ENTRADA:
+*
+*			JNIEnv *env - ponteiro de referência para VM do Java. (classe que chama a função).
+*
+*			jobject instance - ponteiro de referência para o objeto this implicito passado pelo Java.?.(
+*
+*			jobject foto - objeto que faz referência ao Bitmap da imagem a ser processada
+*
+ ********************************************************************************************************
+*		SAÍDA: nenhum
+ ********************************************************************************************************
+*/
 
 JNIEXPORT void JNICALL Java_com_aplicacao_Modelo_NDK_teste(JNIEnv *env, jobject instance, jobject foto) {
+
     AndroidBitmapInfo dadosImagem;
     void *localPixels;
     AndroidBitmap_getInfo(env, foto, &dadosImagem);
