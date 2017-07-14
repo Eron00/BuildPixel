@@ -1,5 +1,7 @@
 package com.aplicacao.Processamento.ProcessamentoUnario;
 
+import android.graphics.Bitmap;
+
 import com.aplicacao.Interfaces.Operacoes;
 import com.aplicacao.Interfaces.OperacoesUnarias;
 import com.aplicacao.Modelo.NDK;
@@ -15,13 +17,13 @@ public class Brilho implements OperacoesUnarias {
     }
 
     @Override
-    public void CalcularPixel(int[] Foto, int linha, int coluna, String Processo) {
+    public void CalcularPixel(Bitmap Foto, String Processo) {
         if (Processo.equals("Brilho")) {
             NDK ndk = new NDK();
-            ndk.processamentoUnario(Foto, linha, coluna, Processo);
+            ndk.processamentoUnario(Foto, Processo);
         }
         else {
-            EloCadeia.CalcularPixel(Foto, linha, coluna, Processo);
+            EloCadeia.CalcularPixel(Foto, Processo);
         }
 
     }

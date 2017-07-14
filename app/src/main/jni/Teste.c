@@ -23,9 +23,9 @@ JNIEXPORT void JNICALL Java_com_aplicacao_Modelo_NDK_teste(JNIEnv *env, jobject 
         for(xx =0; xx < dadosImagem.width; xx++){
 
             //extract the RGB values from the pixel
-            blue = (int) ((line[xx] & 0x00FF0000) >> 16);
+            blue  = (int)((line[xx] & 0x00FF0000) >> 16);
             green = (int)((line[xx] & 0x0000FF00) >> 8);
-            red = (int) (line[xx] & 0x00000FF );
+            red   = (int) (line[xx] & 0x00000FF );
 
             //change the RGB values
             blue = 0;
@@ -40,9 +40,6 @@ JNIEXPORT void JNICALL Java_com_aplicacao_Modelo_NDK_teste(JNIEnv *env, jobject 
 
         localPixels = (char*)localPixels + dadosImagem.stride;
     }
-
-
-
     AndroidBitmap_unlockPixels(env,foto);
 
 }

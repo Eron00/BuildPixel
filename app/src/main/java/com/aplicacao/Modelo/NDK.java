@@ -17,7 +17,7 @@ public class NDK {
 
     public native void equalizar(int[] Foto, int linha, int coluna);
 
-    public native void processamentoUnario(int[] Foto, int linha, int coluna, String NomeProcesso);
+    public native void processamentoUnario(Bitmap Foto, String NomeProcesso);
 
     public native void halftone(int[] Foto, int linha, int coluna);
 
