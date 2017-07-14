@@ -39,10 +39,9 @@ JNIEXPORT void JNICALL
 JNIEXPORT void JNICALL
         Java_com_aplicacao_Modelo_NDK_equalizar(JNIEnv *env, jobject instance, jintArray FotoResultante, jint linha, jint coluna);
 
-JNIEXPORT void JNICALL
-        Java_com_aplicacao_Modelo_NDK_processamentoUnario(JNIEnv *env, jobject instance, jintArray FotoResultante, jint linha, jint coluna, jstring cNomeProcesso);
+JNIEXPORT void JNICALL Java_com_aplicacao_Modelo_NDK_processamentoUnario(JNIEnv *env, jobject instance, jobject Foto, jstring cNomeProcesso)
 
-void processamentoUnario(JNIEnv *env, jobject instance, jintArray FotoResultante, jint linha, jint coluna, jstring cNomeProcesso);
+        void processamentoUnario(JNIEnv *env, jobject instance, jintArray FotoResultante, jint linha, jint coluna, jstring cNomeProcesso);
 
 JNIEXPORT void JNICALL
         Java_com_aplicacao_Modelo_NDK_halftone(JNIEnv *env, jobject instance, jintArray FotoResultante, jint linha, jint coluna);

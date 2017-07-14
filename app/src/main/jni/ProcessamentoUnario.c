@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include <math.h>
 
-JNIEXPORT void JNICALL Java_com_aplicacao_Modelo_NDK_processamentoUnario(JNIEnv *env, jobject instance, jintArray FotoResultante, jint linha, jint coluna, jstring cNomeProcesso) {
+JNIEXPORT void JNICALL Java_com_aplicacao_Modelo_NDK_processamentoUnario(JNIEnv *env, jobject instance, jobject Foto, jstring cNomeProcesso) {
     int i, j;
 
     float **Red   = (float **) (malloc(linha * sizeof(float *)));

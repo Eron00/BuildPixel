@@ -150,7 +150,7 @@ public class Processador {
             Processo list = ListaProcessos.get(k);
             switch (list.getCategoriaOperacao()){
                 case ("Unaria"):
-                    EloAzul.CalcularPixel(Imagem, list.getProcessamentoSelecionado());
+                    EloAzul.CalcularPixel(foto.getImagem(), list.getProcessamentoSelecionado());
                     break;
                 case ("Binaria"):
                    // Problemas para executar cartoon
