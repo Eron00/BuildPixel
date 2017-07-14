@@ -10,7 +10,7 @@
 *----[Teste]--------------------------------------------------------------------------------------------
 * - Data de Criação: 11/07/2017
 * - Autor: Eron Thiago Reis Silva
-* - Nome da função: JNIEXPORT void JNICALL Java_com_aplicacao_Modelo_NDK_teste
+* - Nome da função nativa: JNIEXPORT void JNICALL Java_com_aplicacao_Modelo_NDK_teste
 *
 * - Descrição:  Função para testar o processamento de bitmaps de forma nativa. tem por objetivo retornar um
 *  bitmap com foco no pixel vermelho, zerando o canal azul e verde.
@@ -33,37 +33,37 @@
 
 JNIEXPORT void JNICALL Java_com_aplicacao_Modelo_NDK_teste(JNIEnv *env, jobject instance, jobject foto) {
 
-    AndroidBitmapInfo dadosImagem;
-    void *localPixels;
-    AndroidBitmap_getInfo(env, foto, &dadosImagem);
-    AndroidBitmap_lockPixels(env, foto, &localPixels);
+    AndroidBitmapInfo dadosImagem;                                  //Estrutura nativa dos dados da Imagem(Altura, largura,etc)
+    void *localPixels;                                              //ponteiro para referenciar os pixels da Imagem
+    int coluna, linha, red, green, blue;
+    uint32_t* pixel;
 
 
-    int xx, yy, red, green, blue;
-    uint32_t* line;
+    AndroidBitmap_getInfo(env, foto, &dadosImagem);                 //capturando as informações da imagem e bloqueando acesso ao local da memoria da imagem
+    AndroidBitmap_lockPixels(env, foto, &localPixels);              //capturando os dados dos pixels
 
-    for(yy = 0; yy < dadosImagem.height; yy++){
-        line = (uint32_t*)localPixels;
-        for(xx =0; xx < dadosImagem.width; xx++){
 
-            //extract the RGB values from the pixel
-            blue  = (int)((line[xx] & 0x00FF0000) >> 16);
-            green = (int)((line[xx] & 0x0000FF00) >> 8);
-            red   = (int) (line[xx] & 0x00000FF );
+    for(linha = 0; linha < dadosImagem.height; linha++){
+        pixel = (uint32_t*)localPixels;                            //carregando a próxima linha de pixels da imagem
+        for(coluna =0; coluna < dadosImagem.width; coluna++){
 
-            //change the RGB values
+            //extração dos dados RGB do pixel
+            blue  = (int)((pixel[coluna] & 0x00FF0000) >> 16);
+            green = (int)((pixel[coluna] & 0x0000FF00) >> 8);
+            red   = (int) (pixel[coluna] & 0x00000FF );
+
+            //Zerando os valores do canal azul e verde
             blue = 0;
             green = 0;
 
-            // set the new pixel back in
-            line[xx] =
-                    ((blue << 16) & 0x00FF0000) |
-                    ((green << 8) & 0x0000FF00) |
-                    (red & 0x000000FF);
+            // atribuindo novos valores ao pixel
+            pixel[coluna] = (uint32_t) (((blue << 16) & 0x00FF0000) |
+                                        ((green << 8) & 0x0000FF00) |
+                                        (red          & 0x000000FF));
         }
 
-        localPixels = (char*)localPixels + dadosImagem.stride;
+        localPixels = (char*)localPixels + dadosImagem.stride;    //pulando para a proxima linha da imagem
     }
-    AndroidBitmap_unlockPixels(env,foto);
+    AndroidBitmap_unlockPixels(env,foto);                         //liberando a memoria alocada para a imagem
 
 }
