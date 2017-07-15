@@ -34,12 +34,12 @@ void convolucao(JNIEnv *env, jobject instance, jintArray Imagem, jstring mascara
 void PopularMascara(char *cNomeProcessamento , int nLinhasMascara, int nColunasMascara, float dMascaraFiltro[nLinhasMascara][nColunasMascara]);
 
 JNIEXPORT void JNICALL
-        Java_com_aplicacao_Modelo_NDK_media(JNIEnv *env, jobject instance, jintArray FotoResultante, jint linha, jint coluna);
+        Java_com_aplicacao_Modelo_NDK_media(JNIEnv *env, jobject instance, jobject foto);
 
 JNIEXPORT void JNICALL
         Java_com_aplicacao_Modelo_NDK_equalizar(JNIEnv *env, jobject instance, jintArray FotoResultante, jint linha, jint coluna);
 
-JNIEXPORT void JNICALL Java_com_aplicacao_Modelo_NDK_processamentoUnario(JNIEnv *env, jobject instance, jobject Foto, jstring cNomeProcesso)
+JNIEXPORT void JNICALL Java_com_aplicacao_Modelo_NDK_processamentoUnario(JNIEnv *env, jobject instance, jobject Foto, jstring cNomeProcesso);
 
         void processamentoUnario(JNIEnv *env, jobject instance, jintArray FotoResultante, jint linha, jint coluna, jstring cNomeProcesso);
 
