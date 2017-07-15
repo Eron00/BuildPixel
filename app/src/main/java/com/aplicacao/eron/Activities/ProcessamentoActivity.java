@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -26,6 +27,7 @@ import android.widget.ImageView;
 
 import com.aplicacao.Modelo.Ferramentas;
 import com.aplicacao.Modelo.Imagem;
+import com.aplicacao.Modelo.NDK;
 import com.aplicacao.Modelo.Processador;
 import com.aplicacao.Modelo.Processo;
 import com.aplicacao.eron.build_pixel.R;
@@ -357,6 +359,21 @@ public class ProcessamentoActivity extends AppCompatActivity {
         processo = new Processo("Amarelo", "Unaria");
         processoList.add(processo);
     }
+    public void Teste(View view){
+
+                NDK ndk = new NDK();
+                Bitmap pic = Bitmap.createBitmap(foto.getLinha(), foto.getColuna(), Bitmap.Config.ARGB_8888);
+
+                for(int i=0 ; i< foto.getLinha(); i++) {
+                    for (int j = 0; j < foto.getColuna(); j++) {
+                        pic.setPixel(i, j, Color.argb(255, foto.getR(i,j), foto.getG(i,j),foto.getB(i,j)));
+                    }
+                }
+                ndk.teste(pic);
+                foto.setImagem(pic);
+                foto.AtualizarImagem(foto,img);
+            }
+
     /*
     *
     * Região que corresponde aos botões que ativam processamentos binários
@@ -541,8 +558,8 @@ public class ProcessamentoActivity extends AppCompatActivity {
                 bit.recycle();
                 break;
             case R.id.action_return_image:
-                foto.setImagem(foto.getImagemOriginal());
-                CaminhoArq = foto.AtualizarImagem(foto, img);
+                Imagem foto2 = new Imagem(foto.getImagemOriginal());
+                CaminhoArq = foto.AtualizarImagem(foto2, img);
                 break;
             case  R.id.action_crop:
                       IntentCortarImagem();
