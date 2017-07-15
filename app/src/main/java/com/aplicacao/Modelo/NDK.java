@@ -13,7 +13,7 @@ public class NDK {
 
     public native int convolucao(int[] Foto, String NomeMascara, int linha, int coluna, int linhaMascara, int colunaMascara);
 
-    public native void media(int[] Foto, int linha, int coluna);
+    public native void media(Bitmap foto);
 
     public native void equalizar(int[] Foto, int linha, int coluna);
 
