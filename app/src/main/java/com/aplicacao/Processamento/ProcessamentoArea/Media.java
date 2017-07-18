@@ -20,7 +20,7 @@ public class Media implements OperacoesArea {
             EloCadeia.CalcularFoto(Foto,linha,coluna, NomeClasse);
         } else {
             NDK ndk = new NDK();
-            ndk.media(Foto, linha, coluna);
+          //  ndk.media(Foto, linha, coluna);
         }
     }
 }
