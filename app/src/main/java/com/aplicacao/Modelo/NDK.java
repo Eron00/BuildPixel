@@ -11,7 +11,7 @@ public class NDK {
         System.loadLibrary("zoaFotoNativeLib");
     }
 
-    public native int convolucao(int[] Foto, String NomeMascara, int linha, int coluna, int linhaMascara, int colunaMascara);
+    public native int convolucao(Bitmap Foto, String NomeMascara, int linhaMascara, int colunaMascara);
 
     public native void media(Bitmap foto);
 
@@ -32,5 +32,7 @@ public class NDK {
     public native void processamentoBinario(int[] FotoA, int[] FotoB, int linha, int coluna, String Processo);
 
     public native void teste(Bitmap foto);
+
+    public native void sepia(Bitmap foto);
 
 }
