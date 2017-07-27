@@ -26,18 +26,19 @@ typedef struct ARGB
 }ARGB;
 
 JNIEXPORT void JNICALL
-        Java_com_aplicacao_Modelo_NDK_convolucao(JNIEnv *env, jobject instance, jintArray Imagem, jstring mascara, jint linha,
-                                         jint coluna, jint linhaMascara, jint colunaMascara);
-void convolucao(JNIEnv *env, jobject instance, jintArray Imagem, jstring mascara,jint linha, jint coluna, jint linhaMascara, jint colunaMascara);
+        Java_com_aplicacao_Modelo_NDK_convolucao(JNIEnv *env, jobject instance, jobject foto,jstring mascara, jint linhaMascara, jint colunaMascara);
+
+void convolucao(JNIEnv *env, jobject instance, jobject foto, jstring mascara, jint linhaMascara,
+                jint colunaMascara);
 
 
-void PopularMascara(char *cNomeProcessamento , int nLinhasMascara, int nColunasMascara, float dMascaraFiltro[nLinhasMascara][nColunasMascara]);
+void PopularMascara(const char *cNomeProcessamento , int nLinhasMascara, int nColunasMascara, float dMascaraFiltro[nLinhasMascara][nColunasMascara]);
 
 JNIEXPORT void JNICALL
         Java_com_aplicacao_Modelo_NDK_media(JNIEnv *env, jobject instance, jobject foto);
 
 JNIEXPORT void JNICALL
-        Java_com_aplicacao_Modelo_NDK_equalizar(JNIEnv *env, jobject instance, jintArray FotoResultante, jint linha, jint coluna);
+        Java_com_aplicacao_Modelo_NDK_equalizar(JNIEnv *env, jobject instance, jobject foto);
 
 JNIEXPORT void JNICALL Java_com_aplicacao_Modelo_NDK_processamentoUnario(JNIEnv *env, jobject instance, jobject Foto, jstring cNomeProcesso);
 
