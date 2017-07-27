@@ -18,7 +18,7 @@ public class Cartoon implements OperacoesBinarias {
     public void CalcularPixel(int[] FotoA, int[] FotoB, int linha, int coluna, String Processo) {
         if(Processo.equals("Cartoon")){
             NDK ndk = new NDK();
-            ndk.tintaoleo(FotoA, linha, coluna);
+          //  ndk.tintaoleo(FotoA);
        //     ndk.convolucao(FotoB, "SobelHorizontal", linha,coluna,3,3);
             ndk.cartoon(FotoA,FotoB, linha, coluna);
 
