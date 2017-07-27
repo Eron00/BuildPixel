@@ -4,9 +4,9 @@
 // Created by Eron on 12/03/2016.
 //
 
-void PopularMascara(char *cNomeProcessamento , int nLinhasMascara, int nColunasMascara, float dMascaraFiltro[nLinhasMascara][nColunasMascara]) {
+void PopularMascara(const char *cNomeProcessamento , int nLinhasMascara, int nColunasMascara, float dMascaraFiltro[nLinhasMascara][nColunasMascara]){
 
-    int i, j;
+
     if (strcmp(cNomeProcessamento, "Sharpen") == 0) {
 
         dMascaraFiltro[0][0] =  0;  dMascaraFiltro[0][1] = -1; dMascaraFiltro[0][2] =  0;
@@ -41,12 +41,10 @@ void PopularMascara(char *cNomeProcessamento , int nLinhasMascara, int nColunasM
         dMascaraFiltro[2][0] = -3;  dMascaraFiltro[2][1] = -3;  dMascaraFiltro[2][2] = -3;
     }
     if (strcmp(cNomeProcessamento, "Laplace") == 0) {
-        for (i = 0; i < nLinhasMascara; i++) {
-            for (j = 0; j < nColunasMascara; j++) {
-                dMascaraFiltro[i][j] = -1;
-            }
-        }
-        dMascaraFiltro[(3 - 1) / 2][(3 - 1) / 2] = (3 * 3) - 1;
+
+        dMascaraFiltro[0][0] = -1;  dMascaraFiltro[0][1] = -1;  dMascaraFiltro[0][2] = -1;
+        dMascaraFiltro[1][0] = -1;  dMascaraFiltro[1][1] = 8 ;  dMascaraFiltro[1][2] = -1;
+        dMascaraFiltro[2][0] = -1;  dMascaraFiltro[2][1] = -1;  dMascaraFiltro[2][2] = -1;
     }
     if (strcmp(cNomeProcessamento, "Media") == 0) {
         dMascaraFiltro[0][0] = (float) 0.1111111111; dMascaraFiltro[0][1] = (float) 0.1111111111; dMascaraFiltro[0][2] = (float) 0.1111111111;
