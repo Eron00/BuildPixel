@@ -15,24 +15,25 @@ public class NDK {
 
     public native void media(Bitmap foto);
 
-    public native void equalizar(int[] Foto, int linha, int coluna);
+    public native void equalizar(Bitmap foto);
 
     public native void processamentoUnario(Bitmap Foto, String NomeProcesso);
 
-    public native void halftone(int[] Foto, int linha, int coluna);
+    public native void halftone(Bitmap foto);
 
-    public native void errorDifusion(int[] Foto, int linha, int coluna);
+    public native void errorDifusion(Bitmap foto);
 
-    public native void floydSteinberg(int[] Foto, int linha, int coluna);
+    public native void floydSteinberg(Bitmap foto);
 
     public native void cartoon(int[] FotoOriginal, int[] FotoResultante, int linha, int coluna);
 
-    public native void tintaoleo(int[] Foto, int linha, int coluna);
+    public native void tintaoleo(Bitmap Foto);
 
     public native void processamentoBinario(int[] FotoA, int[] FotoB, int linha, int coluna, String Processo);
 
     public native void teste(Bitmap foto);
 
     public native void sepia(Bitmap foto);
+
 
 }
