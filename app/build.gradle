@@ -26,7 +26,8 @@ model {
         }
     }
     android.ndk {
-        moduleName = "zoaFotoNativeLib"
+        moduleName ="buildPixelNativeLib"
+
         ldLibs.addAll(["android", "jnigraphics", "log"])
 
     }
