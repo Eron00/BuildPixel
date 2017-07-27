@@ -1,12 +1,14 @@
 package com.aplicacao.Interfaces;
 
 
-import com.aplicacao.Modelo.Imagem;
+import android.graphics.Bitmap;
+
+
 
 /**
  * Created by Eron on 13/12/2015.
  */
 public interface OperacoesArea extends Operacoes {
 
-    void CalcularFoto(int[] Foto, int linha, int coluna, String Processo);
+    void CalcularFoto(Bitmap Foto, String Processo);
 }
