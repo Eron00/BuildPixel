@@ -1,5 +1,7 @@
 package com.aplicacao.Processamento.ProcessamentoArea;
 
+import android.graphics.Bitmap;
+
 import com.aplicacao.Interfaces.Operacoes;
 import com.aplicacao.Interfaces.OperacoesArea;
 import com.aplicacao.Modelo.NDK;
@@ -15,15 +17,15 @@ public class Halftone implements OperacoesArea {
     }
 
     @Override
-    public void CalcularFoto(int[] Foto, int linha, int coluna, String NomeClasse) {
+    public void CalcularFoto(Bitmap Foto, String NomeClasse) {
 
         if (NomeClasse != "Halftone") {
-            EloCadeia.CalcularFoto(Foto,linha,coluna, NomeClasse);
+            EloCadeia.CalcularFoto(Foto, NomeClasse);
         } else {
 
             NDK ndk = new NDK();
 
-            ndk.halftone(Foto, linha,coluna);
+            ndk.halftone(Foto);
 
             /*
             int linha = CalcularFoto.getLinha();

@@ -1,5 +1,7 @@
 package com.aplicacao.Processamento.ProcessamentoArea;
 
+import android.graphics.Bitmap;
+
 import com.aplicacao.Interfaces.Operacoes;
 import com.aplicacao.Interfaces.OperacoesArea;
 import com.aplicacao.Modelo.NDK;
@@ -17,12 +19,12 @@ public class OilPaint implements OperacoesArea {
     }
 
     @Override
-    public void CalcularFoto(int[] Foto, int linha, int coluna, String Processo) {
+    public void CalcularFoto(Bitmap Foto, String Processo) {
         if (Processo != "OilPaint") {
-            EloCadeia.CalcularFoto(Foto, linha, coluna, Processo);
+            EloCadeia.CalcularFoto(Foto, Processo);
         }  else{
             NDK ndk = new NDK();
-            ndk.tintaoleo(Foto, linha, coluna);
+            ndk.tintaoleo(Foto);
         }
     }
 }
