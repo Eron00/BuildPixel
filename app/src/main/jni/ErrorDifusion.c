@@ -3,104 +3,101 @@
 //
 #include <jni.h>
 #include <stdlib.h>
+#include <android/bitmap.h>
+#include "buildPixelNativeLib.h"
 
-JNIEXPORT void JNICALL Java_com_aplicacao_Modelo_NDK_errorDifusion(JNIEnv *env, jobject instance, jintArray FotoResultante, jint linha, jint coluna) {
-    int i, j;
-    int PropagedError;
-    int TotalError;
 
-    PropagedError = 0;
+/*******************************************************************************************************
+*----[Teste]--------------------------------------------------------------------------------------------
+* - Data de Criação: 02/04/2016
+* - Autor: Eron Thiago Reis Silva
+* - Nome da função nativa: JNIEXPORT void JNICALL Java_com_aplicacao_Modelo_NDK_errorDifusion
+*
+* - Descrição: Função que utiliza uma variação do processo de halftone. Onde um valor  é modificado após
+* realizar o calculo com uma determinada área.
+* Nessa área cria-se uma distorção dos valores e essas distoções gera o efeito final da imagem.
+*
+* - Padrão:  Escala de Cinza
+*********************************************************************************************************
+*	PARÂMETROS:
+*********************************************************************************************************
+*		ENTRADA:
+*
+*			JNIEnv *env - ponteiro de referência para VM do Java. (classe que chama a função).
+*
+*			jobject instance - ponteiro de referência para o objeto this implicito passado pelo Java.?.(
+*
+*			jobject foto - objeto que faz referência ao Bitmap da imagem a ser processada
+*
+ ********************************************************************************************************
+*		SAÍDA: nenhum
+ ********************************************************************************************************
+*/
 
-    float **Red = (float **) (malloc(linha * sizeof(float *)));
-    float **Blue = (float **) (malloc(linha * sizeof(float *)));
-    float **Green = (float **) (malloc(linha * sizeof(float *)));
-    float **RedTemp = (float **) (malloc(linha * sizeof(float *)));
-    float **BlueTemp = (float **) (malloc(linha * sizeof(float *)));
-    float **GreenTemp = (float **) (malloc(linha * sizeof(float *)));
 
-    for (i = 0; i < linha; i++) {
-        Red[i] = (float *) (malloc(coluna * sizeof(float)));
-        Blue[i] = (float *) (malloc(coluna * sizeof(float)));
-        Green[i] = (float *) (malloc(coluna * sizeof(float)));
-        RedTemp[i] = (float *) (malloc(coluna * sizeof(float)));
-        BlueTemp[i] = (float *) (malloc(coluna * sizeof(float)));
-        GreenTemp[i] = (float *) (malloc(coluna * sizeof(float)));
-    }
-    for (i = 0; i < linha; i++) {
-        for (j = 0; j < coluna; j++) {
-            Red[i][j] = 0;
-            Green[i][j] = 0;
-            Blue[i][j] = 0;
-            RedTemp[i][j] = 0;
-            BlueTemp[i][j] = 0;
-            GreenTemp[i][j] = 0;
+JNIEXPORT void JNICALL Java_com_aplicacao_Modelo_NDK_errorDifusion(JNIEnv *env, jobject instance,jobject foto) {
+
+
+    int linha, coluna;
+    int ErroQuantizado;
+    int ErroTotal,blue,green,red;
+
+    ErroQuantizado = 0;                                             //inteira para armazenar o erro calculado dos pixels
+    AndroidBitmapInfo dadosImagem;                                  // variavel com os dados estruturais da imagem
+    void *localPixels;                                              // ponteiro que carrega as informações dos pixels
+    uint32_t *pixel;                                                // variavel local para cálculo das informações dos pixels
+
+    AndroidBitmap_getInfo(env, foto, &dadosImagem);                 //capturando as informações da imagem
+    AndroidBitmap_lockPixels(env, foto, &localPixels);              //capturando os dados dos pixels e bloqueando acesso ao local da memoria da imagem
+
+    int Cinza[dadosImagem.height][dadosImagem.width];
+
+
+//****************************************************************************************************************************************************
+
+    for(linha = 0; linha < dadosImagem.height; linha++){
+        pixel = (uint32_t*)localPixels;                            //carregando a próxima linha de pixels da imagem
+        for(coluna =0; coluna < dadosImagem.width; coluna++){
+            //extração dos dados RGB do pixel
+            blue  = ((pixel[coluna] & 0x00FF0000) >> 16);
+            green = ((pixel[coluna] & 0x0000FF00) >> 8);
+            red   =  (pixel[coluna] & 0x00000FF );
+
+            //criando o pixel com escala de cinza
+            Cinza[linha][coluna]  = ( red + green + blue) / 3;
         }
+        localPixels = (char*)localPixels + dadosImagem.stride;    //pulando para a proxima linha da imagem
     }
+    AndroidBitmap_unlockPixels(env,foto);
 
+//***************************************************************************************************************************************************
+    for (linha = 1; linha < dadosImagem.height; linha++) {
+        for (coluna = 1;  coluna< dadosImagem.width ; coluna++) {
+            //soma do valor atual do pixel com o erro que foi ou será gerado.
+            ErroTotal = (Cinza[linha][coluna] + ErroQuantizado);
 
-    jint *valorPixel;
-    valorPixel = (*env)->GetIntArrayElements(env, FotoResultante, NULL);
-    int *pixel = valorPixel;
-
-    int indice = 0;
-    for (i = 0; i < linha; i++) {
-        for (j = 0; j < coluna; j++, indice += 3) {
-            Red[i][j] = pixel[indice];
-            Green[i][j] = pixel[indice + 1];
-            Blue[i][j] = pixel[indice + 2];
-        }
-    }
-
-
-    for (i = 0; i < linha; i++) {
-        for ( j = 0; j < coluna; j++) {
-            int Pixel;
-            Pixel = (int) ((Red[i][j] + Green[i][j] + Blue[i][j]) / 3);
-            RedTemp[i][j] = Pixel;
-            BlueTemp[i][j] = Pixel;
-            GreenTemp[i][j] = Pixel;
-        }
-    }
-    for (i = 1; i < linha; i++) {
-        for (j = 1; j < coluna; j++) {
-
-            TotalError = (int) (RedTemp[i][j]+ PropagedError);
-
-            if(TotalError > 127)
-            {
-                Red[i][j] = 255;
-                Green[i][j] = 255;
-                Blue[i][j] = 255;
-            }
+            if(ErroTotal > 127)
+              Cinza[linha][coluna] = 255;
 
             else
-            {
-                Red[i][j] = 0;
-                Green[i][j] = 0;
-                Blue[i][j] = 0;
-            }
-
-            PropagedError = (int) (TotalError - Red[i][j]);
+              Cinza[linha][coluna] = 0;
+            //após  verificar os valores, regerar o erro para o próximo pixel.
+            ErroQuantizado = (ErroTotal -  Cinza[linha][coluna]);
         }
     }
+// *****************************************************************************************************************************************************
 
-    indice = 0;
-    for (i = 0; i < linha; i++) {
-        for (j = 0; j < coluna; j++, indice += 3) {
-            pixel[indice] = (int) Red[i][j];
-            pixel[indice + 1] = (int) Green[i][j];
-            pixel[indice + 2] = (int) Blue[i][j];
+    AndroidBitmap_getInfo(env, foto, &dadosImagem);                 //capturando as informações da imagem
+    AndroidBitmap_lockPixels(env, foto, &localPixels);              //capturando os dados dos pixels e bloqueando acesso ao local da memoria da imagem
+    for(linha = 0; linha < dadosImagem.height; linha++){
+        pixel = (uint32_t*)localPixels;                            //carregando a próxima linha de pixels da imagem
+        for(coluna =0; coluna < dadosImagem.width; coluna++){
+            //remontando o pixel com os valores processados
+            pixel[coluna] = (uint32_t) (((Cinza[linha][coluna] << 16) & 0x00FF0000) |
+                                        ((Cinza[linha][coluna] << 8)  & 0x0000FF00) |
+                                         (Cinza[linha][coluna]        & 0x000000FF));
         }
+        localPixels = (char *)localPixels + dadosImagem.stride;    //pulando para a proxima linha da imagem
     }
-    (*env)->ReleaseIntArrayElements(env, FotoResultante, valorPixel, 0);
-
-    free(Red);
-    free(Green);
-    free(Blue);
-    free(RedTemp);
-    free(BlueTemp);
-    free(GreenTemp);
-
+    AndroidBitmap_unlockPixels(env,foto);
 }
-
-
