@@ -4,14 +4,10 @@
 #include <jni.h>
 #include <stdlib.h>
 #include <android/bitmap.h>
-
-
-JNIEXPORT void JNICALL Java_com_aplicacao_Modelo_NDK_floydSteinberg(JNIEnv *env, jobject instance, jobject foto){
-
+JNIEXPORT void JNICALL Java_com_aplicacao_Modelo_NDK_celulaThreshold(JNIEnv *env, jobject instance,jobject foto) {
 
     int linha, coluna;
-    int blue,green,red;
-    int nPixelAntigo, ErroPropagado, nPixelNovo;
+    int Pixel,blue,green,red;
 
     AndroidBitmapInfo dadosImagem;                                  // variavel com os dados estruturais da imagem
     void *localPixels;                                              // ponteiro que carrega as informações dos pixels
@@ -40,21 +36,37 @@ JNIEXPORT void JNICALL Java_com_aplicacao_Modelo_NDK_floydSteinberg(JNIEnv *env,
     AndroidBitmap_unlockPixels(env,foto);
 
 //***************************************************************************************************************************************************
-    for (linha = 1; linha < dadosImagem.height -1; linha++) {
-        for (coluna = 1;  coluna< dadosImagem.width-1 ; coluna++) {
+    for (linha = 0; linha < dadosImagem.height -1; linha+=2) {
+        for (coluna = 0;  coluna< dadosImagem.width-1 ; coluna+=2) {
+            //soma do valor atual do pixel com o erro que foi ou será gerado.
+            Pixel  = Cinza[linha][coluna];
+            Pixel += Cinza[linha][coluna + 1];
+            Pixel += Cinza[linha + 1][coluna];
+            Pixel += Cinza[linha + 1][coluna + 1];
 
-                nPixelAntigo = Cinza[linha][coluna];
-                if (nPixelAntigo > 127)
-                    nPixelNovo = 255;
-                else
-                    nPixelNovo = 0;
-                Cinza[linha][coluna] = nPixelNovo;
-                ErroPropagado = nPixelAntigo - nPixelNovo;
 
-                Cinza[linha][coluna+1]   = (Cinza[linha][coluna+1]    + (7 * ErroPropagado) / 16);
-                Cinza[linha-1]  [coluna] = (Cinza[linha-1]  [coluna]  + (3 * ErroPropagado) / 16);
-                Cinza[linha]  [coluna]   = (Cinza[linha]  [coluna]    + (5 * ErroPropagado) / 16);
-                Cinza[linha+1]  [coluna] = (Cinza[linha+1]  [coluna]  + (1 * ErroPropagado) / 16);
+            if (Pixel > (1 * 1024) / 8)
+                Cinza[linha][coluna] = 255;
+            else
+                Cinza[linha][coluna] = 0;
+
+
+            if (Pixel > (3 * 1024) / 8)
+                Cinza[linha +1][coluna +1] = 255;
+            else
+                Cinza[linha +1][coluna +1] = 0;
+
+
+            if (Pixel > (5 * 1024) / 8)
+                Cinza[linha +1][coluna] = 255;
+            else
+                Cinza[linha +1][coluna] = 0;
+
+
+            if (Pixel > (7 * 1024) / 8)
+                Cinza[linha][coluna+1] = 255;
+            else
+                Cinza[linha][coluna+1] = 0;
 
         }
     }
@@ -73,8 +85,4 @@ JNIEXPORT void JNICALL Java_com_aplicacao_Modelo_NDK_floydSteinberg(JNIEnv *env,
         localPixels = (char *)localPixels + dadosImagem.stride;    //pulando para a proxima linha da imagem
     }
     AndroidBitmap_unlockPixels(env,foto);
-
-
-
-
 }
