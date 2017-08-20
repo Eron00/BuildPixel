@@ -23,7 +23,7 @@ public class Laplace implements OperacoesArea {
         }
         else {
             NDK ndk = new NDK();
-            ndk.convolucao(Foto, NomeClasse,3,3);
+            ndk.convolucao(Foto, getClass().getName(),3,3);
         }
 
     }
