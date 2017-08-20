@@ -50,9 +50,13 @@ JNIEXPORT void JNICALL Java_com_aplicacao_Modelo_NDK_errorDifusion(JNIEnv *env, 
     AndroidBitmap_getInfo(env, foto, &dadosImagem);                 //capturando as informações da imagem
     AndroidBitmap_lockPixels(env, foto, &localPixels);              //capturando os dados dos pixels e bloqueando acesso ao local da memoria da imagem
 
-    int Cinza[dadosImagem.height][dadosImagem.width];
-
-
+    int **Cinza = (int **) (malloc(dadosImagem.height * sizeof(int *)));
+    for (linha = 0; linha < dadosImagem.height; linha++) {Cinza[linha] = (int *) (malloc(dadosImagem.width * sizeof(int)));}
+    for (linha = 0; linha < dadosImagem.height; linha++) {
+        for (coluna = 0; coluna < dadosImagem.width; coluna++) {
+            Cinza[linha][coluna] = 0;
+        }
+    }
 //****************************************************************************************************************************************************
 
     for(linha = 0; linha < dadosImagem.height; linha++){
@@ -99,5 +103,6 @@ JNIEXPORT void JNICALL Java_com_aplicacao_Modelo_NDK_errorDifusion(JNIEnv *env, 
         }
         localPixels = (char *)localPixels + dadosImagem.stride;    //pulando para a proxima linha da imagem
     }
+    free(Cinza);
     AndroidBitmap_unlockPixels(env,foto);
 }
