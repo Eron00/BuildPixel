@@ -42,23 +42,43 @@ JNIEXPORT void JNICALL Java_com_aplicacao_Modelo_NDK_equalizar(JNIEnv *env, jobj
     double *fdpAcumuladaR = (double *) (malloc(256 * sizeof(double)));
     double *fdpAcumuladaG = (double *) (malloc(256 * sizeof(double)));
     double *fdpAcumuladaB = (double *) (malloc(256 * sizeof(double)));
+    int **Red = (int **) (malloc(dadosImagem.height * sizeof(int *)));
+    int **Blue = (int **) (malloc(dadosImagem.height * sizeof(int *)));
+    int **Green = (int **) (malloc(dadosImagem.height * sizeof(int *)));
+    int linha, coluna,i,green,blue,red;											    //indice genérico
 
-    struct ARGB pixelTemp[dadosImagem.height][dadosImagem.width];				//estrutura para extração e calculo dos valores dos pixels
-    int linha, coluna,i;											    //indice genérico
+
+    for (linha = 0; linha < dadosImagem.height; linha++) {
+        Red[linha] = (int *) (malloc(dadosImagem.width * sizeof(int)));
+        Blue[linha] = (int *) (malloc(dadosImagem.width * sizeof(int)));
+        Green[linha] = (int *) (malloc(dadosImagem.width * sizeof(int)));
+    }
 
 
+    for (linha = 0; linha < dadosImagem.height; linha++) {
+        for (coluna = 0; coluna < dadosImagem.width; coluna++) {
+            Red  [linha][coluna] = 0;
+            Green[linha][coluna] = 0;
+            Blue [linha][coluna] = 0;
+        }
+    }
     for(linha = 0; linha < dadosImagem.height; linha++){
         pixel = (uint32_t*)localPixels;                            //carregando a próxima linha de pixels da imagem
         for(coluna =0; coluna < dadosImagem.width; coluna++){
 
             //extração dos dados RGB do pixel
-            pixelTemp[linha][coluna].blue  = (uint8_t) ((pixel[coluna] & 0x00FF0000) >> 16);    //para extração dos bytes. Somente o valor do canal azul
-            pixelTemp[linha][coluna].green = (uint8_t) ((pixel[coluna] & 0x0000FF00) >> 8);     //para extração dos bytes. Somente o valor do canal verde
-            pixelTemp[linha][coluna].red   = (uint8_t)  (pixel[coluna] & 0x00000FF );           //para extração dos bytes. Somente o valor do canal vermelho
+           blue = (int) ((pixel[coluna] & 0x00FF0000) >> 16);    //para extração dos bytes. Somente o valor do canal azul
+            green  = (int) ((pixel[coluna] & 0x0000FF00) >> 8);     //para extração dos bytes. Somente o valor do canal verde
+            red  = (int)  (pixel[coluna] & 0x00000FF );           //para extração dos bytes. Somente o valor do canal vermelho
+
+            Red  [linha][coluna] = red;
+            Green[linha][coluna] = green;
+            Blue [linha][coluna] = blue;
         }
         localPixels = (char*)localPixels + dadosImagem.stride;    //pulando para a proxima linha da imagem
     }
 
+    AndroidBitmap_unlockPixels(env,foto);                         //liberando a memoria alocada para a imagem
 
     for (i = 0; i < 256; i++) {
         //inicialização dos valores dos vetores
@@ -76,12 +96,12 @@ JNIEXPORT void JNICALL Java_com_aplicacao_Modelo_NDK_equalizar(JNIEnv *env, jobj
     int indiceBlue  = 0;
 
 
-    for (linha = 0; linha < dadosImagem.width; linha++) {
-        for (coluna = 0; coluna < dadosImagem.height; coluna++) {
+    for (linha = 0; linha < dadosImagem.height; linha++) {
+        for (coluna = 0; coluna < dadosImagem.width; coluna++) {
             //extração do valor do pixel
-            indiceRed   = (int) pixelTemp[linha][coluna].red;
-            indiceGreen = (int) pixelTemp[linha][coluna].green;
-            indiceBlue  = (int) pixelTemp[linha][coluna].blue;
+            indiceRed   =  Red   [linha][coluna];
+            indiceGreen =  Green [linha][coluna];
+            indiceBlue  =  Blue  [linha][coluna];
 
             //indice do vetor de 0 a 255.
             //Para cada ocorrência, atribui +1 ao valor.
@@ -92,30 +112,28 @@ JNIEXPORT void JNICALL Java_com_aplicacao_Modelo_NDK_equalizar(JNIEnv *env, jobj
     }
 
     for (i = 0; i < 256; i++) {
-        fdpAcumuladaR[i] = histogramaAbsR[i];
-        fdpAcumuladaG[i] = histogramaAbsG[i];
-        fdpAcumuladaB[i] = histogramaAbsB[i];
+        fdpAcumuladaR[i] =(double) histogramaAbsR[i];
+        fdpAcumuladaG[i] = (double )histogramaAbsG[i];
+        fdpAcumuladaB[i] = (double )histogramaAbsB[i];
 
     }
 
     for (i = 1; i < 256; i++) {
-        fdpAcumuladaR[i] = fdpAcumuladaR[i - 1] + histogramaAbsR[i];
+        fdpAcumuladaR[i] =fdpAcumuladaR[i - 1] + histogramaAbsR[i];
         fdpAcumuladaB[i] = fdpAcumuladaB[i - 1] + histogramaAbsB[i];
         fdpAcumuladaG[i] = fdpAcumuladaG[i - 1] + histogramaAbsG[i];
     }
 
 
-    uint8_t AcumuladaR = 0;
-    uint8_t AcumuladaG = 0;
-    uint8_t AcumuladaB = 0;
-
+    int AcumuladaR = 0;
+    int AcumuladaG = 0;
+    int AcumuladaB = 0;
 
     for (linha = 0; linha < dadosImagem.height; linha++) {
-        pixel = (uint32_t*)localPixels;                            //carregando a próxima linha de pixels da imagem
         for (coluna = 0; coluna < dadosImagem.width; coluna++) {
-            indiceRed   = (int) pixelTemp[linha][coluna].red;
-            indiceGreen = (int) pixelTemp[linha][coluna].green;
-            indiceBlue  = (int) pixelTemp[linha][coluna].blue;
+            indiceRed   = (int) Red   [linha][coluna];
+            indiceGreen = (int) Green [linha][coluna];
+            indiceBlue  = (int) Blue  [linha][coluna];
 
             /*
                Fórmula:   Vp * 255
@@ -125,19 +143,28 @@ JNIEXPORT void JNICALL Java_com_aplicacao_Modelo_NDK_equalizar(JNIEnv *env, jobj
             Pl  = posição da linha da imagem
             pc  = posição da coluna da imagem
             */
-            AcumuladaR = (uint8_t) ((fdpAcumuladaR[indiceRed]   * 255) / (linha * coluna));
-            AcumuladaG = (uint8_t) ((fdpAcumuladaG[indiceGreen] * 255) / (linha * coluna));
-            AcumuladaB = (uint8_t) ((fdpAcumuladaB[indiceBlue]  * 255) / (linha * coluna));
+            AcumuladaR = (int) ((fdpAcumuladaR[indiceRed]   * 255) / (dadosImagem.height * dadosImagem.width));
+            AcumuladaG = (int) ((fdpAcumuladaG[indiceGreen] * 255) / (dadosImagem.height * dadosImagem.width));
+            AcumuladaB = (int) ((fdpAcumuladaB[indiceBlue]  * 255) / (dadosImagem.height * dadosImagem.width));
 
+            Red[linha][coluna] = AcumuladaR;
+            Green[linha][coluna] = AcumuladaG;
+            Blue[linha][coluna] = AcumuladaB;
 
-            //montando o pixel da imagem com os novos valores para cada canal
-            pixel[coluna] = (uint32_t)  (((AcumuladaB << 16)& 0x00FF0000) |
-                                         ((AcumuladaG << 8) & 0x0000FF00) |
-                                         ( AcumuladaR       & 0x000000FF));
         }
-        localPixels = (char*)localPixels + dadosImagem.stride;    //pulando para a proxima linha da imagem
     }
-
+    AndroidBitmap_getInfo(env, foto, &dadosImagem);                 //capturando as informações da imagem
+    AndroidBitmap_lockPixels(env, foto, &localPixels);              //capturando os dados dos pixels e bloqueando acesso ao local da memoria da imagem
+    for(linha = 0; linha < dadosImagem.height; linha++){
+        pixel = (uint32_t*)localPixels;                            //carregando a próxima linha de pixels da imagem
+        for(coluna =0; coluna < dadosImagem.width; coluna++){
+            //remontando o pixel com os valores processados
+            pixel[coluna] = (uint32_t) (((Blue[linha][coluna] << 16) & 0x00FF0000) |
+                                        ((Green[linha][coluna] << 8) & 0x0000FF00) |
+                                        ( Red[linha][coluna]         & 0x000000FF));
+        }
+        localPixels = (char *)localPixels + dadosImagem.stride;    //pulando para a proxima linha da imagem
+    }
     //liberando memória
     free(fdpAcumuladaR);
     free(fdpAcumuladaG);
