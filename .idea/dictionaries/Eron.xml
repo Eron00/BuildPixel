@@ -8,6 +8,7 @@
       <w>alocada</w>
       <w>alocando</w>
       <w>altura</w>
+      <w>amarelo</w>
       <w>antigo</w>
       <w>aplicacao</w>
       <w>após</w>
@@ -15,23 +16,30 @@
       <w>atribui</w>
       <w>atual</w>
       <w>azul</w>
+      <w>binaria</w>
       <w>bloqueando</w>
+      <w>brilho</w>
       <w>cada</w>
       <w>calculado</w>
+      <w>calcular</w>
       <w>calculo</w>
       <w>capturando</w>
       <w>carrega</w>
       <w>carregando</w>
       <w>celula</w>
+      <w>ciano</w>
       <w>cinza</w>
       <w>coluna</w>
       <w>colunas</w>
       <w>começar</w>
       <w>convolucao</w>
+      <w>coordenada</w>
       <w>criando</w>
       <w>cálculo</w>
       <w>dados</w>
       <w>destacar</w>
+      <w>encontrar</w>
+      <w>entre</w>
       <w>equalizar</w>
       <w>eron</w>
       <w>erro</w>
@@ -39,6 +47,7 @@
       <w>estrutura</w>
       <w>estruturais</w>
       <w>está</w>
+      <w>executar</w>
       <w>extração</w>
       <w>filtro</w>
       <w>foto</w>
@@ -56,6 +65,8 @@
       <w>liberando</w>
       <w>linha</w>
       <w>linhas</w>
+      <w>lista</w>
+      <w>luminosidade</w>
       <w>manupulação</w>
       <w>memoria</w>
       <w>memória</w>
@@ -63,15 +74,21 @@
       <w>montando</w>
       <w>média</w>
       <w>nativa</w>
+      <w>normalizacao</w>
       <w>novo</w>
       <w>novos</w>
       <w>ocorrência</w>
+      <w>operacoes</w>
       <w>ponteiro</w>
+      <w>posicionamento</w>
       <w>posição</w>
       <w>prewitt</w>
+      <w>problemas</w>
+      <w>processador</w>
       <w>processados</w>
       <w>processamento</w>
       <w>processo</w>
+      <w>processos</w>
       <w>prog</w>
       <w>propagado</w>
       <w>propaged</w>
@@ -88,9 +105,13 @@
       <w>será</w>
       <w>sobel</w>
       <w>soma</w>
+      <w>somatoria</w>
       <w>somente</w>
       <w>steinberg</w>
       <w>teste</w>
+      <w>truncamento</w>
+      <w>unaria</w>
+      <w>unarias</w>
       <w>unario</w>
       <w>valores</w>
       <w>variavel</w>
