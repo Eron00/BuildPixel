@@ -7,7 +7,7 @@
 //
 #include <jni.h>
 #include <stdlib.h>
-#include "zoaFotoNativeLib.h"
+#include "buildPixelNativeLib.h"
 
 
 
@@ -48,8 +48,8 @@ JNIEXPORT void JNICALL Java_com_aplicacao_Modelo_NDK_cartoon(JNIEnv *env, jobjec
     int *pixelOriginal = valorPixelOriginal;
 
     int indice = 0;
-    convolucao(env,instance,FotoResultante, "SobelHorizontal", linha,coluna,3,3);
-    convolucao(env,instance,FotoResultante, "SobelVertical", linha,coluna,3,3);
+    convolucao(env, instance, FotoResultante, "SobelHorizontal", 3, 3);
+    convolucao(env, instance, FotoResultante, "SobelVertical", 3, 3);
 
     jint *valorPixelResultante;
     valorPixelResultante = (*env)->GetIntArrayElements(env, FotoResultante, NULL);

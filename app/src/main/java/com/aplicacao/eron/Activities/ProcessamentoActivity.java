@@ -219,7 +219,7 @@ public class ProcessamentoActivity extends AppCompatActivity {
         Animation animacao = AnimationUtils.loadAnimation(getContext(), R.anim.fade_in);
         btnEnviarProcesso.setVisibility(View.VISIBLE);
         if(!anima){btnEnviarProcesso.setAnimation(animacao);anima = true;}
-        processo = new Processo("Halftone", "Area");
+        processo = new Processo("CelulaThreshold", "Area");
         processoList.add(processo);
     }
     public void OilPaint(View view){
@@ -369,7 +369,8 @@ public class ProcessamentoActivity extends AppCompatActivity {
                         pic.setPixel(i, j, Color.argb(255, foto.getR(i,j), foto.getG(i,j),foto.getB(i,j)));
                     }
                 }
-                ndk.teste(pic);
+
+                ndk.equalizar(pic);
                 foto.setImagem(pic);
                 foto.AtualizarImagem(foto,img);
             }

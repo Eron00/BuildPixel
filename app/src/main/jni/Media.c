@@ -1,8 +1,7 @@
 
 #include <jni.h>
 #include <android/bitmap.h>
-#include <malloc.h>
-#include "zoaFotoNativeLib.h"
+#include "buildPixelNativeLib.h"
 
 /*******************************************************************************************************
 *----[Media]--------------------------------------------------------------------------------------------
@@ -38,7 +37,7 @@ JNIEXPORT void JNICALL Java_com_aplicacao_Modelo_NDK_media(JNIEnv *env, jobject 
 
     AndroidBitmap_lockPixels(env, foto, &localPixels);              //capturando os dados dos pixels e bloqueando acesso ao local da memoria da imagem
     AndroidBitmap_getInfo(env, foto, &dadosImagem);                 //capturando as informações da imagem
-    ARGB pixelTemp[dadosImagem.height][dadosImagem.width];          //struct da imagem
+    struct ARGB pixelTemp[dadosImagem.height][dadosImagem.width];          //struct da imagem
 
     for(linha = 0; linha < dadosImagem.height; linha++){
         pixel = (uint32_t*)localPixels;                            //carregando a próxima linha de pixels da imagem
