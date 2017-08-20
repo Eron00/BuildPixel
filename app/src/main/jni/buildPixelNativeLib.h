@@ -45,10 +45,10 @@ JNIEXPORT void JNICALL Java_com_aplicacao_Modelo_NDK_processamentoUnario(JNIEnv 
         void processamentoUnario(JNIEnv *env, jobject instance, jintArray FotoResultante, jint linha, jint coluna, jstring cNomeProcesso);
 
 JNIEXPORT void JNICALL
-        Java_com_aplicacao_Modelo_NDK_halftone(JNIEnv *env, jobject instance, jintArray FotoResultante, jint linha, jint coluna);
+        Java_com_aplicacao_Modelo_NDK_celulaThreshold(JNIEnv *env, jobject instance,jobject foto);
 
 JNIEXPORT void JNICALL
-        Java_com_aplicacao_Modelo_NDK_errorDifusion(JNIEnv *env, jobject instance, jintArray FotoResultante, jint linha, jint coluna);
+        Java_com_aplicacao_Modelo_NDK_errorDifusion(JNIEnv *env, jobject instance,jobject foto);
 
 JNIEXPORT void JNICALL
         Java_com_aplicacao_Modelo_NDK_floydSteinberg(JNIEnv *env, jobject instance, jintArray FotoResultante, jint linha, jint coluna);
@@ -57,7 +57,7 @@ JNIEXPORT void JNICALL
         Java_com_aplicacao_Modelo_NDK_cartoon(JNIEnv *env, jobject instance, jintArray FotoOriginal,jintArray FotoResultante, jint linha, jint coluna);
 
 JNIEXPORT void JNICALL
-        Java_com_aplicacao_Modelo_NDK_tintaoleo(JNIEnv *env, jobject instance, jintArray FotoResultante, jint linha, jint coluna);
+        Java_com_aplicacao_Modelo_NDK_tintaoleo(JNIEnv *env, jobject instance,jobject foto);
 
 JNIEXPORT void JNICALL
 Java_com_aplicacao_Modelo_NDK_processamentoBinario(JNIEnv *env, jobject instance, jintArray FotoA_,
