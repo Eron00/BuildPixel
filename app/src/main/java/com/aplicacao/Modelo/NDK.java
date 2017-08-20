@@ -8,7 +8,7 @@ import android.graphics.Bitmap;
 public class NDK {
 
     static {
-        System.loadLibrary("zoaFotoNativeLib");
+        System.loadLibrary("buildPixelNativeLib");
     }
 
     public native int convolucao(Bitmap Foto, String NomeMascara, int linhaMascara, int colunaMascara);
@@ -19,7 +19,7 @@ public class NDK {
 
     public native void processamentoUnario(Bitmap Foto, String NomeProcesso);
 
-    public native void halftone(Bitmap foto);
+    public native void celulaThreshold(Bitmap foto);
 
     public native void errorDifusion(Bitmap foto);
 
