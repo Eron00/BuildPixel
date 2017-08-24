@@ -23,7 +23,8 @@ JNIEXPORT void JNICALL Java_com_aplicacao_Modelo_NDK_tintaoleo(JNIEnv *env, jobj
     int **Red = (int **) (malloc(dadosImagem.height * sizeof(int *)));
     int **Blue = (int **) (malloc(dadosImagem.height * sizeof(int *)));
     int **Green = (int **) (malloc(dadosImagem.height * sizeof(int *)));
-    int linha, coluna,i,j,l,green,blue,red;											    //indice genérico
+
+    int linha, coluna,i,j,green,blue,red;											    //indice genérico
 
 
     for (linha = 0; linha < dadosImagem.height; linha++) {
@@ -46,19 +47,12 @@ JNIEXPORT void JNICALL Java_com_aplicacao_Modelo_NDK_tintaoleo(JNIEnv *env, jobj
 
     AndroidBitmap_unlockPixels(env,foto);                         //liberando a memoria alocada para a imagem
 
-
     int levels = 90;
     int currentIntensity = 0;
     int maxIntensity = 0;
     int maxIndex = 0;
     int iLinha = 0;
     int jColuna = 0;
-
-
-    int *intensityBin = (int) (malloc((levels) * sizeof(int)));
-    int *blueBin = (int) (malloc((levels) * sizeof(int)));
-    int *greenBin = (int) (malloc((levels) * sizeof(int)));
-    int *redBin = (int) (malloc((levels) * sizeof(int)));
 
     AndroidBitmap_getInfo(env, foto, &dadosImagem);                 //capturando as informações da imagem
     AndroidBitmap_lockPixels(env, foto, &localPixels);              //capturando os dados dos pixels e bloqueando acesso ao local da memoria da imagem
@@ -68,12 +62,10 @@ JNIEXPORT void JNICALL Java_com_aplicacao_Modelo_NDK_tintaoleo(JNIEnv *env, jobj
         for (jColuna = 0; jColuna < dadosImagem.width; jColuna++) {
             maxIntensity = maxIndex = 0;
 
-            for (l = 0; l < levels; l++) {
-                intensityBin[l] = 0;
-                blueBin[l] = 0;
-                greenBin[l] = 0;
-                redBin[l] = 0;
-            }
+            int intensityBin[] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+            int blueBin[]      = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+            int greenBin[]     = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+            int redBin[]       = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 
 
             for (i = iLinha - linhaMask; i <= iLinha + linhaMask; i++) {
@@ -85,9 +77,9 @@ JNIEXPORT void JNICALL Java_com_aplicacao_Modelo_NDK_tintaoleo(JNIEnv *env, jobj
                         currentIntensity = ( ((Red[i][j] + Green[i][j] + Blue[i][j]) / 3) * levels) / 255;
 
                         intensityBin[currentIntensity]++;
-                        redBin[currentIntensity] +=   Red[i][j];
-                        greenBin[currentIntensity] += Green[i][j];
-                        blueBin[currentIntensity] +=  Blue[i][j];
+                        redBin[currentIntensity]   +=   Red[i][j];
+                        greenBin[currentIntensity] +=   Green[i][j];
+                        blueBin[currentIntensity]  +=   Blue[i][j];
 
                         if (intensityBin[currentIntensity] > maxIntensity) {
                             maxIntensity = intensityBin[currentIntensity];
@@ -128,10 +120,6 @@ JNIEXPORT void JNICALL Java_com_aplicacao_Modelo_NDK_tintaoleo(JNIEnv *env, jobj
     free(Red);
     free(Green);
     free(Blue);
-    free(intensityBin);
-    free(redBin);
-    free(greenBin);
-    free(blueBin);
 }
 
 

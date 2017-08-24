@@ -7,149 +7,98 @@
 //
 #include <jni.h>
 #include <stdlib.h>
+#include <android/bitmap.h>
 #include "buildPixelNativeLib.h"
 
 
+JNIEXPORT void JNICALL Java_com_aplicacao_Modelo_NDK_cartoon(JNIEnv *env, jobject instance, jobject FotoOriginal, jobject FotoResultante) {
 
-JNIEXPORT void JNICALL Java_com_aplicacao_Modelo_NDK_cartoon(JNIEnv *env, jobject instance, jintArray FotoOriginal, jintArray FotoResultante, jint linha, jint coluna) {
+    AndroidBitmapInfo dadosImagemOriginal,dadosImagemResultante;                       //Estrutura nativa dos dados da Imagem(Altura, largura,etc)
+    void *localPixelsOriginal,*localPixelsImagemResultante;                             //ponteiro para referenciar os pixels da Imagem
+    int red,green,blue,redResult,blueResult,greenResult
+    ,linha,coluna,Pixel;
+    uint32_t* pixelFotoOriginal;
+    uint32_t* pixelFotoResultante;
 
-
-
-    int i, j;
-    float **Red = (float **) (malloc(linha * sizeof(float *)));
-    float **Blue = (float **) (malloc(linha * sizeof(float *)));
-    float **Green = (float **) (malloc(linha * sizeof(float *)));
-    float **RedTemp = (float **) (malloc(linha * sizeof(float *)));
-    float **BlueTemp = (float **) (malloc(linha * sizeof(float *)));
-    float **GreenTemp = (float **) (malloc(linha * sizeof(float *)));
-
-    for (i = 0; i < linha; i++) {
-        Red[i] = (float *) (malloc(coluna * sizeof(float)));
-        Blue[i] = (float *) (malloc(coluna * sizeof(float)));
-        Green[i] = (float *) (malloc(coluna * sizeof(float)));
-        RedTemp[i] = (float *) (malloc(coluna * sizeof(float)));
-        BlueTemp[i] = (float *) (malloc(coluna * sizeof(float)));
-        GreenTemp[i] = (float *) (malloc(coluna * sizeof(float)));
-    }
-
-    for (i = 0; i < linha; i++) {
-        for (j = 0; j < coluna; j++) {
-            Red[i][j] = 0;
-            Green[i][j] = 0;
-            Blue[i][j] = 0;
-            RedTemp[i][j] = 0;
-            BlueTemp[i][j] = 0;
-            GreenTemp[i][j] = 0;
-        }
-    }
-
-    jint *valorPixelOriginal;
-    valorPixelOriginal = (*env)->GetIntArrayElements(env, FotoOriginal, NULL);
-    int *pixelOriginal = valorPixelOriginal;
-
-    int indice = 0;
     convolucao(env, instance, FotoResultante, "SobelHorizontal", 3, 3);
-    convolucao(env, instance, FotoResultante, "SobelVertical", 3, 3);
+    convolucao(env, instance, FotoResultante, "SobelVertical"  , 3, 3);
 
-    jint *valorPixelResultante;
-    valorPixelResultante = (*env)->GetIntArrayElements(env, FotoResultante, NULL);
-    int *pixelResultante = valorPixelResultante;
-
+    AndroidBitmap_getInfo(env, FotoResultante, &dadosImagemResultante);                 //capturando as informações da imagem e bloqueando acesso ao local da memoria da imagem
+    AndroidBitmap_lockPixels(env, FotoResultante, &localPixelsImagemResultante);         //capturando os dados dos pixels
 
 
+    for(linha = 0; linha < dadosImagemResultante.height; linha++){
+        pixelFotoResultante = (uint32_t*)localPixelsImagemResultante;                            //carregando a próxima linha de pixels da imagem
+        for(coluna =0; coluna < dadosImagemResultante.width; coluna++){
 
-    for (i = 0; i < linha; i++) {
-        for (j = 0; j < coluna; j++, indice += 3) {
-            Red[i][j] = pixelOriginal[indice];
-            Green[i][j] = pixelOriginal[indice + 1];
-            Blue[i][j] = pixelOriginal[indice + 2];
-        }
-    }
+            //extração dos dados RGB do pixel
+            blueResult  = (int)((pixelFotoResultante[coluna] & 0x00FF0000) >> 16);
+            greenResult = (int)((pixelFotoResultante[coluna] & 0x0000FF00) >> 8);
+            redResult   = (int) (pixelFotoResultante[coluna] & 0x00000FF );
 
-    indice = 0;
-    for (i = 0; i < linha; i++) {
-        for (j = 0; j < coluna; j++, indice += 3) {
-            RedTemp[i][j] = pixelResultante[indice];
-            GreenTemp[i][j] = pixelResultante[indice + 1];
-            BlueTemp[i][j] = pixelResultante[indice + 2];
-        }
-    }
 
-    for (i = 0; i < linha; i++) {
-        for (j = 0; j < coluna; j++) {
-            int Pixel = 0;
-            //cinzamedia
-            Pixel = (int)(RedTemp[i][j] + GreenTemp[i][j] + BlueTemp[i][j]) / 3;
-            RedTemp[i][j] = Pixel ;
-            GreenTemp[i][j] = Pixel;
-            BlueTemp[i][j] = Pixel;
-        }
-    }
+            Pixel = (blueResult + greenResult + redResult )/3;                            //cinza media
+            Pixel = 255 - Pixel;                                        //inverter
 
-    for (i = 0; i < linha; i++) {
-        for (j = 0; j < coluna; j++) {
-            //inverter
-            int PixelR = 0;
-            int PixelG = 0;
-            int PixelB = 0;
-            PixelR = (int) (255 - RedTemp[i][j]);
-            PixelG = (int) (255 - GreenTemp[i][j]);
-            PixelB = (int) (255 - BlueTemp[i][j]);
-            RedTemp[i][j] = PixelR;
-            GreenTemp[i][j] = PixelG;
-            BlueTemp[i][j] = PixelB;
-        }
-    }
-
-    for (i = 0; i < linha; i++) {
-        for (j = 0; j < coluna; j++) {
             //threshold
-            if(RedTemp[i][j] > 200)
-            {
-                RedTemp[i][j] = 255;
-                GreenTemp[i][j] = 255;
-                BlueTemp[i][j] = 255;
-            }
+            if(Pixel > 200)
+               Pixel = 255;
             else
-            {
-                RedTemp[i][j] = 0;
-                GreenTemp[i][j] = 0;
-                BlueTemp[i][j] = 0;
-            }
+                Pixel = 0;
+
+            pixelFotoResultante[coluna] = (uint32_t) (((Pixel << 16) & 0x00FF0000) |
+                                                      ((Pixel << 8)  & 0x0000FF00) |
+                                                       (Pixel        & 0x000000FF));
         }
+
+        localPixelsImagemResultante = (char*)localPixelsImagemResultante + dadosImagemResultante.stride;    //pulando para a proxima linha da imagem
     }
+    AndroidBitmap_unlockPixels(env,FotoResultante);                         //liberando a memoria alocada para a imagem
 
 
+    AndroidBitmap_getInfo(env, FotoResultante, &dadosImagemResultante);                 //capturando as informações da imagem e bloqueando acesso ao local da memoria da imagem
+    AndroidBitmap_lockPixels(env, FotoResultante, &localPixelsImagemResultante);         //capturando os dados dos pixels
 
-    indice = 0;
-    for (i = 0; i < linha; i++) {
-        for (j = 0; j < coluna; j++, indice += 3) {
+    AndroidBitmap_getInfo(env, FotoOriginal, &dadosImagemOriginal);                 //capturando as informações da imagem e bloqueando acesso ao local da memoria da imagem
+    AndroidBitmap_lockPixels(env, FotoOriginal, &localPixelsOriginal);         //capturando os dados dos pixels
 
-            if (RedTemp[i][j] > 10)  {
-                RedTemp[i][j] = (int) Red[i][j];
-            }
-            if (GreenTemp[i][j] > 10)  {
-                GreenTemp[i][j] = (int) Green[i][j];
-            }
-            if (BlueTemp[i][j] > 10)  {
-                BlueTemp[i][j] = (int) Blue[i][j];
-            }
 
-            pixelOriginal[indice] = (int) RedTemp[i][j];
-            pixelOriginal[indice + 1] =  (int) GreenTemp[i][j];
-            pixelOriginal[indice + 2] =  (int) BlueTemp[i][j];
+    for(linha = 0; linha < dadosImagemResultante.height; linha++){
+        pixelFotoResultante = (uint32_t*)localPixelsImagemResultante;                            //carregando a próxima linha de pixels da imagem
+        pixelFotoOriginal = (uint32_t*)localPixelsOriginal;                            //carregando a próxima linha de pixels da imagem
+
+        for(coluna =0; coluna < dadosImagemResultante.width; coluna++){
+
+            //extração dos dados RGB do pixel
+            blueResult  = (int)((pixelFotoResultante[coluna] & 0x00FF0000) >> 16);
+            greenResult = (int)((pixelFotoResultante[coluna] & 0x0000FF00) >> 8);
+            redResult   = (int) (pixelFotoResultante[coluna] & 0x00000FF );
+
+
+            blue  = (int)((pixelFotoOriginal[coluna] & 0x00FF0000) >> 16);
+            green = (int)((pixelFotoOriginal[coluna] & 0x0000FF00) >> 8);
+            red   = (int) (pixelFotoOriginal[coluna] & 0x00000FF );
+
+            if (redResult > 10)
+                redResult = red;
+
+            if (greenResult > 10)
+               greenResult = green;
+
+            if (blueResult > 10)
+               blueResult  = blue;
+
+
+            pixelFotoOriginal[coluna] = (uint32_t) (((blueResult  << 16)& 0x00FF0000) |
+                                                    ((greenResult << 8) & 0x0000FF00) |
+                                                     (redResult         & 0x000000FF));
         }
+
+        localPixelsImagemResultante = (char*)localPixelsImagemResultante + dadosImagemResultante.stride;    //pulando para a proxima linha da imagem
+        localPixelsOriginal = (char*)localPixelsOriginal + dadosImagemOriginal.stride;    //pulando para a proxima linha da imagem
     }
-    (*env)->ReleaseIntArrayElements(env, FotoResultante, valorPixelResultante, 0);
-    (*env)->ReleaseIntArrayElements(env, FotoOriginal, valorPixelOriginal, 0);
-
-
-    free(Red);
-    free(Green);
-    free(Blue);
-    free(RedTemp);
-    free(BlueTemp);
-    free(GreenTemp);
+    AndroidBitmap_unlockPixels(env,FotoResultante);                         //liberando a memoria alocada para a imagem
+    AndroidBitmap_unlockPixels(env,FotoOriginal);                         //liberando a memoria alocada para a imagem
 
 }
 
