@@ -1,5 +1,7 @@
 package com.aplicacao.Processamento.ProcessamentoBinario;
 
+import android.graphics.Bitmap;
+
 import com.aplicacao.Interfaces.Operacoes;
 import com.aplicacao.Interfaces.OperacoesBinarias;
 import com.aplicacao.Modelo.NDK;
@@ -15,17 +17,13 @@ public class Cartoon implements OperacoesBinarias {
     }
 
     @Override
-    public void CalcularPixel(int[] FotoA, int[] FotoB, int linha, int coluna, String Processo) {
+    public void CalcularPixel(Bitmap FotoA, Bitmap FotoB, String Processo) {
         if(Processo.equals("Cartoon")){
             NDK ndk = new NDK();
-          //  ndk.tintaoleo(FotoA);
-       //     ndk.convolucao(FotoB, "SobelHorizontal", linha,coluna,3,3);
-            ndk.cartoon(FotoA,FotoB, linha, coluna);
-
+            ndk.cartoon(FotoA,FotoB);
         }
         else{
-            EloCadeia.CalcularPixel(FotoA, FotoB, linha, coluna, Processo);
-
+            EloCadeia.CalcularPixel(FotoA, FotoB, Processo);
         }
     }
 }
