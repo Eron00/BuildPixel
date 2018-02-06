@@ -3,241 +3,172 @@
 //
 #include <jni.h>
 #include <stdlib.h>
+#include <android/bitmap.h>
 
-JNIEXPORT void JNICALL Java_com_aplicacao_Modelo_NDK_processamentoBinario(JNIEnv *env, jobject instance, jintArray FotoA_, jintArray FotoB_, jint linha, jint coluna,jstring cNomeProcesso){
+JNIEXPORT void JNICALL Java_com_aplicacao_Modelo_NDK_processamentoBinario(JNIEnv *env, jobject instance, jobject FotoA, jobject FotoB, jstring cNomeProcesso){
+
+
+    AndroidBitmapInfo dadosImagemFotoA,dadosImagemFotoB;                                  //Estrutura nativa dos dados da Imagem(Altura, largura,etc)
+    void *localPixelsFotoA,*localPixelsFotoB;                                                                    //ponteiro para referenciar os pixels da Imagem
+    int coluna, linha;
+    int redA,greenA,blueA;
+    int redB,greenB,blueB;
+    uint32_t* pixelFotoA;
+    uint32_t* pixelFotoB;
 
     int i, j;
 
-    float **RedA =       (int **) (malloc(linha * sizeof(int *)));
-    float **BlueA =      (int **) (malloc(linha * sizeof(int *)));
-    float **GreenA =     (int **) (malloc(linha * sizeof(int *)));
-    float **RedB =       (int **) (malloc(linha * sizeof(int *)));
-    float **BlueB =      (int **) (malloc(linha * sizeof(int *)));
-    float **GreenB =     (int **) (malloc(linha * sizeof(int *)));
-    float **resultadoR = (int **) (malloc(linha * sizeof(int *)));
-    float **resultadoG = (int **) (malloc(linha * sizeof(int *)));
-    float **resultadoB = (int **) (malloc(linha * sizeof(int *)));
+    int **resultadoR = (int **) (malloc(dadosImagemFotoA.height * sizeof(int *)));
+    int **resultadoG = (int **) (malloc(dadosImagemFotoA.height * sizeof(int *)));
+    int **resultadoB = (int **) (malloc(dadosImagemFotoA.height * sizeof(int *)));
 
     for (i = 0; i < linha; i++) {
-        RedA[i] =        (int *) (malloc(coluna * sizeof(int)));
-        BlueA[i] =       (int *) (malloc(coluna * sizeof(int)));
-        GreenA[i] =      (int *) (malloc(coluna * sizeof(int)));
-        RedB[i] =        (int *) (malloc(coluna * sizeof(int)));
-        BlueB[i] =       (int *) (malloc(coluna * sizeof(int)));
-        GreenB[i] =      (int *) (malloc(coluna * sizeof(int)));
-        resultadoR[i] =  (int *) (malloc(coluna * sizeof(int)));
-        resultadoG[i] =  (int *) (malloc(coluna * sizeof(int)));
-        resultadoB[i] =  (int *) (malloc(coluna * sizeof(int)));
-    }
-
-
-    for (i = 0; i < linha; i++) {
-        for (j = 0; j < coluna; j++) {
-            RedA[i][j]       = 0;
-            GreenA[i][j]     = 0;
-            BlueA[i][j]      = 0;
-            RedB[i][j]       = 0;
-            GreenB[i][j]     = 0;
-            BlueB[i][j]      = 0;
-            resultadoR[i][j] = 0;
-            resultadoG[i][j] = 0;
-            resultadoB[i][j] = 0;
-        }
-    }
-
-    jint *valorPixelA;
-    valorPixelA = (*env)->GetIntArrayElements(env, FotoA_, NULL);
-    int *pixelA = valorPixelA;
-
-    jint *valorPixelB;
-    valorPixelB = (*env)->GetIntArrayElements(env, FotoB_, NULL);
-    int *pixelB = valorPixelB;
-
-
-    int indice = 0;
-    for (i = 0; i < linha; i++) {
-        for (j = 0; j < coluna; j++, indice += 3) {
-            RedA[i][j]   = pixelA[indice];
-            GreenA[i][j] = pixelA[indice + 1];
-            BlueA[i][j]  = pixelA[indice + 2];
-
-            RedB[i][j]   = pixelB[indice];
-            GreenB[i][j] = pixelB[indice + 1];
-            BlueB[i][j]  = pixelB[indice + 2];
-        }
+        resultadoR[i] =  (int *) (malloc(dadosImagemFotoA.width * sizeof(int)));
+        resultadoG[i] =  (int *) (malloc(dadosImagemFotoA.width * sizeof(int)));
+        resultadoB[i] =  (int *) (malloc(dadosImagemFotoA.width * sizeof(int)));
     }
 
     const char *cNomeProcessamento =  (*env)->GetStringUTFChars(env, cNomeProcesso, 0);
+
     int  maiorR, maiorG, maiorB;
     maiorR = maiorG = maiorB = (int) INT64_MIN;
     int  menorR, menorG, menorB;
     menorR = menorG = menorB = (int) INT64_MAX;
 
-    for ( i = 0; i < linha; i++) {
-        for ( j = 0; j < coluna; j++) {
+
+    AndroidBitmap_getInfo(env, FotoA, &dadosImagemFotoA);                 //capturando as informações da imagem e bloqueando acesso ao local da memoria da imagem
+    AndroidBitmap_lockPixels(env, FotoA, &localPixelsFotoA);              //capturando os dados dos pixels
+
+    AndroidBitmap_getInfo(env, FotoB, &dadosImagemFotoB);                 //capturando as informações da imagem e bloqueando acesso ao local da memoria da imagem
+    AndroidBitmap_lockPixels(env, FotoB, &localPixelsFotoB);              //capturando os dados dos pixels
+
+
+
+    for(linha = 0; linha < dadosImagemFotoA.height; linha++){
+        pixelFotoA = (uint32_t*)localPixelsFotoA;                            //carregando a próxima linha de pixels da imagem
+        pixelFotoB = (uint32_t*)localPixelsFotoB;
+
+
+        for(coluna =0; coluna < dadosImagemFotoA.width; coluna++){
+
+            //extração dos dados RGB do pixel
+            blueA  = (int)((pixelFotoA[coluna] & 0x00FF0000) >> 16);
+            greenA = (int)((pixelFotoA[coluna] & 0x0000FF00) >> 8);
+            redA   = (int) (pixelFotoA[coluna] & 0x00000FF );
+
+
+            //extração dos dados RGB do pixel
+            blueB  = (int)((pixelFotoB[coluna] & 0x00FF0000) >> 16);
+            greenB = (int)((pixelFotoB[coluna] & 0x0000FF00) >> 8);
+            redB   = (int) (pixelFotoB[coluna] & 0x00000FF );
+
+
 
             if (strcmp(cNomeProcessamento, "TruncamentoSoma") == 0 ) {
 
-                resultadoR[i][j] = RedA[i][j]   + (RedB[i][j] + 100);
-                resultadoG[i][j] = GreenA[i][j] + (GreenB[i][j] + 100);
-                resultadoB[i][j] = BlueA[i][j]  + (BlueB[i][j] + 100);
+                resultadoR[linha][coluna] = redA   + (redB + 100);
+                resultadoG[linha][coluna] = greenA + (greenB + 100);
+                resultadoB[linha][coluna] = blueA  + (blueB + 100);
             }
             if (strcmp(cNomeProcessamento, "NormalizacaoSoma") == 0 ) {
 
-                resultadoR[i][j] = RedA[i][j]   + (RedB[i][j] + 200);
-                resultadoG[i][j] = GreenA[i][j] + (GreenB[i][j] + 200);
-                resultadoB[i][j] = BlueA[i][j]  + (BlueB[i][j] + 200);
+                resultadoR[linha][coluna] = redA   + (redB + 200);
+                resultadoG[linha][coluna] = greenA + (greenB + 200);
+                resultadoB[linha][coluna] = blueA  + (blueB + 200);
             }
             if (strcmp(cNomeProcessamento, "TruncamentoSubtracao") == 0 ) {
 
-                resultadoR[i][j] = RedA[i][j]   - BlueB[i][j];
-                resultadoG[i][j] = GreenA[i][j] - RedB[i][j];
-                resultadoB[i][j] = BlueA[i][j]  - GreenB[i][j];
+                resultadoR[linha][coluna] = redA   - blueB;
+                resultadoG[linha][coluna] = greenA - redB;
+                resultadoB[linha][coluna] = blueA  - greenB;
             }
             if (strcmp(cNomeProcessamento, "NormalizacaoSubtracao") == 0 ) {
 
-                resultadoR[i][j] = RedA[i][j]   - 200;
-                resultadoG[i][j] = GreenA[i][j] - 200;
-                resultadoB[i][j] = BlueA[i][j]  - 200;
+                resultadoR[linha][coluna] = redA   - 200;
+                resultadoG[linha][coluna] = greenA - 200;
+                resultadoB[linha][coluna] = blueA  - 200;
             }
             if (strcmp(cNomeProcessamento, "TruncamentoMultiplicacao") == 0 ) {
 
-                resultadoR[i][j] = RedA[i][j]   * (RedB[i][j]  * 200) ;
-                resultadoG[i][j] = GreenA[i][j] * (GreenB[i][j]* 200);
-                resultadoB[i][j] = BlueA[i][j]  * (BlueB[i][j] * 200);
+                resultadoR[linha][coluna] = redA   * (redB  * 200);
+                resultadoG[linha][coluna] = greenA * (greenB* 200);
+                resultadoB[linha][coluna] = blueA  * (blueB * 200);
             }
             if (strcmp(cNomeProcessamento, "NormalizacaoMultiplicacao") == 0) {
 
-                resultadoR[i][j] = RedA[i][j]   * (RedB[i][j]  * RedB[i][j]) ;
-                resultadoG[i][j] = GreenA[i][j] * (GreenB[i][j]* GreenB[i][j]);
-                resultadoB[i][j] = BlueA[i][j]  * (BlueB[i][j] * BlueB[i][j]);
+                resultadoR[linha][coluna] = redA   * (redB   * redB);
+                resultadoG[linha][coluna] = greenA * (greenB * greenB);
+                resultadoB[linha][coluna] = blueA  * (blueB  * blueB);
             }
-
 
             if (strcmp(cNomeProcessamento, "TruncamentoDivisao") == 0 ) {
 
-                resultadoR[i][j] = RedA[i][j]   / 50 ;
-                resultadoG[i][j] = GreenA[i][j] / 50;
-                resultadoB[i][j] = BlueA[i][j]  / 50;
+                resultadoR[linha][coluna] = redA   / 50;
+                resultadoG[linha][coluna] = greenA / 50;
+                resultadoB[linha][coluna] = blueA  / 50;
             }
             if (strcmp(cNomeProcessamento, "NormalizacaoDivisao") == 0 ) {
 
-                resultadoR[i][j] = RedA[i][j]   / 10 ;
-                resultadoG[i][j] = GreenA[i][j] / 10;
-                resultadoB[i][j] = BlueA[i][j]  / 10;
+                resultadoR[linha][coluna] = redA   / 10;
+                resultadoG[linha][coluna] = greenA / 10;
+                resultadoB[linha][coluna] = blueA  / 10;
             }
             if (strcmp(cNomeProcessamento, "TruncamentoAnd") == 0 ) {
 
-                int PixelRa = 0, PixelRb = 0;
-                int PixelGa = 0, PixelGb = 0;
-                int PixelBa = 0, PixelBb = 0;
-
-                PixelRa = (int) RedA[i][j];
-                PixelGa = (int) GreenA[i][j];
-                PixelBa = (int) BlueA[i][j];
-                PixelRb = (int) RedB[i][j];
-                PixelGb = (int) GreenB[i][j];
-                PixelBb = (int) BlueB[i][j];
-
-                resultadoR[i][j] = PixelRa & (PixelRb + 100);
-                resultadoG[i][j] = PixelGa & (PixelGb + 100);
-                resultadoB[i][j] = PixelBa & (PixelBb + 100);
+                resultadoR[linha][coluna] = redA   & (redB   + 100);
+                resultadoG[linha][coluna] = greenA & (greenB + 100);
+                resultadoB[linha][coluna] = blueA  & (blueB  + 100);
             }
             if (strcmp(cNomeProcessamento, "NormalizacaoAnd") == 0){
 
-                int PixelRa = 0, PixelRb = 0;
-                int PixelGa = 0, PixelGb = 0;
-                int PixelBa = 0, PixelBb = 0;
+                resultadoR[linha][coluna] = redA   & redB;
+                resultadoG[linha][coluna] = greenA & greenB;
+                resultadoB[linha][coluna] = blueA  & blueB;
 
-                PixelRa = (int) RedA[i][j];
-                PixelGa = (int) GreenA[i][j];
-                PixelBa = (int) BlueA[i][j];
-                PixelRb = (int) RedB[i][j];
-                PixelGb = (int) GreenB[i][j];
-                PixelBb = (int) BlueB[i][j];
-
-                resultadoR[i][j] = PixelRa & PixelRb;
-                resultadoG[i][j] = PixelGa & PixelGb;
-                resultadoB[i][j] = PixelBa & PixelBb;
             }
             if (strcmp(cNomeProcessamento, "TruncamentoOr") == 0) {
 
-                int PixelRa = 0, PixelRb = 0;
-                int PixelGa = 0, PixelGb = 0;
-                int PixelBa = 0, PixelBb = 0;
-
-                PixelRa = (int) RedA[i][j];
-                PixelGa = (int) GreenA[i][j];
-                PixelBa = (int) BlueA[i][j];
-                PixelRb = (int) RedB[i][j];
-                PixelGb = (int) GreenB[i][j];
-                PixelBb = (int) BlueB[i][j];
-
-                resultadoR[i][j] = PixelRa |  PixelGb;
-                resultadoG[i][j] = PixelGa |  PixelBb;
-                resultadoB[i][j] = PixelBa |  PixelRb;
+                resultadoR[linha][coluna] = redA   | redB;
+                resultadoG[linha][coluna] = greenA | greenB;
+                resultadoB[linha][coluna] = blueA  | blueB;
 
             }
             if (strcmp(cNomeProcessamento, "NormalizacaoOr") == 0 ) {
 
-                int PixelRa = 0, PixelRb = 0;
-                int PixelGa = 0, PixelGb = 0;
-                int PixelBa = 0, PixelBb = 0;
-
-                PixelRa = (int) RedA[i][j];
-                PixelGa = (int) GreenA[i][j];
-                PixelBa = (int) BlueA[i][j];
-                PixelRb = (int) RedB[i][j];
-                PixelGb = (int) GreenB[i][j];
-                PixelBb = (int) BlueB[i][j];
-
-                resultadoR[i][j] = PixelRa | (PixelRb + 150);
-                resultadoG[i][j] = PixelGa | (PixelGb + 150);
-                resultadoB[i][j] = PixelBa | (PixelBb + 150);
+                resultadoR[linha][coluna] = redA   | (redB   + 150);
+                resultadoG[linha][coluna] = greenA | (greenB + 150);
+                resultadoB[linha][coluna] = blueA  | (blueB  + 150);
             }
             if (strcmp(cNomeProcessamento, "TruncamentoXor") == 0 ) {
 
-                int PixelRa = 0;
-                int PixelGa = 0;
-                int PixelBa = 0;
-
-                PixelRa = (int) RedA[i][j];
-                PixelGa = (int) GreenA[i][j];
-                PixelBa = (int) BlueA[i][j];
-
-                resultadoR[i][j] = PixelRa ^ 127;
-                resultadoG[i][j] = PixelGa ^ 127;
-                resultadoB[i][j] = PixelBa ^ 127;
+                resultadoR[linha][coluna] = redA   ^ 127;
+                resultadoG[linha][coluna] = greenA ^ 127;
+                resultadoB[linha][coluna] = blueA  ^ 127;
             }
 
             if (strcmp(cNomeProcessamento, "NormalizacaoXor") == 0) {
 
-                int PixelRa = 0, PixelRb = 0;
-                int PixelGa = 0, PixelGb = 0;
-                int PixelBa = 0, PixelBb = 0;
-
-                PixelRa = (int) RedA[i][j];
-                PixelGa = (int) GreenA[i][j];
-                PixelBa = (int) BlueA[i][j];
-                PixelRb = (int) RedB[i][j];
-                PixelGb = (int) GreenB[i][j];
-                PixelBb = (int) BlueB[i][j];
-
-                resultadoR[i][j] = PixelRa ^ (127 + PixelRb);
-                resultadoG[i][j] = PixelGa ^ (127 + PixelGb);
-                resultadoB[i][j] = PixelBa ^ (127 + PixelBb);
+                resultadoR[linha][coluna] = redA   ^ (127 + redB);
+                resultadoG[linha][coluna] = greenA ^ (127 + greenB);
+                resultadoB[linha][coluna] = blueA  ^ (127 + blueB);
             }
 
+            if (resultadoR[linha][coluna] > maiorR) maiorR = resultadoR[linha][coluna];
+            if (resultadoG[linha][coluna] > maiorG) maiorG = resultadoG[linha][coluna];
+            if (resultadoB[linha][coluna] > maiorB) maiorB = resultadoB[linha][coluna];
 
-                if (resultadoR[i][j] > maiorR) maiorR = (int) resultadoR[i][j];
-                if (resultadoG[i][j] > maiorG) maiorG = (int) resultadoG[i][j];
-                if (resultadoB[i][j] > maiorB) maiorB = (int) resultadoB[i][j];
+            if (resultadoR[linha][coluna] < menorR) menorR = resultadoR[linha][coluna];
+            if (resultadoG[linha][coluna] < menorG) menorG = resultadoG[linha][coluna];
+            if (resultadoB[linha][coluna] < menorB) menorB = resultadoB[linha][coluna];
 
-                if (resultadoR[i][j] < menorR) menorR = (int) resultadoR[i][j];
-                if (resultadoG[i][j] < menorG) menorG = (int) resultadoG[i][j];
-                if (resultadoB[i][j] < menorB) menorB = (int) resultadoB[i][j];
         }
+
+        localPixelsFotoA = (char*)localPixelsFotoA + dadosImagemFotoA.stride;    //pulando para a proxima linha da imagem
+        localPixelsFotoB = (char*)localPixelsFotoB + dadosImagemFotoB.stride;    //pulando para a proxima linha da imagem
     }
+    AndroidBitmap_unlockPixels(env,FotoA);                         //liberando a memoria alocada para a imagem
+    AndroidBitmap_unlockPixels(env,FotoB);                         //liberando a memoria alocada para a imagem
+
 
     char substring[5];
     memcpy(cNomeProcessamento, &substring[5], 5 );
@@ -267,30 +198,23 @@ JNIEXPORT void JNICALL Java_com_aplicacao_Modelo_NDK_processamentoBinario(JNIEnv
         }
 
 
-    indice = 0;
-    for (i = 0; i < linha; i++) {
-        for (j = 0; j < coluna; j++, indice += 3) {
-            pixelA[indice] =     (int) resultadoR[i][j];
-            pixelA[indice + 1] = (int) resultadoG[i][j];
-            pixelA[indice + 2] = (int) resultadoB[i][j];
+    AndroidBitmap_getInfo(env, FotoA, &dadosImagemFotoA);                 //capturando as informações da imagem e bloqueando acesso ao local da memoria da imagem
+    AndroidBitmap_lockPixels(env, FotoA, &localPixelsFotoA);              //capturando os dados dos pixels
 
-            pixelB[indice] =     (int) resultadoR[i][j];
-            pixelB[indice + 1] = (int) resultadoG[i][j];
-            pixelB[indice + 2] = (int) resultadoB[i][j];
+
+    for(linha = 0; linha < dadosImagemFotoA.height; linha++){
+        pixelFotoA = (uint32_t*)localPixelsFotoA;                            //carregando a próxima linha de pixels da imagem
+        for(coluna =0; coluna < dadosImagemFotoA.width; coluna++){
+
+            pixelFotoA[coluna] = (uint32_t)  (((resultadoR[linha][coluna] << 16)& 0x00FF0000) |
+                                              ((resultadoG[linha][coluna] << 8) & 0x0000FF00) |
+                                               (resultadoB[linha][coluna]       & 0x000000FF));
         }
-    }
-    (*env)->ReleaseIntArrayElements(env, FotoA_, valorPixelA, 0);
-    (*env)->ReleaseIntArrayElements(env, FotoB_, valorPixelB, 0);
 
-    free(RedA);
-    free(GreenA);
-    free(BlueA);
-    free(RedB);
-    free(GreenB);
-    free(BlueB);
-    free(resultadoR);
-    free(resultadoG);
-    free(resultadoB);
+        localPixelsFotoA = (char*)localPixelsFotoA + dadosImagemFotoA.stride;    //pulando para a proxima linha da imagem
+    }
+    AndroidBitmap_unlockPixels(env,FotoA);                         //liberando a memoria alocada para a imagem
+
 
 }
 
