@@ -13,13 +13,16 @@
       <w>aplicacao</w>
       <w>após</w>
       <w>armazenar</w>
+      <w>arquivo</w>
       <w>atribui</w>
       <w>atual</w>
       <w>azul</w>
       <w>binaria</w>
+      <w>binárias</w>
       <w>bloqueando</w>
       <w>brilho</w>
       <w>cada</w>
+      <w>cadeia</w>
       <w>calculado</w>
       <w>calcular</w>
       <w>calculo</w>
@@ -29,16 +32,21 @@
       <w>celula</w>
       <w>ciano</w>
       <w>cinza</w>
+      <w>classe</w>
       <w>coluna</w>
       <w>colunas</w>
       <w>começar</w>
+      <w>compartilhar</w>
       <w>convolucao</w>
       <w>coordenada</w>
       <w>criando</w>
+      <w>criar</w>
       <w>cálculo</w>
       <w>dados</w>
       <w>destacar</w>
+      <w>diretorio</w>
       <w>divisao</w>
+      <w>duas</w>
       <w>encontrar</w>
       <w>entre</w>
       <w>enviar</w>
@@ -46,11 +54,13 @@
       <w>eron</w>
       <w>erro</w>
       <w>escala</w>
+      <w>escolha</w>
       <w>estrutura</w>
       <w>estruturais</w>
       <w>está</w>
       <w>executar</w>
       <w>extração</w>
+      <w>ferramentas</w>
       <w>filtro</w>
       <w>foto</w>
       <w>frei</w>
@@ -58,7 +68,11 @@
       <w>genérico</w>
       <w>gerado</w>
       <w>histograma</w>
+      <w>hmmss</w>
       <w>imagem</w>
+      <w>imagens</w>
+      <w>implementação</w>
+      <w>incluido</w>
       <w>indice</w>
       <w>informações</w>
       <w>inicialização</w>
@@ -78,10 +92,14 @@
       <w>média</w>
       <w>nativa</w>
       <w>normalizacao</w>
+      <w>normalização</w>
       <w>novo</w>
       <w>novos</w>
       <w>ocorrência</w>
+      <w>operacao</w>
       <w>operacoes</w>
+      <w>operadores</w>
+      <w>operações</w>
       <w>ponteiro</w>
       <w>posicionamento</w>
       <w>posição</w>
@@ -105,6 +123,8 @@
       <w>regerar</w>
       <w>relevo</w>
       <w>remontando</w>
+      <w>removido</w>
+      <w>resultado</w>
       <w>resultante</w>
       <w>será</w>
       <w>sobel</w>
@@ -112,6 +132,7 @@
       <w>somatoria</w>
       <w>somente</w>
       <w>steinberg</w>
+      <w>substituir</w>
       <w>subtracao</w>
       <w>tarefa</w>
       <w>teste</w>
@@ -119,12 +140,15 @@
       <w>unaria</w>
       <w>unarias</w>
       <w>unario</w>
+      <w>unárias</w>
+      <w>unários</w>
       <w>valores</w>
       <w>variavel</w>
       <w>verificar</w>
       <w>vermelho</w>
       <w>vetor</w>
       <w>vetores</w>
+      <w>área</w>
     </words>
   </dictionary>
 </component>
