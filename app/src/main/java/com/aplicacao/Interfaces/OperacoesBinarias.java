@@ -1,5 +1,7 @@
 package com.aplicacao.Interfaces;
 
+import android.graphics.Bitmap;
+
 /**
  * Created by Eron on 13/12/2015.
  *
@@ -8,5 +10,5 @@ package com.aplicacao.Interfaces;
  */
 public interface OperacoesBinarias extends  Operacoes {
 
-    void CalcularPixel(int[] FotoA, int[] FotoB, int linha, int coluna, String Processo);
+    void CalcularPixel(Bitmap fotoA, Bitmap fotoB, String Processo);
 }
