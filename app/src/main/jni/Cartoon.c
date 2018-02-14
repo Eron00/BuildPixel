@@ -20,12 +20,54 @@ JNIEXPORT void JNICALL Java_com_aplicacao_Modelo_NDK_cartoon(JNIEnv *env, jobjec
     uint32_t* pixelFotoOriginal;
     uint32_t* pixelFotoResultante;
 
-    convolucao(env, instance, FotoResultante, "SobelHorizontal", 3, 3);
-    convolucao(env, instance, FotoResultante, "SobelVertical"  , 3, 3);
+    AndroidBitmap_getInfo(env, FotoResultante, &dadosImagemResultante);                 //capturando as informações da imagem e bloqueando acesso ao local da memoria da imagem
+    AndroidBitmap_lockPixels(env, FotoResultante, &localPixelsImagemResultante);         //capturando os dados dos pixels
+
+    int **Red = (int **) (malloc(dadosImagemResultante.height * sizeof(int *)));
+    int **Blue = (int **) (malloc(dadosImagemResultante.height * sizeof(int *)));
+    int **Green = (int **) (malloc(dadosImagemResultante.height * sizeof(int *)));
+
+    for (linha = 0; linha < dadosImagemResultante.height; linha++) {
+        Red[linha] = (int *) (malloc(dadosImagemResultante.width * sizeof(int)));
+        Blue[linha] = (int *) (malloc(dadosImagemResultante.width * sizeof(int)));
+        Green[linha] = (int *) (malloc(dadosImagemResultante.width * sizeof(int)));
+
+        for (coluna = 0; coluna < dadosImagemResultante.width; coluna++) {
+            Red  [linha][coluna] = 0;
+            Green[linha][coluna] = 0;
+            Blue [linha][coluna] = 0;
+        }
+    }
+
+    AndroidBitmap_unlockPixels(env,FotoResultante);                         //liberando a memoria alocada para a imagem
+    tintaoleo(env,instance, FotoOriginal);
+
+    AndroidBitmap_getInfo(env, FotoOriginal, &dadosImagemOriginal);                 //capturando as informações da imagem e bloqueando acesso ao local da memoria da imagem
+    AndroidBitmap_lockPixels(env, FotoOriginal, &localPixelsOriginal);         //capturando os dados dos pixels
+
+    for(linha = 0; linha < dadosImagemOriginal.height; linha++){
+        pixelFotoOriginal = (uint32_t*)localPixelsOriginal;                            //carregando a próxima linha de pixels da imagem
+        for(coluna =0; coluna < dadosImagemOriginal.width; coluna++){
+
+            //extração dos dados RGB do pixel
+            blue = (int) ((pixelFotoOriginal[coluna] & 0x00FF0000) >> 16);    //para extração dos bytes. Somente o valor do canal azul
+            green  = (int) ((pixelFotoOriginal[coluna] & 0x0000FF00) >> 8);     //para extração dos bytes. Somente o valor do canal verde
+            red  = (int)  (pixelFotoOriginal[coluna] & 0x00000FF );           //para extração dos bytes. Somente o valor do canal vermelho
+
+            Red  [linha][coluna] = red;
+            Green[linha][coluna] = green;
+            Blue [linha][coluna] = blue;
+        }
+        localPixelsOriginal = (char*)localPixelsOriginal + dadosImagemOriginal.stride;    //pulando para a proxima linha da imagem
+    }
+
+    AndroidBitmap_unlockPixels(env,FotoOriginal);                         //liberando a memoria alocada para a imagem
 
     AndroidBitmap_getInfo(env, FotoResultante, &dadosImagemResultante);                 //capturando as informações da imagem e bloqueando acesso ao local da memoria da imagem
     AndroidBitmap_lockPixels(env, FotoResultante, &localPixelsImagemResultante);         //capturando os dados dos pixels
 
+    convolucao(env, instance, FotoResultante, "SobelHorizontal", 3, 3);
+    convolucao(env, instance, FotoResultante, "SobelVertical"  , 3, 3);
 
     for(linha = 0; linha < dadosImagemResultante.height; linha++){
         pixelFotoResultante = (uint32_t*)localPixelsImagemResultante;                            //carregando a próxima linha de pixels da imagem
@@ -46,81 +88,25 @@ JNIEXPORT void JNICALL Java_com_aplicacao_Modelo_NDK_cartoon(JNIEnv *env, jobjec
             else
                 Pixel = 0;
 
-            pixelFotoResultante[coluna] = (uint32_t) (((Pixel << 16) & 0x00FF0000) |
-                                                      ((Pixel << 8)  & 0x0000FF00) |
-                                                       (Pixel        & 0x000000FF));
-        }
-
-        localPixelsImagemResultante = (char*)localPixelsImagemResultante + dadosImagemResultante.stride;    //pulando para a proxima linha da imagem
-    }
-    AndroidBitmap_unlockPixels(env,FotoResultante);                         //liberando a memoria alocada para a imagem
-
-
-    AndroidBitmap_getInfo(env, FotoResultante, &dadosImagemResultante);                 //capturando as informações da imagem e bloqueando acesso ao local da memoria da imagem
-    AndroidBitmap_lockPixels(env, FotoResultante, &localPixelsImagemResultante);         //capturando os dados dos pixels
-
-    AndroidBitmap_getInfo(env, FotoOriginal, &dadosImagemOriginal);                 //capturando as informações da imagem e bloqueando acesso ao local da memoria da imagem
-    AndroidBitmap_lockPixels(env, FotoOriginal, &localPixelsOriginal);         //capturando os dados dos pixels
-
-
-    for(linha = 0; linha < dadosImagemResultante.height; linha++){
-        pixelFotoResultante = (uint32_t*)localPixelsImagemResultante;                            //carregando a próxima linha de pixels da imagem
-        pixelFotoOriginal = (uint32_t*)localPixelsOriginal;                            //carregando a próxima linha de pixels da imagem
-
-        for(coluna =0; coluna < dadosImagemResultante.width; coluna++){
-
-            //extração dos dados RGB do pixel
-            blueResult  = (int)((pixelFotoResultante[coluna] & 0x00FF0000) >> 16);
-            greenResult = (int)((pixelFotoResultante[coluna] & 0x0000FF00) >> 8);
-            redResult   = (int) (pixelFotoResultante[coluna] & 0x00000FF );
-
-
-            blue  = (int)((pixelFotoOriginal[coluna] & 0x00FF0000) >> 16);
-            green = (int)((pixelFotoOriginal[coluna] & 0x0000FF00) >> 8);
-            red   = (int) (pixelFotoOriginal[coluna] & 0x00000FF );
+            redResult = greenResult = blueResult = Pixel;
 
             if (redResult > 10)
-                redResult = red;
+                redResult = Red[linha][coluna];
 
             if (greenResult > 10)
-               greenResult = green;
+                greenResult = Green[linha][coluna] ;
 
             if (blueResult > 10)
-               blueResult  = blue;
+                blueResult = Blue[linha][coluna];
 
 
-            pixelFotoOriginal[coluna] = (uint32_t) (((blueResult  << 16)& 0x00FF0000) |
-                                                    ((greenResult << 8) & 0x0000FF00) |
-                                                     (redResult         & 0x000000FF));
+            pixelFotoResultante[coluna] = (uint32_t) (((blueResult  << 16)& 0x00FF0000) |
+                                                      ((greenResult << 8)& 0x0000FF00) |
+                                                      ( redResult       & 0x000000FF));
+
         }
 
         localPixelsImagemResultante = (char*)localPixelsImagemResultante + dadosImagemResultante.stride;    //pulando para a proxima linha da imagem
-        localPixelsOriginal = (char*)localPixelsOriginal + dadosImagemOriginal.stride;    //pulando para a proxima linha da imagem
     }
     AndroidBitmap_unlockPixels(env,FotoResultante);                         //liberando a memoria alocada para a imagem
-    AndroidBitmap_unlockPixels(env,FotoOriginal);                         //liberando a memoria alocada para a imagem
-
 }
-
-/*
-void BubbleSort (int nVetor[], int nQTDE)
-{
-    bool flgtrocou;
-    int i,nWork;
-
-    do
-    {
-        for ( i = 0 ,flgtrocou = false; i < nQTDE - 1; i++)
-        {
-            if (nVetor[i] < nVetor[i+1])
-            {
-                nWork = nVetor[i];
-                nVetor[i] = nVetor[i+1];
-                nVetor[i+1] = nWork;
-                flgtrocou = true;
-            }//if
-        }//for
-    } while (flgtrocou);
-}//BubbleSort
-
-*/
