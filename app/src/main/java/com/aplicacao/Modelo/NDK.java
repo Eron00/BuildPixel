@@ -25,11 +25,11 @@ public class NDK {
 
     public native void floydSteinberg(Bitmap foto);
 
-    public native void cartoon(int[] FotoOriginal, int[] FotoResultante, int linha, int coluna);
+    public native void cartoon(Bitmap FotoOriginal, Bitmap FotoResultante);
 
     public native void tintaoleo(Bitmap Foto);
 
-    public native void processamentoBinario(int[] FotoA, int[] FotoB, int linha, int coluna, String Processo);
+    public native void processamentoBinario(Bitmap fotoA, Bitmap fotoB, String Processo);
 
     public native void teste(Bitmap foto);
 
