@@ -28,21 +28,14 @@ typedef struct ARGB
 JNIEXPORT void JNICALL
         Java_com_aplicacao_Modelo_NDK_convolucao(JNIEnv *env, jobject instance, jobject foto,jstring mascara, jint linhaMascara, jint colunaMascara);
 
-void convolucao(JNIEnv *env, jobject instance, jobject foto, jstring mascara, jint linhaMascara,
-                jint colunaMascara);
-
-
-void PopularMascara(const char *cNomeProcessamento , int nLinhasMascara, int nColunasMascara, float dMascaraFiltro[nLinhasMascara][nColunasMascara]);
-
 JNIEXPORT void JNICALL
         Java_com_aplicacao_Modelo_NDK_media(JNIEnv *env, jobject instance, jobject foto);
 
 JNIEXPORT void JNICALL
         Java_com_aplicacao_Modelo_NDK_equalizar(JNIEnv *env, jobject instance, jobject foto);
 
-JNIEXPORT void JNICALL Java_com_aplicacao_Modelo_NDK_processamentoUnario(JNIEnv *env, jobject instance, jobject Foto, jstring cNomeProcesso);
-
-        void processamentoUnario(JNIEnv *env, jobject instance, jintArray FotoResultante, jint linha, jint coluna, jstring cNomeProcesso);
+JNIEXPORT void JNICALL
+        Java_com_aplicacao_Modelo_NDK_processamentoUnario(JNIEnv *env, jobject instance, jobject Foto, jstring cNomeProcesso);
 
 JNIEXPORT void JNICALL
         Java_com_aplicacao_Modelo_NDK_celulaThreshold(JNIEnv *env, jobject instance,jobject foto);
@@ -54,14 +47,23 @@ JNIEXPORT void JNICALL
         Java_com_aplicacao_Modelo_NDK_floydSteinberg(JNIEnv *env, jobject instance, jintArray FotoResultante, jint linha, jint coluna);
 
 JNIEXPORT void JNICALL
-        Java_com_aplicacao_Modelo_NDK_cartoon(JNIEnv *env, jobject instance, jintArray FotoOriginal,jintArray FotoResultante, jint linha, jint coluna);
+        Java_com_aplicacao_Modelo_NDK_cartoon(JNIEnv *env, jobject instance, jobject FotoOriginal,jobject FotoResultante);
 
 JNIEXPORT void JNICALL
         Java_com_aplicacao_Modelo_NDK_tintaoleo(JNIEnv *env, jobject instance,jobject foto);
 
 JNIEXPORT void JNICALL
-Java_com_aplicacao_Modelo_NDK_processamentoBinario(JNIEnv *env, jobject instance, jintArray FotoA_,
-                                                   jintArray FotoB_, jint linha, jint coluna, jstring cNomeProcesso);
+        Java_com_aplicacao_Modelo_NDK_processamentoBinario(JNIEnv *env, jobject instance, jobject FotoA, jobject FotoB, jstring cNomeProcesso);
 
 JNIEXPORT void JNICALL
-Java_com_aplicacao_Modelo_NDK_teste(JNIEnv *env, jobject instance, jobject foto);
+        Java_com_aplicacao_Modelo_NDK_teste(JNIEnv *env, jobject instance, jobject foto);
+
+
+
+void convolucao(JNIEnv *env, jobject instance, jobject foto, char* mascara, int linhaMascara, int colunaMascara);
+
+void PopularMascara(const char *cNomeProcessamento , int nLinhasMascara, int nColunasMascara, float dMascaraFiltro[nLinhasMascara][nColunasMascara]);
+
+void tintaoleo(JNIEnv *env, jobject instance,jobject foto);
+
+void processamentoUnario(JNIEnv *env, jobject instance, jintArray FotoResultante, jint linha, jint coluna, jstring cNomeProcesso);
