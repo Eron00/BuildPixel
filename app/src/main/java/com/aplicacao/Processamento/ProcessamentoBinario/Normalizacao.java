@@ -1,5 +1,7 @@
 package com.aplicacao.Processamento.ProcessamentoBinario;
 
+import android.graphics.Bitmap;
+
 import com.aplicacao.Interfaces.Operacoes;
 import com.aplicacao.Interfaces.OperacoesBinarias;
 import com.aplicacao.Modelo.NDK;
@@ -20,14 +22,14 @@ public class Normalizacao implements OperacoesBinarias{
 
     }
     @Override
-    public void CalcularPixel(int[] FotoA, int[] FotoB, int linha, int coluna, String Processo) {
+    public void CalcularPixel(Bitmap fotoA, Bitmap fotoB,  String Processo) {
 
 
             if (Processo.contains("Normalizacao")) {
                 NDK ndk = new NDK();
-                ndk.processamentoBinario(FotoA, FotoB, linha, coluna, Processo);
+                ndk.processamentoBinario(fotoA, fotoB, Processo);
             } else {
-                EloCadeia.CalcularPixel(FotoA, FotoB, linha, coluna, Processo);
+                EloCadeia.CalcularPixel(fotoA, fotoB, Processo);
             }
     }
 }
