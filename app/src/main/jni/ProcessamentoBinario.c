@@ -22,7 +22,7 @@ JNIEXPORT void JNICALL Java_com_aplicacao_Modelo_NDK_processamentoBinario(JNIEnv
     int **resultadoG = (int **) (malloc(dadosImagemFotoA.height * sizeof(int *)));
     int **resultadoB = (int **) (malloc(dadosImagemFotoA.height * sizeof(int *)));
 
-    for (i = 0; i < linha; i++) {
+    for (i = 0; i < dadosImagemFotoA.height; i++) {
         resultadoR[i] =  (int *) (malloc(dadosImagemFotoA.width * sizeof(int)));
         resultadoG[i] =  (int *) (malloc(dadosImagemFotoA.width * sizeof(int)));
         resultadoB[i] =  (int *) (malloc(dadosImagemFotoA.width * sizeof(int)));
@@ -175,8 +175,8 @@ JNIEXPORT void JNICALL Java_com_aplicacao_Modelo_NDK_processamentoBinario(JNIEnv
     substring[5] = '\0';
 
 
-        for ( i = 0; i < linha; i++) {
-            for (j = 0; j < coluna; j++) {
+        for ( i = 0; i < dadosImagemFotoA.height; i++) {
+            for (j = 0; j < dadosImagemFotoA.width; j++) {
 
                 if (strcmp(cNomeProcessamento, "Norma"))
                 {
