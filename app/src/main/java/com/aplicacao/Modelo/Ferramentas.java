@@ -22,7 +22,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import static java.lang.Math.max;
 import static java.lang.Math.min;
 
 /**
@@ -33,13 +32,11 @@ import static java.lang.Math.min;
 
 public class Ferramentas{
 
-    public Bitmap Redimensionar(int targetW, int targetH, String path) {
+    public Bitmap Redimensionar(String path) {
         BitmapFactory.Options bmpOptions = new BitmapFactory.Options();
         bmpOptions.inJustDecodeBounds = true;
         BitmapFactory.decodeFile(path, bmpOptions);
-        int photoW = bmpOptions.outWidth;
-        int photoH = bmpOptions.outHeight;
-        bmpOptions.inSampleSize = min(photoW / targetW, photoH / targetH);
+        bmpOptions.inSampleSize = 2;
         bmpOptions.inJustDecodeBounds = false;
         return BitmapFactory.decodeFile(path, bmpOptions);
 
@@ -48,7 +45,8 @@ public class Ferramentas{
     public File CriarArquivo() throws IOException {
         String infTempo = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String nomeImagemArq = "IMAGEM_" + infTempo + " ";
-        File Diretorio = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+        File Diretorio = new File(Environment.getExternalStorageDirectory()+"/BuildPixelImages");
+        if(!Diretorio.exists()) Diretorio.mkdir();
         return File.createTempFile(nomeImagemArq, ".jpg", Diretorio);
     }
 
