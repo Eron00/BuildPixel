@@ -1,45 +1,440 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:weightSum="1">
 
-    <TextView
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="403dp"
+            android:layout_weight="0.97" />
+
+    <HorizontalScrollView
+        android:id="@+id/horizontalSW"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Operacoes Unarias "
-        android:id="@+id/textView" />
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:scrollbars="none">
 
-    <Spinner
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/spinnerUnario"
-        android:entries="@array/OperacoesUnarias" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#0099cc">
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Operacoes Binarias"
-        android:id="@+id/textView2" />
+            <Button
+                android:id="@+id/btnTeste"
+                android:layout_width="wrap_content"
+                android:layout_height="90dp"
+                android:layout_margin="2dp"
+                android:background="@drawable/selector_active_inative"
+                android:onClick="Teste"
+                android:text="Teste"
+                android:textColor="#ffffff"
+                android:textSize="9sp" />
 
-    <Spinner
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/spinnerBinario"
-        android:entries="@array/OperacoesBinarias" />
+            <Button
+                android:id="@+id/btnNormalizar"
+                android:layout_width="wrap_content"
+                android:layout_height="90dp"
+                android:layout_margin="2dp"
+                android:background="@drawable/selector_active_inative"
+                android:onClick="Normalizar"
+                android:text="Normalizar"
+                android:textColor="#ffffff"
+                android:textSize="9sp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Operacoes Area"
-        android:id="@+id/textView3" />
+            <Button
+                android:id="@+id/btnTruncar"
+                android:layout_width="wrap_content"
+                android:layout_height="90dp"
+                android:layout_margin="2dp"
+                android:background="@drawable/selector_active_inative"
+                android:onClick="Truncar"
+                android:text="Truncar"
+                android:textColor="#ffffff"
+                android:textSize="9sp" />
 
-    <Spinner
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/spinnerArea"
-        android:entries="@array/OperacoesArea" />
+
+            <Button
+                android:id="@+id/btnBlue"
+                android:layout_width="wrap_content"
+                android:layout_height="90dp"
+                android:layout_margin="2dp"
+                android:background="@drawable/selector_active_inative"
+                android:onClick="Blue"
+                android:text="Blue"
+                android:textColor="#ffffff"
+                android:textSize="9sp" />
+
+            <Button
+                android:id="@+id/btnBrilho"
+                android:layout_width="wrap_content"
+                android:layout_height="90dp"
+                android:layout_margin="2dp"
+                android:background="@drawable/selector_active_inative"
+                android:onClick="Brilho"
+                android:text="Brilho"
+                android:textColor="#ffffff"
+                android:textSize="9sp" />
+
+            <Button
+                android:id="@+id/btnCinzaMedia"
+                android:layout_width="wrap_content"
+                android:layout_height="90dp"
+                android:layout_margin="2dp"
+                android:background="@drawable/selector_active_inative"
+                android:onClick="CinzaMedia"
+                android:text="CinzaMedia"
+                android:textColor="#ffffff"
+                android:textSize="9sp" />
+
+            <Button
+                android:id="@+id/btnCartoon"
+                android:layout_width="wrap_content"
+                android:layout_height="90dp"
+                android:layout_margin="2dp"
+                android:background="@drawable/selector_active_inative"
+                android:onClick="Cartoon"
+                android:text="Cartoon"
+                android:textColor="#ffffff"
+                android:textSize="9sp" />
+
+            <Button
+                android:id="@+id/btnGreen"
+                android:layout_width="wrap_content"
+                android:layout_height="90dp"
+                android:layout_margin="2dp"
+                android:background="@drawable/selector_active_inative"
+                android:onClick="Green"
+                android:text="Green"
+                android:textColor="#ffffff"
+                android:textSize="9sp" />
+
+            <Button
+                android:id="@+id/btnLuminosidade"
+                android:layout_width="wrap_content"
+                android:layout_height="90dp"
+                android:layout_margin="2dp"
+                android:background="@drawable/selector_active_inative"
+                android:onClick="Luminosidade"
+                android:text="Luminosidade"
+                android:textColor="#ffffff"
+                android:textSize="9sp" />
+
+            <Button
+                android:id="@+id/btnRed"
+                android:layout_width="wrap_content"
+                android:layout_height="90dp"
+                android:layout_margin="2dp"
+                android:background="@drawable/selector_active_inative"
+                android:onClick="Red"
+                android:text="Red"
+                android:textColor="#ffffff"
+                android:textSize="9sp" />
+
+            <Button
+                android:id="@+id/btnSepia"
+                android:layout_width="wrap_content"
+                android:layout_height="90dp"
+                android:layout_margin="2dp"
+                android:background="@drawable/selector_active_inative"
+                android:onClick="Sepia"
+                android:text="Sepia"
+                android:textColor="#ffffff"
+                android:textSize="9sp" />
+
+            <Button
+                android:id="@+id/btnThreshold"
+                android:layout_width="wrap_content"
+                android:layout_height="90dp"
+                android:layout_margin="2dp"
+                android:background="@drawable/selector_active_inative"
+                android:onClick="Threshold"
+                android:text="Threshold"
+                android:textColor="#ffffff"
+                android:textSize="9sp" />
+
+            <Button
+                android:id="@+id/btnInverter"
+                android:layout_width="wrap_content"
+                android:layout_height="90dp"
+                android:layout_margin="2dp"
+                android:background="@drawable/selector_active_inative"
+                android:onClick="Inverter"
+                android:text="Inverter"
+                android:textColor="#ffffff"
+                android:textSize="9sp" />
+
+            <Button
+                android:id="@+id/btnVerde"
+                android:layout_width="wrap_content"
+                android:layout_height="90dp"
+                android:layout_margin="2dp"
+                android:background="@drawable/selector_active_inative"
+                android:onClick="Verde"
+                android:text="Verde"
+                android:textColor="#ffffff"
+                android:textSize="9sp" />
+
+            <Button
+                android:id="@+id/btnVermelho"
+                android:layout_width="wrap_content"
+                android:layout_height="90dp"
+                android:layout_margin="2dp"
+                android:background="@drawable/selector_active_inative"
+                android:onClick="Vermelho"
+                android:text="Vermelho"
+                android:textColor="#ffffff"
+                android:textSize="9sp" />
+
+            <Button
+                android:id="@+id/btnAzul"
+                android:layout_width="wrap_content"
+                android:layout_height="90dp"
+                android:layout_margin="2dp"
+                android:background="@drawable/selector_active_inative"
+                android:onClick="Azul"
+                android:text="Azul"
+                android:textColor="#ffffff"
+                android:textSize="9sp" />
+
+            <Button
+                android:id="@+id/btnCiano"
+                android:layout_width="wrap_content"
+                android:layout_height="90dp"
+                android:layout_margin="2dp"
+                android:background="@drawable/selector_active_inative"
+                android:onClick="Ciano"
+                android:text="Ciano"
+                android:textColor="#ffffff"
+                android:textSize="9sp" />
+
+            <Button
+                android:id="@+id/btnMagenta"
+                android:layout_width="wrap_content"
+                android:layout_height="90dp"
+                android:layout_margin="2dp"
+                android:background="@drawable/selector_active_inative"
+                android:onClick="Magenta"
+                android:text="Magenta"
+                android:textColor="#ffffff"
+                android:textSize="9sp" />
+
+            <Button
+                android:id="@+id/btnAmarelo"
+                android:layout_width="wrap_content"
+                android:layout_height="90dp"
+                android:layout_margin="2dp"
+                android:background="@drawable/selector_active_inative"
+                android:onClick="Amarelo"
+                android:text="Amarelo"
+                android:textColor="#ffffff"
+                android:textSize="9sp" />
+
+            <Button
+                android:id="@+id/btnErrorDiffusion"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="2dp"
+                android:background="@drawable/selector_active_inative"
+                android:onClick="ErrorDiffusion"
+                android:text="Error \nDiffusion"
+                android:textColor="#ffffff"
+                android:textSize="9sp" />
+
+
+            <Button
+                android:id="@+id/btnHalftone"
+                android:layout_width="wrap_content"
+                android:layout_height="90dp"
+                android:layout_margin="2dp"
+                android:background="@drawable/selector_active_inative"
+                android:onClick="Halftone"
+                android:text="Halftone"
+                android:textColor="#ffffff"
+                android:textSize="9sp" />
+
+            <Button
+                android:id="@+id/btnFloydSteinberg"
+                android:layout_width="wrap_content"
+                android:layout_height="90dp"
+                android:layout_margin="2dp"
+                android:background="@drawable/selector_active_inative"
+                android:onClick="FloydSteinberg"
+                android:text="Floyd-Steinberg"
+                android:textColor="#ffffff"
+                android:textSize="9sp" />
+
+            <Button
+                android:id="@+id/btnEqualizar"
+                android:layout_width="wrap_content"
+                android:layout_height="90dp"
+                android:layout_margin="2dp"
+                android:background="@drawable/selector_active_inative"
+                android:onClick="Equalizar"
+                android:text="Equalizar"
+                android:textColor="#ffffff"
+                android:textSize="9sp" />
+
+            <Button
+                android:id="@+id/btnOilPaint"
+                android:layout_width="wrap_content"
+                android:layout_height="90dp"
+                android:layout_margin="2dp"
+                android:background="@drawable/selector_active_inative"
+                android:onClick="OilPaint"
+                android:text="OilPaint"
+                android:textColor="#ffffff"
+                android:textSize="9sp" />
+
+            <Button
+                android:id="@+id/btnMedia"
+                android:layout_width="wrap_content"
+                android:layout_height="90dp"
+                android:layout_margin="2dp"
+                android:background="@drawable/selector_active_inative"
+                android:onClick="Media"
+                android:text="Media"
+                android:textColor="#ffffff"
+                android:textSize="9sp" />
+
+
+            <Button
+                android:id="@+id/btnAgucar"
+                android:layout_width="wrap_content"
+                android:layout_height="90dp"
+                android:layout_margin="2dp"
+                android:background="@drawable/selector_active_inative"
+                android:onClick="Agucar"
+                android:text="Agucar"
+                android:textColor="#ffffff"
+                android:textSize="9sp" />
+
+            <Button
+                android:id="@+id/btnDestacarRelevo"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="2dp"
+                android:background="@drawable/selector_active_inative"
+                android:onClick="DestacarRelevo"
+                android:text="Destacar \nRelevo"
+                android:textColor="#ffffff"
+                android:textSize="9sp" />
+
+            <Button
+                android:id="@+id/btnFreiChenHorizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="2dp"
+                android:background="@drawable/selector_active_inative"
+                android:onClick="FreiChenHorizontal"
+                android:text="Frei-Chen \nHorizontal"
+                android:textColor="#ffffff"
+                android:textSize="9sp" />
+
+            <Button
+                android:id="@+id/btnFreiChenVertical"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="2dp"
+                android:background="@drawable/selector_active_inative"
+                android:onClick="FreiChenVertical"
+                android:text="Frei-Chen \nVertical"
+                android:textColor="#ffffff"
+                android:textSize="9sp" />
+
+            <Button
+                android:id="@+id/btnKirsch"
+                android:layout_width="wrap_content"
+                android:layout_height="90dp"
+                android:layout_margin="2dp"
+                android:background="@drawable/selector_active_inative"
+                android:onClick="Kirsch"
+                android:text="Kirsch"
+                android:textColor="#ffffff"
+                android:textSize="9sp" />
+
+            <Button
+                android:id="@+id/btnSharpen"
+                android:layout_width="wrap_content"
+                android:layout_height="90dp"
+                android:layout_margin="2dp"
+                android:background="@drawable/selector_active_inative"
+                android:onClick="Sharpen"
+                android:text="Sharpen"
+                android:textColor="#ffffff"
+                android:textSize="9sp" />
+
+            <Button
+                android:id="@+id/btnPrewittVertical"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="2dp"
+                android:background="@drawable/selector_active_inative"
+                android:onClick="PrewittVertical"
+                android:text="Prewitt \nVertical"
+                android:textColor="#ffffff"
+                android:textSize="9sp" />
+
+            <Button
+                android:id="@+id/btnPrewittHorizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="2dp"
+                android:background="@drawable/selector_active_inative"
+                android:onClick="PrewittHorizontal"
+                android:text="Prewitt \nHorizontal"
+                android:textColor="#ffffff"
+                android:textSize="9sp" />
+
+            <Button
+                android:id="@+id/btnSobelVertical"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="2dp"
+                android:background="@drawable/selector_active_inative"
+                android:onClick="SobelVertical"
+                android:text="Sobel \nVertical"
+                android:textColor="#ffffff"
+                android:textSize="9sp" />
+
+            <Button
+                android:id="@+id/btnSobelHorizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="2dp"
+                android:background="@drawable/selector_active_inative"
+                android:onClick="SobelHorizontal"
+                android:text="Sobel \nHorizontal"
+                android:textColor="#ffffff"
+                android:textSize="9sp" />
+
+            <Button
+                android:id="@+id/btnRobertsVertical"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="2dp"
+                android:background="@drawable/selector_active_inative"
+                android:onClick="RobertsVertical"
+                android:text="Roberts \nVertical"
+                android:textColor="#ffffff"
+                android:textSize="9sp" />
+
+            <Button
+                android:id="@+id/btnRobertsHorizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="2dp"
+                android:background="@drawable/selector_active_inative"
+                android:onClick="RobertsHorizontal"
+                android:text="Roberts \nHorizontal"
+                android:textColor="#ffffff"
+                android:textSize="9sp" />
+
+        </LinearLayout>
+
+    </HorizontalScrollView>
+
 </LinearLayout>
