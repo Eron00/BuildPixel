@@ -27,9 +27,7 @@ public class ImageViewAux{
         imgView = (ImageView) activity.findViewById(R.id.imageView);
 
         File file = null;
-
         Bitmap FotoProcessada = imagem.getImagem();
-
         Matrix matrix = new Matrix();
 
         FotoProcessada = Bitmap.createBitmap(FotoProcessada, 0,0,

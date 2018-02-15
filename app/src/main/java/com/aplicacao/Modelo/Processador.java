@@ -102,7 +102,6 @@ public class Processador {
         EloCiano.setProximaOperacao(EloMagenta);
         EloMagenta.setProximaOperacao(EloAmarelo);
 
-
         EloEqualizar.setProximaOperacao(EloErrorDiffusion);
         EloErrorDiffusion.setProximaOperacao(EloFloydSteinberg);
         EloFloydSteinberg.setProximaOperacao(EloHalftone);
