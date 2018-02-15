@@ -1,20 +1,17 @@
 package com.aplicacao.Modelo;
 
 
-import android.graphics.Bitmap;
-import android.graphics.Color;
-
 import com.aplicacao.Interfaces.OperacoesArea;
 import com.aplicacao.Interfaces.OperacoesBinarias;
 import com.aplicacao.Interfaces.OperacoesUnarias;
 import com.aplicacao.Processamento.ProcessamentoArea.Agucar;
+import com.aplicacao.Processamento.ProcessamentoArea.CelulaThreshold;
 import com.aplicacao.Processamento.ProcessamentoBinario.Cartoon;
 import com.aplicacao.Processamento.ProcessamentoArea.DestacarRelevo;
 import com.aplicacao.Processamento.ProcessamentoArea.Equalizar;
 import com.aplicacao.Processamento.ProcessamentoArea.ErrorDiffusion;
 import com.aplicacao.Processamento.ProcessamentoArea.FloydSteinberg;
 import com.aplicacao.Processamento.ProcessamentoArea.FreiChen;
-import com.aplicacao.Processamento.ProcessamentoArea.Halftone;
 import com.aplicacao.Processamento.ProcessamentoArea.Kirsch;
 import com.aplicacao.Processamento.ProcessamentoArea.Laplace;
 import com.aplicacao.Processamento.ProcessamentoArea.Media;
@@ -74,7 +71,7 @@ public class Processador {
         OperacoesArea EloErrorDiffusion   = new ErrorDiffusion();
         OperacoesArea EloFloydSteinberg   = new FloydSteinberg();
         OperacoesArea EloFreiChen         = new FreiChen();
-        OperacoesArea EloHalftone         = new Halftone();
+        OperacoesArea EloHalftone         = new CelulaThreshold();
         OperacoesArea EloKirsch           = new Kirsch();
         OperacoesArea EloLaplace          = new Laplace();
         OperacoesArea EloMedia            = new Media();
@@ -124,27 +121,6 @@ public class Processador {
         EloTruncamento.setProximaOperacao(EloNormalizacao);
         EloNormalizacao.setProximaOperacao(EloCartoon);
 
-
-        int[]Imagem = new int[foto.getLinha() * foto.getColuna() *3];
-        int[]ImagemB = new int[foto.getLinha() * foto.getColuna() *3];
-        int[]Red    = new int[foto.getLinha() * foto.getColuna()];
-        int[]Blue   = new int[foto.getLinha() * foto.getColuna()];
-        int[]Green  = new int[foto.getLinha() * foto.getColuna()];
-        int[]Alpha  = new int[foto.getLinha() * foto.getColuna()];
-
-        int indice =0;
-        for(int i=0 ; i< foto.getLinha(); i++) {
-            for (int j = 0; j < foto.getColuna(); j++ ,indice+=3) {
-                Imagem[indice    ] = foto.getR(i, j);
-                Imagem[indice + 1] = foto.getG(i, j);
-                Imagem[indice + 2] = foto.getB(i ,j);
-
-                ImagemB[indice    ] = foto.getR(i, j);
-                ImagemB[indice + 1] = foto.getG(i, j);
-                ImagemB[indice + 2] = foto.getB(i ,j);
-            }
-        }
-
         for(int k = 0; k < ListaProcessos.size() ; k++)
         {
             Processo list = ListaProcessos.get(k);
@@ -152,28 +128,14 @@ public class Processador {
                 case ("Unaria"):
                     EloAzul.CalcularPixel(foto.getImagem(), list.getProcessamentoSelecionado());
                     break;
-                case ("Binaria"):
-                   // Problemas para executar cartoon
-                   // EloTruncamento.CalcularPixel(Imagem, Imagem, foto.getLinha(), foto.getColuna(), list.getProcessamentoSelecionado());
-                    EloTruncamento.CalcularPixel(Imagem, ImagemB, foto.getLinha(), foto.getColuna(), list.getProcessamentoSelecionado());
-                    break;
                 case ("Area"):
-                    EloEqualizar.CalcularFoto(Imagem, foto.getLinha(), foto.getColuna(),list.getProcessamentoSelecionado());
+                      EloEqualizar.CalcularFoto(foto.getImagem(),list.getProcessamentoSelecionado());
                     break;
-
+                case ("Binaria"):
+                    EloTruncamento.CalcularPixel(foto.getImagem(), foto.getImagem(), list.getProcessamentoSelecionado());
+                    break;
             }
         }
-
-        ImagemB = null;
-        Bitmap ImagemResultante = Bitmap.createBitmap(foto.getLinha(), foto.getColuna(), Bitmap.Config.ARGB_8888);
-        indice =0;
-        for(int i=0 ; i< foto.getLinha(); i++) {
-            for (int j = 0; j < foto.getColuna(); j++ ,indice+=3) {
-                ImagemResultante.setPixel(i, j, Color.argb(255, Imagem[indice], Imagem[indice + 1], Imagem[indice + 2]));
-            }
-        }
-
-        foto.setImagem(ImagemResultante);
         return foto;
     }
 }
