@@ -4,7 +4,7 @@
 
 #include <jni.h>
 #include <android/bitmap.h>
-#include "zoaFotoNativeLib.h"
+#include "buildPixelNativeLib.h"
 #include <stdlib.h>
 #include <math.h>
 
@@ -15,13 +15,11 @@ JNIEXPORT void JNICALL Java_com_aplicacao_Modelo_NDK_processamentoUnario(JNIEnv 
     int linha, coluna, red,green,blue;
     u_int32_t* pixel;
 
-
     AndroidBitmap_getInfo(env,Foto,&dadosImagem);
     AndroidBitmap_lockPixels(env,Foto,&localPixels);
 
 
     const char *cNomeProcessamento =  (*env)->GetStringUTFChars(env, cNomeProcesso, 0);
-
     for(linha = 0; linha < dadosImagem.height; linha++){
         pixel = (uint32_t*)localPixels;                            //carregando a próxima linha de pixels da imagem
         for(coluna =0; coluna < dadosImagem.width; coluna++){
@@ -35,6 +33,7 @@ JNIEXPORT void JNICALL Java_com_aplicacao_Modelo_NDK_processamentoUnario(JNIEnv 
             if (strcmp(cNomeProcessamento, "Amarelo") == 0) {
                 red = 255;
                 green = 255;
+                blue =0;
             }
             if (strcmp(cNomeProcessamento, "Azul") == 0) {
                 red = 0;
@@ -55,13 +54,13 @@ JNIEXPORT void JNICALL Java_com_aplicacao_Modelo_NDK_processamentoUnario(JNIEnv 
 
             }
             if (strcmp(cNomeProcessamento, "Ciano") == 0) {
-
+                red =0;
                 green = 255;
                 blue = 255;
             }
             if (strcmp(cNomeProcessamento, "CinzaMedia") == 0) {
 
-                Pixel = (int)(red + green +blue) / 3;
+                Pixel = (red + green +blue) / 3;
 
                 red = Pixel ;
                 green = Pixel;
@@ -95,6 +94,7 @@ JNIEXPORT void JNICALL Java_com_aplicacao_Modelo_NDK_processamentoUnario(JNIEnv 
             if (strcmp(cNomeProcessamento, "Magenta") == 0) {
                 red = 255;
                 blue = 255;
+                green = 0;
             }
 
             if (strcmp(cNomeProcessamento, "Red") == 0) {

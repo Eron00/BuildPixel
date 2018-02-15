@@ -1,3 +1,4 @@
+
 //
 // Created by Eron on 11/07/2017.
 //
@@ -5,6 +6,7 @@
 #include <jni.h>
 #include <stdlib.h>
 #include <android/bitmap.h>
+#include "buildPixelNativeLib.h"
 
 /*******************************************************************************************************
 *----[Teste]--------------------------------------------------------------------------------------------
@@ -35,7 +37,7 @@ JNIEXPORT void JNICALL Java_com_aplicacao_Modelo_NDK_teste(JNIEnv *env, jobject 
 
     AndroidBitmapInfo dadosImagem;                                  //Estrutura nativa dos dados da Imagem(Altura, largura,etc)
     void *localPixels;                                              //ponteiro para referenciar os pixels da Imagem
-    int coluna, linha, red, green, blue;
+    int coluna, linha, red, green, blue,Pixel;
     uint32_t* pixel;
 
 
@@ -52,14 +54,22 @@ JNIEXPORT void JNICALL Java_com_aplicacao_Modelo_NDK_teste(JNIEnv *env, jobject 
             green = (int)((pixel[coluna] & 0x0000FF00) >> 8);
             red   = (int) (pixel[coluna] & 0x00000FF );
 
-            //Zerando os valores do canal azul e verde
-            blue = 0;
-            green = 0;
+            Pixel = (blue + green + red )/3;
 
+            //Zerando os valores do canal azul e verde
+
+
+
+//so the position of the south pixel is (linha+1)*info->width+coluna
+            //and the one of the north is           (linha-1)*info->width+coluna
+            //the left                               linha*info->width+coluna-1
+            //the right                              linha*info->width+coluna+1
             // atribuindo novos valores ao pixel
-            pixel[coluna] = (uint32_t) (((blue << 16) & 0x00FF0000) |
-                                        ((green << 8) & 0x0000FF00) |
-                                        (red          & 0x000000FF));
+
+
+            pixel[coluna] = (uint32_t) (((Pixel << 16) & 0x00FF0000) |
+                                        ((Pixel << 8) & 0x0000FF00) |
+                                        (Pixel        & 0x000000FF));
         }
 
         localPixels = (char*)localPixels + dadosImagem.stride;    //pulando para a proxima linha da imagem

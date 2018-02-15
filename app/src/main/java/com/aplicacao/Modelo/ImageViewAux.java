@@ -31,7 +31,6 @@ public class ImageViewAux{
         Bitmap FotoProcessada = imagem.getImagem();
 
         Matrix matrix = new Matrix();
-        //matrix.setRotate(90);
 
         FotoProcessada = Bitmap.createBitmap(FotoProcessada, 0,0,
                 imagem.getLinha(),

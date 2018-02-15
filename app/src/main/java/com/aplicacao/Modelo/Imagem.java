@@ -16,13 +16,30 @@ import java.io.IOException;
 public class Imagem {
 
     private Bitmap imagem;
-    private Bitmap ImagemOriginal;
+    private String Path;
+    private String PathImagemOriginal;
 
     public Imagem(Bitmap foto){
         this.imagem = foto;
-        this.ImagemOriginal = foto;
+    }
+    public Imagem(){
     }
 
+    public String getPath() {
+        return Path;
+    }
+
+    public void setPath(String path) {
+        Path = path;
+    }
+
+    public String getPathImagemOriginal() {
+        return PathImagemOriginal;
+    }
+
+    public void setPathImagemOriginal(String pathImagemOriginal) {
+        PathImagemOriginal = pathImagemOriginal;
+    }
     public Bitmap getImagem() {
         return imagem;
     }
@@ -34,61 +51,5 @@ public class Imagem {
     }
     public int getColuna(){
         return(this.imagem.getHeight());
-    }
-    public int getA(int x, int y) {
-        return(Color.alpha((this.imagem.getPixel(x, y))));
-    }
-    public int getR(int x, int y) {
-        return(Color.red((this.imagem.getPixel(x, y))));
-    }
-    public int getG(int x, int y) {
-        return(Color.green((this.imagem.getPixel(x, y))));
-    }
-    public int getB(int x, int y) {
-        return(Color.blue((this.imagem.getPixel(x, y))));
-    }
-    public void setRGB(int x, int y, int R, int G, int B) {
-        this.imagem.setPixel(x, y, Color.rgb(R, G, B));
-    }
-    public void setARGB(int x, int y,int A, int R, int G, int B) {
-        this.imagem.setPixel(x, y, Color.argb(A, R, G, B));
-    }
-
-    public Bitmap getImagemOriginal() {
-        return ImagemOriginal;
-    }
-
-
-    public String AtualizarImagem(Imagem imagem, ImageView img) {
-
-
-        File file = null;
-
-        Bitmap FotoProcessada = imagem.getImagem();
-
-
-        Matrix matrix = new Matrix();
-        //matrix.setRotate(90);
-
-        FotoProcessada = Bitmap.createBitmap(FotoProcessada, 0,0,
-                imagem.getLinha(),
-                imagem.getColuna(),
-                matrix, true);
-
-        try {
-            Ferramentas tool = new Ferramentas();
-            file = tool.CriarArquivo();
-            FileOutputStream fos  = new FileOutputStream(file);
-           FotoProcessada.compress(Bitmap.CompressFormat.JPEG, 100, fos);
-            fos.close();
-            ExifInterface exif = new ExifInterface(file.getAbsolutePath());
-            exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        img.setImageBitmap(FotoProcessada);
-        return file.getAbsolutePath();
     }
 }
