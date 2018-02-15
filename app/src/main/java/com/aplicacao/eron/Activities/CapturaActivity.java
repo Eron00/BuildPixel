@@ -5,10 +5,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.v4.content.FileProvider;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -39,6 +39,7 @@ public class CapturaActivity extends Activity {
     public void TirarFoto(View view) {
         Intent camera = new Intent();
         camera.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
+
         Ferramentas tool = new Ferramentas();
         File arqFoto = null;
         try {
@@ -49,6 +50,7 @@ public class CapturaActivity extends Activity {
         }
         ImagemlocalArq = arqFoto.getAbsolutePath();
         camera.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(arqFoto));
+
         startActivityForResult(camera, APP_CAMERA);
 
     }
@@ -66,8 +68,7 @@ private Context getContext() {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode== APP_CAMERA && resultCode == RESULT_OK) {
-
-          Intent it = new Intent(getContext(), ProcessamentoActivity.class);
+            Intent it = new Intent(getContext(), ProcessamentoActivity.class);
             Bundle extras = new Bundle();
             extras.putString("path", ImagemlocalArq);
             it.putExtras(extras);
