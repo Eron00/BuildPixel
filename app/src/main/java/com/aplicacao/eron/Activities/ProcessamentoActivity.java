@@ -1,13 +1,11 @@
 package com.aplicacao.eron.Activities;
 
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
@@ -19,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.aplicacao.Modelo.Ferramentas;
@@ -34,8 +33,8 @@ import java.util.List;
 
 
 public class ProcessamentoActivity extends AppCompatActivity {
-    private ImageViewAux atualiza;
-    private Imagem  foto;
+    private Imagem foto;
+    private ProgressBar progressBar;
 
 
     @Override
@@ -47,127 +46,116 @@ public class ProcessamentoActivity extends AppCompatActivity {
         foto = new Imagem();
         foto.setPathImagemOriginal((String) bundle.get("path"));
         foto.setPath((String) bundle.get("path"));
-        atualiza = new ImageViewAux();
-        Ferramentas tool = new Ferramentas();
-        foto.setImagem(tool.Redimensionar(foto.getPath()));
-        atualiza.AtualizaImageView(ProcessamentoActivity.this, foto);
-    }
-
-    public void onWindowFocusChanged(boolean onFocus) {
-        if(!isTablet(getContext())){atualiza.ImageViewRotate();}
-        super.onWindowFocusChanged(onFocus);
-}
-
-    public void Agucar(View view){
-        EnviarProcessos("Agucar", "Area");
-    }
-    public void DestacarRelevo(View view){
-        EnviarProcessos("DestacarRelevo", "Area");
-}
-    public void FreiChenHorizontal(View view){
-        EnviarProcessos("FreiChenHorizontal", "Area");
-    }
-    public void FreiChenVertical(View view){
-        EnviarProcessos("FreiChenVertical", "Area");
-    }
-    public void Kirsch(View view){
-        EnviarProcessos("Kirsch", "Area");
-    }
-    public void PrewittVertical(View view){
-        EnviarProcessos("PrewittVertical", "Area");
-    }
-    public void PrewittHorizontal(View view){
-        EnviarProcessos("PrewittHorizontal", "Area");
-    }
-    public void RobertsVertical(View view){
-        EnviarProcessos("RobertsVertical", "Area");
-    }
-    public void RobertsHorizontal(View view){
-        EnviarProcessos("RobertsHorizontal", "Area");
-    }
-    public void Sharpen(View view){
-        EnviarProcessos("Sharpen", "Area");
-    }
-    public void SobelVertical(View view){
-        EnviarProcessos("SobelVertical", "Area");
-    }
-    public void SobelHorizontal(View view){
-        EnviarProcessos("SobelHorizontal", "Area");
-    }
-    public void Equalizar(View view){
-        EnviarProcessos("Equalizar", "Area");
-    }
-    public void Media(View view){
-        EnviarProcessos("Media", "Area");
-    }
-    public void ErrorDiffusion(View view){
-        EnviarProcessos("ErrorDiffusion", "Area");
-    }
-    public void FloydSteinberg(View view){
-        EnviarProcessos("FloydSteinberg", "Area");
-    }
-    public void Halftone(View view){
-        EnviarProcessos("CelulaThreshold", "Area");
-    }
-    public void OilPaint(View view){
-        EnviarProcessos("OilPaint", "Area");
+        progressBar = findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.GONE);
+        foto.Redimensionar();
+        foto.VerificaOrientacaoTelaImagem();
+        foto.AtualizaImagem(ProcessamentoActivity.this);
     }
 
     /**
-     * Seção onde se encontra os botões dos processos de imagens unários(necessita de apenas um pixel para cálculo)
-     *
-     *
+     * Seção onde se encontra os botões dos processos de imagens por área
      */
+    public void Agucar              (View view){
+        EnviarProcessos("Agucar",               "Area");
+    }
+    public void DestacarRelevo      (View view){
+        EnviarProcessos("DestacarRelevo",       "Area");
+}
+    public void FreiChenHorizontal  (View view){
+        EnviarProcessos("FreiChenHorizontal",   "Area");
+    }
+    public void FreiChenVertical    (View view){
+        EnviarProcessos("FreiChenVertical",     "Area");
+    }
+    public void Kirsch              (View view){
+        EnviarProcessos("Kirsch",               "Area");
+    }
+    public void PrewittVertical     (View view){
+        EnviarProcessos("PrewittVertical",      "Area");
+    }
+    public void PrewittHorizontal   (View view) { EnviarProcessos("PrewittHorizontal",    "Area"); }
+    public void RobertsVertical     (View view){
+        EnviarProcessos("RobertsVertical",      "Area");
+    }
+    public void RobertsHorizontal   (View view){
+        EnviarProcessos("RobertsHorizontal",    "Area");
+    }
+    public void Sharpen             (View view){
+        EnviarProcessos("Sharpen",              "Area");
+    }
+    public void SobelVertical       (View view){
+        EnviarProcessos("SobelVertical",        "Area");
+    }
+    public void SobelHorizontal     (View view) { EnviarProcessos("SobelHorizontal",      "Area"); }
+    public void Equalizar           (View view){
+        EnviarProcessos("Equalizar",            "Area");
+    }
+    public void Media               (View view){
+        EnviarProcessos("Media",                "Area");
+    }
+    public void ErrorDiffusion      (View view){
+        EnviarProcessos("ErrorDiffusion",       "Area");
+    }
+    public void FloydSteinberg      (View view){
+        EnviarProcessos("FloydSteinberg",       "Area");
+    }
+    public void Halftone            (View view){
+        EnviarProcessos("CelulaThreshold",      "Area");
+    }
+    public void OilPaint            (View view){
+        EnviarProcessos("OilPaint",             "Area");
+    }
+    /**
+     * Seção onde se encontra os botões dos processos de imagens unários(necessita de apenas um pixel para cálculo)
+     */
+    public void Blue                (View view) { EnviarProcessos("Blue",               "Unaria"); }
+    public void Brilho              (View view){
+        EnviarProcessos("Brilho",             "Unaria");
+    }
+    public void CinzaMedia          (View view){
+        EnviarProcessos("CinzaMedia",         "Unaria");
+    }
+    public void Luminosidade        (View view){
+        EnviarProcessos("Luminosidade",       "Unaria");
+    }
+    public void Green               (View view){
+        EnviarProcessos("Green",              "Unaria");
+    }
+    public void Red                 (View view){
+        EnviarProcessos("Red",                "Unaria");
+    }
+    public void Threshold           (View view){
+        EnviarProcessos("Threshold",          "Unaria");
+    }
+    public void Azul                (View view){
+        EnviarProcessos("Azul",               "Unaria");
+    }
+    public void Inverter            (View view){
+        EnviarProcessos("Inverter",           "Unaria");
+    }
+    public void Sepia               (View view){
+        EnviarProcessos("Sepia",              "Unaria");
+    }
+    public void Verde               (View view){
+        EnviarProcessos("Verde",              "Unaria");
+    }
+    public void Vermelho            (View view){
+        EnviarProcessos("Vermelho",           "Unaria");
+    }
+    public void Ciano               (View view){
+        EnviarProcessos("Ciano",              "Unaria");
+    }
+    public void Magenta             (View view){
+        EnviarProcessos("Magenta",            "Unaria");
+    }
+    public void Amarelo             (View view){
+        EnviarProcessos("Amarelo",            "Unaria");
+    }
 
-    public void Blue(View view){
-        EnviarProcessos("Blue", "Unaria");
-    }
-    public void Brilho(View view){
-        EnviarProcessos("Brilho", "Unaria");
-    }
-    public void CinzaMedia(View view){
-        EnviarProcessos("CinzaMedia", "Unaria");
-    }
-    public void Luminosidade(View view){
-        EnviarProcessos("Luminosidade", "Unaria");
-    }
-    public void Green(View view){
-        EnviarProcessos("Green", "Unaria");
-    }
-    public void Red(View view){
-        EnviarProcessos("Red", "Unaria");
-    }
-    public void Threshold(View view){
-        EnviarProcessos("Threshold", "Unaria");
-    }
-    public void Azul(View view){
-        EnviarProcessos("Azul", "Unaria");
-    }
-    public void Inverter(View view){
-        EnviarProcessos("Inverter", "Unaria");
-    }
-    public void Sepia(View view){
-        EnviarProcessos("Sepia", "Unaria");
-    }
-    public void Verde(View view){
-        EnviarProcessos("Verde", "Unaria");
-    }
-    public void Vermelho(View view){
-        EnviarProcessos("Vermelho", "Unaria");
-    }
-    public void Ciano(View view){
-        EnviarProcessos("Ciano", "Unaria");
-    }
-    public void Magenta(View view){
-        EnviarProcessos("Magenta", "Unaria");
-    }
-    public void Amarelo(View view){
-        EnviarProcessos("Amarelo", "Unaria");
-    }
-    /*
-    *
-    * Região que corresponde aos botões que ativam processamentos binários
-    * */
+    /**
+     * Seção onde se encontra os botões dos processos de imagens binários(necessita de dois um pixels para cálculo)
+     */
     public void Cartoon(View view){
         EnviarProcessos("Cartoon", "Binaria");
     }
@@ -204,7 +192,6 @@ public class ProcessamentoActivity extends AppCompatActivity {
         });
         builder.show();
     }
-
     public void Truncar(View view){
         AlertDialog.Builder builder = new AlertDialog.Builder(ProcessamentoActivity.this);
         builder.setTitle("Build Pixel").setItems(R.array.Operacoes, new DialogInterface.OnClickListener() {
@@ -238,22 +225,23 @@ public class ProcessamentoActivity extends AppCompatActivity {
         builder.show();
     }
 
+
+
+
+
     public void EnviarProcessos(String NomeExecucao, String Categoria){
         Processo processo = new Processo(NomeExecucao, Categoria);
         final List<Processo> processoList = new ArrayList<>();
         processoList.add(processo);
 
         AsyncTask Tarefa = new AsyncTask() {
-            ProgressDialog progressDialog = new ProgressDialog(ProcessamentoActivity.this);
             Processador proc = new Processador();
 
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                progressDialog.setTitle("Build Pixel");
-                progressDialog.setMessage("Em processamento...");
-                progressDialog.setCancelable(false);
-                progressDialog.show();
+                progressBar.setVisibility(View.VISIBLE);
+
             }
 
             @Override
@@ -266,8 +254,8 @@ public class ProcessamentoActivity extends AppCompatActivity {
             @Override
             protected void onPostExecute(Object o) {
                 super.onPostExecute(o);
-                progressDialog.dismiss();
-                foto.setPath(atualiza.AtualizaImageView(ProcessamentoActivity.this, foto));
+                progressBar.setVisibility(View.GONE);
+                foto.AtualizaImagem(ProcessamentoActivity.this);
             }
         };
 
@@ -299,14 +287,11 @@ public class ProcessamentoActivity extends AppCompatActivity {
             case R.id.action_rotate:
                 Matrix matrix = new Matrix();
                 matrix.postRotate(90);
-                Bitmap rotate = Bitmap.createBitmap(foto.getImagem(), 0, 0,
-                        foto.getLinha(),
-                        foto.getColuna(),
-                        matrix, true);
-
+                Bitmap rotate = Bitmap.createBitmap(foto.getImagem(), 0, 0, foto.getLinha(), foto.getColuna(), matrix, true);
                 foto.setImagem(rotate);
-                foto.setPath(atualiza.AtualizaImageView(ProcessamentoActivity.this, foto));
-                atualiza.StartAnimationRightSide(ProcessamentoActivity.this);
+                foto.AtualizaImagem(ProcessamentoActivity.this);
+                ImageViewAux imgViewAux = new ImageViewAux();
+                imgViewAux.StartAnimationRightSide(ProcessamentoActivity.this);
                 break;
 
             case R.id.action_settings:
@@ -314,12 +299,13 @@ public class ProcessamentoActivity extends AppCompatActivity {
             case android.R.id.home:
                 break;
             case R.id.action_return_image:
-                Bitmap bitmap = BitmapFactory.decodeFile(foto.getPathImagemOriginal());
-                foto.setImagem(bitmap);
-                foto.setPath(atualiza.AtualizaImageView(ProcessamentoActivity.this, foto));
+                foto.CopiaPathOriginal();
+                foto.Redimensionar();
+                foto.VerificaOrientacaoTelaImagem();
+                foto.AtualizaImagem(ProcessamentoActivity.this);
                 break;
             case  R.id.action_crop:
-             IntentCortarImagem();
+                IntentCortarImagem();
                 break;
             case  R.id.action_edit:
                 break;
@@ -336,14 +322,12 @@ public class ProcessamentoActivity extends AppCompatActivity {
 
 
     private void IntentCortarImagem(){
-
         ContentValues valores = new ContentValues(2);
         valores.put(MediaStore.Images.Media.MIME_TYPE, "image/jpg");
         valores.put(MediaStore.Images.Media.DATA, foto.getPath());
         ContentResolver contentResolver = getContext().getContentResolver();
         Uri uri = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, valores);
-        CropImage.activity(uri).setAllowFlipping(false).setAllowRotation(false).start(this);
-
+        CropImage.activity(uri).setAllowFlipping(false).setAllowRotation(true).start(this);
     }
 
     @Override
@@ -355,7 +339,7 @@ public class ProcessamentoActivity extends AppCompatActivity {
                 Uri resultUri = result.getUri();
                 Bitmap cropped = BitmapFactory.decodeFile(resultUri.getPath());
                 foto.setImagem(cropped);
-                atualiza.AtualizaImageView(ProcessamentoActivity.this, foto);
+                foto.AtualizaImagem(ProcessamentoActivity.this);
                 Toast.makeText(getContext(), "Corte realizado!!" , Toast.LENGTH_SHORT).show();
 
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
@@ -367,7 +351,7 @@ public class ProcessamentoActivity extends AppCompatActivity {
                 if (result == null)
                 {
                     Toast.makeText(getContext(), "Corte da imagem cancelado!!" , Toast.LENGTH_SHORT).show();
-                    foto.setPath(atualiza.AtualizaImageView(ProcessamentoActivity.this, foto));
+                    foto.AtualizaImagem(ProcessamentoActivity.this);
 
                 }
             }
@@ -379,12 +363,6 @@ public class ProcessamentoActivity extends AppCompatActivity {
     @Override
     public void onBackPressed(){
         ProcessamentoActivity.this.finish();
-    }
-
-    private boolean isTablet(Context context) {
-        boolean xlarge =((context.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == 4);
-        boolean large = ((context.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE);
-        return (xlarge || large);
     }
 
     private Context getContext() {
