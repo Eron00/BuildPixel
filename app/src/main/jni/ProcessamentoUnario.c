@@ -31,8 +31,6 @@ JNIEXPORT void JNICALL Java_com_aplicacao_Modelo_NDK_processamentoUnario(JNIEnv 
             red   = (int) (pixel[coluna] & 0x00000FF );
 
             if (strcmp(cNomeProcessamento, "Amarelo") == 0) {
-                red = 255;
-                green = 255;
                 blue =0;
             }
             if (strcmp(cNomeProcessamento, "Azul") == 0) {
@@ -55,8 +53,7 @@ JNIEXPORT void JNICALL Java_com_aplicacao_Modelo_NDK_processamentoUnario(JNIEnv 
             }
             if (strcmp(cNomeProcessamento, "Ciano") == 0) {
                 red =0;
-                green = 255;
-                blue = 255;
+
             }
             if (strcmp(cNomeProcessamento, "CinzaMedia") == 0) {
 
@@ -92,8 +89,6 @@ JNIEXPORT void JNICALL Java_com_aplicacao_Modelo_NDK_processamentoUnario(JNIEnv 
             }
 
             if (strcmp(cNomeProcessamento, "Magenta") == 0) {
-                red = 255;
-                blue = 255;
                 green = 0;
             }
 
@@ -128,7 +123,7 @@ JNIEXPORT void JNICALL Java_com_aplicacao_Modelo_NDK_processamentoUnario(JNIEnv 
             }
 
             if (strcmp(cNomeProcessamento, "Threshold") == 0) {
-                if(red > 200)
+                if(red > 127)
                 {
                     red = 255;
                     green = 255;
