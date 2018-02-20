@@ -1,3 +1,4 @@
+
 //
 // Created by Eron on 29/05/2016.
 //
@@ -66,8 +67,8 @@ JNIEXPORT void JNICALL Java_com_aplicacao_Modelo_NDK_cartoon(JNIEnv *env, jobjec
     AndroidBitmap_getInfo(env, FotoResultante, &dadosImagemResultante);                 //capturando as informações da imagem e bloqueando acesso ao local da memoria da imagem
     AndroidBitmap_lockPixels(env, FotoResultante, &localPixelsImagemResultante);         //capturando os dados dos pixels
 
-    convolucao(env, instance, FotoResultante, "SobelHorizontal", 3, 3);
-    convolucao(env, instance, FotoResultante, "SobelVertical"  , 3, 3);
+    convolucao(env, instance, FotoResultante, "Kirsch", 3, 3);
+
 
     for(linha = 0; linha < dadosImagemResultante.height; linha++){
         pixelFotoResultante = (uint32_t*)localPixelsImagemResultante;                            //carregando a próxima linha de pixels da imagem
@@ -83,8 +84,8 @@ JNIEXPORT void JNICALL Java_com_aplicacao_Modelo_NDK_cartoon(JNIEnv *env, jobjec
             Pixel = 255 - Pixel;                                        //inverter
 
             //threshold
-            if(Pixel > 200)
-               Pixel = 255;
+            if(Pixel > 127)
+                Pixel = 255;
             else
                 Pixel = 0;
 
