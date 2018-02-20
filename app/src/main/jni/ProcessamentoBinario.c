@@ -18,15 +18,7 @@ JNIEXPORT void JNICALL Java_com_aplicacao_Modelo_NDK_processamentoBinario(JNIEnv
 
     int i, j;
 
-    int **resultadoR = (int **) (malloc(dadosImagemFotoA.height * sizeof(int *)));
-    int **resultadoG = (int **) (malloc(dadosImagemFotoA.height * sizeof(int *)));
-    int **resultadoB = (int **) (malloc(dadosImagemFotoA.height * sizeof(int *)));
 
-    for (i = 0; i < dadosImagemFotoA.height; i++) {
-        resultadoR[i] =  (int *) (malloc(dadosImagemFotoA.width * sizeof(int)));
-        resultadoG[i] =  (int *) (malloc(dadosImagemFotoA.width * sizeof(int)));
-        resultadoB[i] =  (int *) (malloc(dadosImagemFotoA.width * sizeof(int)));
-    }
 
     const char *cNomeProcessamento =  (*env)->GetStringUTFChars(env, cNomeProcesso, 0);
 
@@ -39,10 +31,31 @@ JNIEXPORT void JNICALL Java_com_aplicacao_Modelo_NDK_processamentoBinario(JNIEnv
     AndroidBitmap_getInfo(env, FotoA, &dadosImagemFotoA);                 //capturando as informações da imagem e bloqueando acesso ao local da memoria da imagem
     AndroidBitmap_lockPixels(env, FotoA, &localPixelsFotoA);              //capturando os dados dos pixels
 
+    int **resultadoR = (int **) (malloc(dadosImagemFotoA.height * sizeof(int *)));
+    int **resultadoG = (int **) (malloc(dadosImagemFotoA.height * sizeof(int *)));
+    int **resultadoB = (int **) (malloc(dadosImagemFotoA.height * sizeof(int *)));
+
+    for (linha = 0; linha < dadosImagemFotoA.height; linha++) {
+        resultadoR[linha] =  (int *) (malloc(dadosImagemFotoA.width * sizeof(int)));
+        resultadoG[linha] =  (int *) (malloc(dadosImagemFotoA.width * sizeof(int)));
+        resultadoB[linha] =  (int *) (malloc(dadosImagemFotoA.width * sizeof(int)));
+
+        for (coluna = 0; coluna < dadosImagemFotoA.width; coluna++) {
+            resultadoR[linha][coluna] = 0;
+            resultadoG[linha][coluna] = 0;
+            resultadoB[linha][coluna] = 0;
+        }
+    }
+
+    AndroidBitmap_unlockPixels(env,FotoA);                         //liberando a memoria alocada para a imagem
+
+
+
+    AndroidBitmap_getInfo(env, FotoA, &dadosImagemFotoA);                 //capturando as informações da imagem e bloqueando acesso ao local da memoria da imagem
+    AndroidBitmap_lockPixels(env, FotoA, &localPixelsFotoA);              //capturando os dados dos pixels
+
     AndroidBitmap_getInfo(env, FotoB, &dadosImagemFotoB);                 //capturando as informações da imagem e bloqueando acesso ao local da memoria da imagem
     AndroidBitmap_lockPixels(env, FotoB, &localPixelsFotoB);              //capturando os dados dos pixels
-
-
 
     for(linha = 0; linha < dadosImagemFotoA.height; linha++){
         pixelFotoA = (uint32_t*)localPixelsFotoA;                            //carregando a próxima linha de pixels da imagem
@@ -171,7 +184,7 @@ JNIEXPORT void JNICALL Java_com_aplicacao_Modelo_NDK_processamentoBinario(JNIEnv
 
 
     char substring[5];
-    memcpy(cNomeProcessamento, &substring[5], 5 );
+    memcpy((void *) cNomeProcessamento, &substring[5], 5 );
     substring[5] = '\0';
 
 
