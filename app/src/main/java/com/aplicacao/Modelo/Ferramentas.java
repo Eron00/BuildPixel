@@ -32,15 +32,7 @@ import static java.lang.Math.min;
 
 public class Ferramentas{
 
-    public Bitmap Redimensionar(String path) {
-        BitmapFactory.Options bmpOptions = new BitmapFactory.Options();
-        bmpOptions.inJustDecodeBounds = true;
-        BitmapFactory.decodeFile(path, bmpOptions);
-        bmpOptions.inSampleSize = 2;
-        bmpOptions.inJustDecodeBounds = false;
-        return BitmapFactory.decodeFile(path, bmpOptions);
 
-    }
 
     public File CriarArquivo() throws IOException {
         String infTempo = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
