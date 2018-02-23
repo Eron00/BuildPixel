@@ -28,9 +28,6 @@ import com.aplicacao.Modelo.Processo;
 import com.aplicacao.eron.build_pixel.R;
 import com.theartofdev.edmodo.cropper.CropImage;
 
-import java.util.ArrayList;
-import java.util.List;
-
 
 public class ProcessamentoActivity extends AppCompatActivity {
     private Imagem foto;
@@ -56,9 +53,7 @@ public class ProcessamentoActivity extends AppCompatActivity {
     /**
      * Seção onde se encontra os botões dos processos de imagens por área
      */
-    public void Agucar              (View view){
-        EnviarProcessos("Agucar",               "Area");
-    }
+    public void Agucar              (View view) { EnviarProcessos("Agucar",               "Area"); }
     public void DestacarRelevo      (View view){
         EnviarProcessos("DestacarRelevo",       "Area");
 }
@@ -156,6 +151,7 @@ public class ProcessamentoActivity extends AppCompatActivity {
     /**
      * Seção onde se encontra os botões dos processos de imagens binários(necessita de dois um pixels para cálculo)
      */
+
     public void Cartoon(View view){
         EnviarProcessos("Cartoon", "Binaria");
     }
@@ -225,29 +221,21 @@ public class ProcessamentoActivity extends AppCompatActivity {
         builder.show();
     }
 
-
-
-
-
     public void EnviarProcessos(String NomeExecucao, String Categoria){
-        Processo processo = new Processo(NomeExecucao, Categoria);
-        final List<Processo> processoList = new ArrayList<>();
-        processoList.add(processo);
+        final Processo processo = new Processo(NomeExecucao, Categoria);
 
         AsyncTask Tarefa = new AsyncTask() {
-            Processador proc = new Processador();
+            Processador IntelCore = new Processador();
 
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
                 progressBar.setVisibility(View.VISIBLE);
-
             }
 
             @Override
             protected Void doInBackground(Object... params) {
-                foto = proc.ExecutarProcessamento(foto, processoList);
-                processoList.clear();
+                foto = IntelCore.AtivarCPU(foto, processo);
                 return null;
             }
 
@@ -264,19 +252,12 @@ public class ProcessamentoActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
-
      return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        // no inspection SimplifiableIfStatement
-        //
 
         switch (item.getItemId()) {
             case R.id.action_share:
@@ -305,7 +286,7 @@ public class ProcessamentoActivity extends AppCompatActivity {
                 foto.AtualizaImagem(ProcessamentoActivity.this);
                 break;
             case  R.id.action_crop:
-                IntentCortarImagem();
+                CortarImagem();
                 break;
             case  R.id.action_edit:
                 break;
@@ -315,13 +296,10 @@ public class ProcessamentoActivity extends AppCompatActivity {
                // foto.AtualizarImagem(foto,img);
            // case  R.id.action_details:
         }
-
         return super.onOptionsItemSelected(item);
     }
 
-
-
-    private void IntentCortarImagem(){
+    private void CortarImagem(){
         ContentValues valores = new ContentValues(2);
         valores.put(MediaStore.Images.Media.MIME_TYPE, "image/jpg");
         valores.put(MediaStore.Images.Media.DATA, foto.getPath());
@@ -356,7 +334,6 @@ public class ProcessamentoActivity extends AppCompatActivity {
                 }
             }
         }
-
     }
 
 
