@@ -6,8 +6,6 @@ package com.aplicacao.Modelo;
  */
 public class Processo {
 
-
-
     private String ProcessamentoSelecionado;
     private String CategoriaOperacao;
 
