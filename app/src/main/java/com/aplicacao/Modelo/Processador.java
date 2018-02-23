@@ -6,7 +6,6 @@ import com.aplicacao.Interfaces.OperacoesBinarias;
 import com.aplicacao.Interfaces.OperacoesUnarias;
 import com.aplicacao.Processamento.ProcessamentoArea.Agucar;
 import com.aplicacao.Processamento.ProcessamentoArea.CelulaThreshold;
-import com.aplicacao.Processamento.ProcessamentoBinario.Cartoon;
 import com.aplicacao.Processamento.ProcessamentoArea.DestacarRelevo;
 import com.aplicacao.Processamento.ProcessamentoArea.Equalizar;
 import com.aplicacao.Processamento.ProcessamentoArea.ErrorDiffusion;
@@ -20,6 +19,7 @@ import com.aplicacao.Processamento.ProcessamentoArea.Prewitt;
 import com.aplicacao.Processamento.ProcessamentoArea.Roberts;
 import com.aplicacao.Processamento.ProcessamentoArea.Sharpen;
 import com.aplicacao.Processamento.ProcessamentoArea.Sobel;
+import com.aplicacao.Processamento.ProcessamentoBinario.Cartoon;
 import com.aplicacao.Processamento.ProcessamentoBinario.Normalizacao;
 import com.aplicacao.Processamento.ProcessamentoBinario.Truncamento;
 import com.aplicacao.Processamento.ProcessamentoUnario.Amarelo;
@@ -38,8 +38,6 @@ import com.aplicacao.Processamento.ProcessamentoUnario.Threshold;
 import com.aplicacao.Processamento.ProcessamentoUnario.Verde;
 import com.aplicacao.Processamento.ProcessamentoUnario.Vermelho;
 
-import java.util.List;
-
 /**
  *
  * Created by Eron on 27/09/2015.
@@ -47,7 +45,7 @@ import java.util.List;
 public class Processador {
 
 
-    public Imagem ExecutarProcessamento(Imagem foto, List<Processo> ListaProcessos){
+    public Imagem AtivarCPU(Imagem foto, Processo processo){
 
         OperacoesUnarias EloAzul          = new Azul();
         OperacoesUnarias EloVerde         = new Verde();
@@ -85,8 +83,6 @@ public class Processador {
         OperacoesBinarias EloNormalizacao = new Normalizacao();
         OperacoesBinarias EloCartoon      = new Cartoon();
 
-
-
         EloAzul.setProximaOperacao(EloVerde);
         EloVerde.setProximaOperacao(EloVermelho);
         EloVermelho.setProximaOperacao(EloSepia);
@@ -120,21 +116,18 @@ public class Processador {
         EloTruncamento.setProximaOperacao(EloNormalizacao);
         EloNormalizacao.setProximaOperacao(EloCartoon);
 
-        for(int k = 0; k < ListaProcessos.size() ; k++)
-        {
-            Processo list = ListaProcessos.get(k);
-            switch (list.getCategoriaOperacao()){
+            switch (processo.getCategoriaOperacao()){
                 case ("Unaria"):
-                    EloAzul.CalcularPixel(foto.getImagem(), list.getProcessamentoSelecionado());
+                    EloAzul.CalcularPixel(foto.getImagem(), processo.getProcessamentoSelecionado());
                     break;
                 case ("Area"):
-                      EloEqualizar.CalcularFoto(foto.getImagem(),list.getProcessamentoSelecionado());
+                      EloEqualizar.CalcularArea(foto.getImagem(),processo.getProcessamentoSelecionado());
                     break;
                 case ("Binaria"):
-                    EloTruncamento.CalcularPixel(foto.getImagem(), foto.getImagem(), list.getProcessamentoSelecionado());
+                    EloTruncamento.CalcularPixel(foto.getImagem(), foto.getImagem(), processo.getProcessamentoSelecionado());
                     break;
             }
-        }
+
         return foto;
     }
 }
