@@ -24,11 +24,14 @@ public class ImageViewAux{
     private ImageView imgView;
 
     public String AtualizaImageView(ProcessamentoActivity activity, Imagem imagem){
-        imgView = (ImageView) activity.findViewById(R.id.imageView);
+        imgView = activity.findViewById(R.id.imageView);
 
         File file = null;
+
         Bitmap FotoProcessada = imagem.getImagem();
+
         Matrix matrix = new Matrix();
+
 
         FotoProcessada = Bitmap.createBitmap(FotoProcessada, 0,0,
                 imagem.getLinha(),
@@ -40,8 +43,6 @@ public class ImageViewAux{
             FileOutputStream fos  = new FileOutputStream(file);
             FotoProcessada.compress(Bitmap.CompressFormat.JPEG, 100, fos);
             fos.close();
-            ExifInterface exif = new ExifInterface(file.getAbsolutePath());
-            exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -57,6 +58,7 @@ public class ImageViewAux{
     }
 
     public void StartAnimationRightSide(Activity activity) {
+        imgView = activity.findViewById(R.id.imageView);
         Animation animation = AnimationUtils.loadAnimation(activity, R.anim.rotate_right);
         animation.setFillAfter(true);
         imgView.startAnimation(animation);
@@ -67,4 +69,6 @@ public class ImageViewAux{
         animation.setFillAfter(true);
         imgView.startAnimation(animation);
     }
+
+
 }
