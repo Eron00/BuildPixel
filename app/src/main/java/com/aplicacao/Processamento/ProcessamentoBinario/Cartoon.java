@@ -1,3 +1,4 @@
+
 package com.aplicacao.Processamento.ProcessamentoBinario;
 
 import android.graphics.Bitmap;
