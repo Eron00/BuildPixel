@@ -1,0 +1,104 @@
+
+{
+	"buildFiles" : [ "C:/Users/casa/AndroidStudioProjects/BuildPixel/app/CMakeLists.txt" ],
+	"cFileExtensions" : [ "c" ],
+	"cleanCommands" : 
+	[
+		"C:\\Users\\casa\\AppData\\Local\\Android\\sdk1\\cmake\\3.6.4111459\\bin\\cmake.exe --build C:\\Users\\casa\\AndroidStudioProjects\\BuildPixel\\app\\.externalNativeBuild\\cmake\\debug\\x86_64 --target clean"
+	],
+	"libraries" : 
+	{
+		"buildPixelNativeLib-Debug-x86_64" : 
+		{
+			"abi" : "x86_64",
+			"artifactName" : "buildPixelNativeLib",
+			"buildCommand" : "C:\\Users\\casa\\AppData\\Local\\Android\\sdk1\\cmake\\3.6.4111459\\bin\\cmake.exe --build C:\\Users\\casa\\AndroidStudioProjects\\BuildPixel\\app\\.externalNativeBuild\\cmake\\debug\\x86_64 --target buildPixelNativeLib",
+			"buildType" : "debug",
+			"files" : 
+			[
+				
+				{
+					"flags" : "  --target=x86_64-none-linux-android --gcc-toolchain=C:/Users/casa/AppData/Local/Android/sdk1/ndk-bundle/toolchains/x86_64-4.9/prebuilt/windows-x86_64 --sysroot=C:/Users/casa/AppData/Local/Android/sdk1/ndk-bundle/sysroot -DbuildPixelNativeLib_EXPORTS  -isystem C:/Users/casa/AppData/Local/Android/sdk1/ndk-bundle/sysroot/usr/include/x86_64-linux-android -D__ANDROID_API__=21 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security  -O0 -fno-limit-debug-info  -fPIC      -c ",
+					"src" : "C:/Users/casa/AndroidStudioProjects/BuildPixel/app/src/main/jni/Cartoon.c",
+					"workingDirectory" : "C:/Users/casa/AndroidStudioProjects/BuildPixel/app/.externalNativeBuild/cmake/debug/x86_64"
+				},
+				
+				{
+					"flags" : "  --target=x86_64-none-linux-android --gcc-toolchain=C:/Users/casa/AppData/Local/Android/sdk1/ndk-bundle/toolchains/x86_64-4.9/prebuilt/windows-x86_64 --sysroot=C:/Users/casa/AppData/Local/Android/sdk1/ndk-bundle/sysroot -DbuildPixelNativeLib_EXPORTS  -isystem C:/Users/casa/AppData/Local/Android/sdk1/ndk-bundle/sysroot/usr/include/x86_64-linux-android -D__ANDROID_API__=21 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security  -O0 -fno-limit-debug-info  -fPIC      -c ",
+					"src" : "C:/Users/casa/AndroidStudioProjects/BuildPixel/app/src/main/jni/CelulaThreshold.c",
+					"workingDirectory" : "C:/Users/casa/AndroidStudioProjects/BuildPixel/app/.externalNativeBuild/cmake/debug/x86_64"
+				},
+				
+				{
+					"flags" : "  --target=x86_64-none-linux-android --gcc-toolchain=C:/Users/casa/AppData/Local/Android/sdk1/ndk-bundle/toolchains/x86_64-4.9/prebuilt/windows-x86_64 --sysroot=C:/Users/casa/AppData/Local/Android/sdk1/ndk-bundle/sysroot -DbuildPixelNativeLib_EXPORTS  -isystem C:/Users/casa/AppData/Local/Android/sdk1/ndk-bundle/sysroot/usr/include/x86_64-linux-android -D__ANDROID_API__=21 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security  -O0 -fno-limit-debug-info  -fPIC      -c ",
+					"src" : "C:/Users/casa/AndroidStudioProjects/BuildPixel/app/src/main/jni/Convolucao.c",
+					"workingDirectory" : "C:/Users/casa/AndroidStudioProjects/BuildPixel/app/.externalNativeBuild/cmake/debug/x86_64"
+				},
+				
+				{
+					"flags" : "  --target=x86_64-none-linux-android --gcc-toolchain=C:/Users/casa/AppData/Local/Android/sdk1/ndk-bundle/toolchains/x86_64-4.9/prebuilt/windows-x86_64 --sysroot=C:/Users/casa/AppData/Local/Android/sdk1/ndk-bundle/sysroot -DbuildPixelNativeLib_EXPORTS  -isystem C:/Users/casa/AppData/Local/Android/sdk1/ndk-bundle/sysroot/usr/include/x86_64-linux-android -D__ANDROID_API__=21 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security  -O0 -fno-limit-debug-info  -fPIC      -c ",
+					"src" : "C:/Users/casa/AndroidStudioProjects/BuildPixel/app/src/main/jni/Equalizar.c",
+					"workingDirectory" : "C:/Users/casa/AndroidStudioProjects/BuildPixel/app/.externalNativeBuild/cmake/debug/x86_64"
+				},
+				
+				{
+					"flags" : "  --target=x86_64-none-linux-android --gcc-toolchain=C:/Users/casa/AppData/Local/Android/sdk1/ndk-bundle/toolchains/x86_64-4.9/prebuilt/windows-x86_64 --sysroot=C:/Users/casa/AppData/Local/Android/sdk1/ndk-bundle/sysroot -DbuildPixelNativeLib_EXPORTS  -isystem C:/Users/casa/AppData/Local/Android/sdk1/ndk-bundle/sysroot/usr/include/x86_64-linux-android -D__ANDROID_API__=21 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security  -O0 -fno-limit-debug-info  -fPIC      -c ",
+					"src" : "C:/Users/casa/AndroidStudioProjects/BuildPixel/app/src/main/jni/ErrorDifusion.c",
+					"workingDirectory" : "C:/Users/casa/AndroidStudioProjects/BuildPixel/app/.externalNativeBuild/cmake/debug/x86_64"
+				},
+				
+				{
+					"flags" : "  --target=x86_64-none-linux-android --gcc-toolchain=C:/Users/casa/AppData/Local/Android/sdk1/ndk-bundle/toolchains/x86_64-4.9/prebuilt/windows-x86_64 --sysroot=C:/Users/casa/AppData/Local/Android/sdk1/ndk-bundle/sysroot -DbuildPixelNativeLib_EXPORTS  -isystem C:/Users/casa/AppData/Local/Android/sdk1/ndk-bundle/sysroot/usr/include/x86_64-linux-android -D__ANDROID_API__=21 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security  -O0 -fno-limit-debug-info  -fPIC      -c ",
+					"src" : "C:/Users/casa/AndroidStudioProjects/BuildPixel/app/src/main/jni/FloydSteinberg.c",
+					"workingDirectory" : "C:/Users/casa/AndroidStudioProjects/BuildPixel/app/.externalNativeBuild/cmake/debug/x86_64"
+				},
+				
+				{
+					"flags" : "  --target=x86_64-none-linux-android --gcc-toolchain=C:/Users/casa/AppData/Local/Android/sdk1/ndk-bundle/toolchains/x86_64-4.9/prebuilt/windows-x86_64 --sysroot=C:/Users/casa/AppData/Local/Android/sdk1/ndk-bundle/sysroot -DbuildPixelNativeLib_EXPORTS  -isystem C:/Users/casa/AppData/Local/Android/sdk1/ndk-bundle/sysroot/usr/include/x86_64-linux-android -D__ANDROID_API__=21 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security  -O0 -fno-limit-debug-info  -fPIC      -c ",
+					"src" : "C:/Users/casa/AndroidStudioProjects/BuildPixel/app/src/main/jni/Mascaras.c",
+					"workingDirectory" : "C:/Users/casa/AndroidStudioProjects/BuildPixel/app/.externalNativeBuild/cmake/debug/x86_64"
+				},
+				
+				{
+					"flags" : "  --target=x86_64-none-linux-android --gcc-toolchain=C:/Users/casa/AppData/Local/Android/sdk1/ndk-bundle/toolchains/x86_64-4.9/prebuilt/windows-x86_64 --sysroot=C:/Users/casa/AppData/Local/Android/sdk1/ndk-bundle/sysroot -DbuildPixelNativeLib_EXPORTS  -isystem C:/Users/casa/AppData/Local/Android/sdk1/ndk-bundle/sysroot/usr/include/x86_64-linux-android -D__ANDROID_API__=21 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security  -O0 -fno-limit-debug-info  -fPIC      -c ",
+					"src" : "C:/Users/casa/AndroidStudioProjects/BuildPixel/app/src/main/jni/Media.c",
+					"workingDirectory" : "C:/Users/casa/AndroidStudioProjects/BuildPixel/app/.externalNativeBuild/cmake/debug/x86_64"
+				},
+				
+				{
+					"flags" : "  --target=x86_64-none-linux-android --gcc-toolchain=C:/Users/casa/AppData/Local/Android/sdk1/ndk-bundle/toolchains/x86_64-4.9/prebuilt/windows-x86_64 --sysroot=C:/Users/casa/AppData/Local/Android/sdk1/ndk-bundle/sysroot -DbuildPixelNativeLib_EXPORTS  -isystem C:/Users/casa/AppData/Local/Android/sdk1/ndk-bundle/sysroot/usr/include/x86_64-linux-android -D__ANDROID_API__=21 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security  -O0 -fno-limit-debug-info  -fPIC      -c ",
+					"src" : "C:/Users/casa/AndroidStudioProjects/BuildPixel/app/src/main/jni/ProcessamentoBinario.c",
+					"workingDirectory" : "C:/Users/casa/AndroidStudioProjects/BuildPixel/app/.externalNativeBuild/cmake/debug/x86_64"
+				},
+				
+				{
+					"flags" : "  --target=x86_64-none-linux-android --gcc-toolchain=C:/Users/casa/AppData/Local/Android/sdk1/ndk-bundle/toolchains/x86_64-4.9/prebuilt/windows-x86_64 --sysroot=C:/Users/casa/AppData/Local/Android/sdk1/ndk-bundle/sysroot -DbuildPixelNativeLib_EXPORTS  -isystem C:/Users/casa/AppData/Local/Android/sdk1/ndk-bundle/sysroot/usr/include/x86_64-linux-android -D__ANDROID_API__=21 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security  -O0 -fno-limit-debug-info  -fPIC      -c ",
+					"src" : "C:/Users/casa/AndroidStudioProjects/BuildPixel/app/src/main/jni/ProcessamentoUnario.c",
+					"workingDirectory" : "C:/Users/casa/AndroidStudioProjects/BuildPixel/app/.externalNativeBuild/cmake/debug/x86_64"
+				},
+				
+				{
+					"flags" : "  --target=x86_64-none-linux-android --gcc-toolchain=C:/Users/casa/AppData/Local/Android/sdk1/ndk-bundle/toolchains/x86_64-4.9/prebuilt/windows-x86_64 --sysroot=C:/Users/casa/AppData/Local/Android/sdk1/ndk-bundle/sysroot -DbuildPixelNativeLib_EXPORTS  -isystem C:/Users/casa/AppData/Local/Android/sdk1/ndk-bundle/sysroot/usr/include/x86_64-linux-android -D__ANDROID_API__=21 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security  -O0 -fno-limit-debug-info  -fPIC      -c ",
+					"src" : "C:/Users/casa/AndroidStudioProjects/BuildPixel/app/src/main/jni/Teste.c",
+					"workingDirectory" : "C:/Users/casa/AndroidStudioProjects/BuildPixel/app/.externalNativeBuild/cmake/debug/x86_64"
+				},
+				
+				{
+					"flags" : "  --target=x86_64-none-linux-android --gcc-toolchain=C:/Users/casa/AppData/Local/Android/sdk1/ndk-bundle/toolchains/x86_64-4.9/prebuilt/windows-x86_64 --sysroot=C:/Users/casa/AppData/Local/Android/sdk1/ndk-bundle/sysroot -DbuildPixelNativeLib_EXPORTS  -isystem C:/Users/casa/AppData/Local/Android/sdk1/ndk-bundle/sysroot/usr/include/x86_64-linux-android -D__ANDROID_API__=21 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security  -O0 -fno-limit-debug-info  -fPIC      -c ",
+					"src" : "C:/Users/casa/AndroidStudioProjects/BuildPixel/app/src/main/jni/Tintaoleo.c",
+					"workingDirectory" : "C:/Users/casa/AndroidStudioProjects/BuildPixel/app/.externalNativeBuild/cmake/debug/x86_64"
+				}
+			],
+			"output" : "C:/Users/casa/AndroidStudioProjects/BuildPixel/app/build/intermediates/cmake/debug/obj/x86_64/libbuildPixelNativeLib.so",
+			"toolchain" : "848177569"
+		}
+	},
+	"toolchains" : 
+	{
+		"848177569" : 
+		{
+			"cCompilerExecutable" : "C:/Users/casa/AppData/Local/Android/sdk1/ndk-bundle/toolchains/llvm/prebuilt/windows-x86_64/bin/clang.exe",
+			"cppCompilerExecutable" : "C:/Users/casa/AppData/Local/Android/sdk1/ndk-bundle/toolchains/llvm/prebuilt/windows-x86_64/bin/clang++.exe"
+		}
+	}
+}

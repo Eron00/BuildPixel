@@ -1,33 +1,35 @@
-apply plugin: 'com.android.model.application'
-model {
+apply plugin: 'com.android.application'
+
 
     android {
-        compileSdkVersion = 27
-        buildToolsVersion = '27.0.3'
+        compileSdkVersion 27
+        buildToolsVersion '27.0.3'
 
-        defaultConfig.with {
+        defaultConfig {
             applicationId = "com.example.eron.build_pixel"
-            minSdkVersion.apiLevel = 17
-            targetSdkVersion.apiLevel = 23
-            versionCode = 1
-            versionName = "1.0"
+            minSdkVersion 19
+            targetSdkVersion 27
+            versionCode 1
+            versionName "1.0"
+            externalNativeBuild {
+                cmake {
+                    cppFlags "-std=c++14 -frtti -fexceptions"
+                }
+            }
 
-            dependencies {
-                compile fileTree(dir: 'libs', include: ['*.jar'])
-                compile 'com.android.support:support-compat:27.0.2'
-                compile 'com.android.support:support-media-compat:27.0.2'
-                compile 'com.android.support:appcompat-v7:27.0.2'
-                compile  'com.theartofdev.edmodo:android-image-cropper:2.6.+'
+        }
 
+        externalNativeBuild {
+            cmake {
+                path "CMakeLists.txt"
             }
         }
     }
-    android.ndk {
-        moduleName ="buildPixelNativeLib"
-        ldLibs.addAll(["android", "jnigraphics", "log"])
-    }
 
-    android.productFlavors {
-        create("all")
-    }
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation  'com.theartofdev.edmodo:android-image-cropper:2.7.+'
+
 }
+

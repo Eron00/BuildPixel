@@ -67,3 +67,4 @@ void PopularMascara(const char *cNomeProcessamento , int nLinhasMascara, int nCo
 void tintaoleo(JNIEnv *env, jobject instance,jobject foto);
 
 void processamentoUnario(JNIEnv *env, jobject instance, jintArray FotoResultante, jint linha, jint coluna, jstring cNomeProcesso);
+

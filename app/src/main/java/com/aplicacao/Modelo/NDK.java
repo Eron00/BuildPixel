@@ -11,7 +11,7 @@ public class NDK {
         System.loadLibrary("buildPixelNativeLib");
     }
 
-    public native int convolucao(Bitmap Foto, String NomeMascara, int linhaMascara, int colunaMascara);
+    public native void convolucao(Bitmap Foto, String NomeMascara, int linhaMascara, int colunaMascara);
 
     public native void media(Bitmap foto);
 
@@ -33,7 +33,7 @@ public class NDK {
 
     public native void teste(Bitmap foto);
 
-    public native void sepia(Bitmap foto);
+
 
 
 }

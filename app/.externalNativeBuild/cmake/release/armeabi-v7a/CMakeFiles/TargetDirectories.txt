@@ -1,0 +1,3 @@
+C:/Users/casa/AndroidStudioProjects/BuildPixel/app/.externalNativeBuild/cmake/release/armeabi-v7a/CMakeFiles/rebuild_cache.dir
+C:/Users/casa/AndroidStudioProjects/BuildPixel/app/.externalNativeBuild/cmake/release/armeabi-v7a/CMakeFiles/buildPixelNativeLib.dir
+C:/Users/casa/AndroidStudioProjects/BuildPixel/app/.externalNativeBuild/cmake/release/armeabi-v7a/CMakeFiles/edit_cache.dir

@@ -1,0 +1,16 @@
+{
+  "buildFiles": [
+    "C:\\Users\\casa\\AndroidStudioProjects\\BuildPixel\\app\\CMakeLists.txt"
+  ],
+  "cleanCommands": [
+    "C:\\Users\\casa\\AppData\\Local\\Android\\sdk1\\cmake\\3.6.4111459\\bin\\cmake.exe --build C:\\Users\\casa\\AndroidStudioProjects\\BuildPixel\\app\\.externalNativeBuild\\cmake\\release\\x86_64 --target clean"
+  ],
+  "libraries": {
+    "buildPixelNativeLib-Release-x86_64": {
+      "artifactName": "buildPixelNativeLib",
+      "buildCommand": "C:\\Users\\casa\\AppData\\Local\\Android\\sdk1\\cmake\\3.6.4111459\\bin\\cmake.exe --build C:\\Users\\casa\\AndroidStudioProjects\\BuildPixel\\app\\.externalNativeBuild\\cmake\\release\\x86_64 --target buildPixelNativeLib",
+      "abi": "x86_64",
+      "output": "C:\\Users\\casa\\AndroidStudioProjects\\BuildPixel\\app\\build\\intermediates\\cmake\\release\\obj\\x86_64\\libbuildPixelNativeLib.so"
+    }
+  }
+}
